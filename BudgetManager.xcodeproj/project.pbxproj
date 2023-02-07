@@ -9,13 +9,23 @@
 /* Begin PBXBuildFile section */
 		DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D329906A4200EA6FAB /* AppDelegate.swift */; };
 		DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */; };
-		DF21D2D829906A4200EA6FAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D729906A4200EA6FAB /* ViewController.swift */; };
+		DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */; };
 		DF21D2DB29906A4200EA6FAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2D929906A4200EA6FAB /* Main.storyboard */; };
 		DF21D2DD29906A4400EA6FAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2DC29906A4400EA6FAB /* Assets.xcassets */; };
 		DF21D2E029906A4400EA6FAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */; };
 		DF21D2EB29906A4400EA6FAB /* BudgetManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2EA29906A4400EA6FAB /* BudgetManagerTests.swift */; };
 		DF21D2F529906A4400EA6FAB /* BudgetManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2F429906A4400EA6FAB /* BudgetManagerUITests.swift */; };
 		DF21D2F729906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2F629906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift */; };
+		DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3062991CE5600EA6FAB /* Customer.swift */; };
+		DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3082991CE6800EA6FAB /* Wallet.swift */; };
+		DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D30A2991CE7800EA6FAB /* Categories.swift */; };
+		DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D30C2991CE8600EA6FAB /* Transactions.swift */; };
+		DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D310299243FE00EA6FAB /* LoginWithEmailViewController.swift */; };
+		DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3122992441D00EA6FAB /* SignUpViewController.swift */; };
+		DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3142992442E00EA6FAB /* HomeViewController.swift */; };
+		DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */; };
+		DF21D3192992445A00EA6FAB /* InputTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */; };
+		DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +49,7 @@
 		DF21D2D029906A4200EA6FAB /* BudgetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF21D2D329906A4200EA6FAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF21D2D729906A4200EA6FAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithAppsViewController.swift; sourceTree = "<group>"; };
 		DF21D2DA29906A4200EA6FAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF21D2DC29906A4400EA6FAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF21D2DF29906A4400EA6FAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +59,16 @@
 		DF21D2F029906A4400EA6FAB /* BudgetManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF21D2F429906A4400EA6FAB /* BudgetManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManagerUITests.swift; sourceTree = "<group>"; };
 		DF21D2F629906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManagerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		DF21D3062991CE5600EA6FAB /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		DF21D3082991CE6800EA6FAB /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
+		DF21D30A2991CE7800EA6FAB /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		DF21D30C2991CE8600EA6FAB /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
+		DF21D310299243FE00EA6FAB /* LoginWithEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithEmailViewController.swift; sourceTree = "<group>"; };
+		DF21D3122992441D00EA6FAB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		DF21D3142992442E00EA6FAB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailedViewController.swift; sourceTree = "<group>"; };
+		DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionViewController.swift; sourceTree = "<group>"; };
+		DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +119,11 @@
 		DF21D2D229906A4200EA6FAB /* BudgetManager */ = {
 			isa = PBXGroup;
 			children = (
+				DF21D3032991CC1000EA6FAB /* Model */,
+				DF21D3042991CC1900EA6FAB /* View */,
+				DF21D3052991CC2300EA6FAB /* Controller */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
 				DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */,
-				DF21D2D729906A4200EA6FAB /* ViewController.swift */,
 				DF21D2D929906A4200EA6FAB /* Main.storyboard */,
 				DF21D2DC29906A4400EA6FAB /* Assets.xcassets */,
 				DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */,
@@ -125,6 +147,38 @@
 				DF21D2F629906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift */,
 			);
 			path = BudgetManagerUITests;
+			sourceTree = "<group>";
+		};
+		DF21D3032991CC1000EA6FAB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DF21D3062991CE5600EA6FAB /* Customer.swift */,
+				DF21D3082991CE6800EA6FAB /* Wallet.swift */,
+				DF21D30C2991CE8600EA6FAB /* Transactions.swift */,
+				DF21D30A2991CE7800EA6FAB /* Categories.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DF21D3042991CC1900EA6FAB /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF21D3052991CC2300EA6FAB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */,
+				DF21D310299243FE00EA6FAB /* LoginWithEmailViewController.swift */,
+				DF21D3122992441D00EA6FAB /* SignUpViewController.swift */,
+				DF21D3142992442E00EA6FAB /* HomeViewController.swift */,
+				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
+				DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */,
+				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +312,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF21D2D829906A4200EA6FAB /* ViewController.swift in Sources */,
+				DF21D3192992445A00EA6FAB /* InputTransactionViewController.swift in Sources */,
+				DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */,
+				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
+				DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */,
+				DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
+				DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */,
+				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
+				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
+				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
+				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
+				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
