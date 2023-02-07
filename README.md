@@ -7,8 +7,9 @@ Budget Manager or Money Managment System is an application where you can keep tr
 ## Features
 
 - Light/dark mode toggle (System)
-- List os all transactions:  Expenses and Incomes
-- Transaction Detail
+- List of all transactions:  Expenses and Incomes
+- Transaction Details
+- Transaction Input (Income and Expense)
 
 
 ## Color Reference
