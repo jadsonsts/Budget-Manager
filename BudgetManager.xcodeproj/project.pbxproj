@@ -26,6 +26,8 @@
 		DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */; };
 		DF21D3192992445A00EA6FAB /* InputTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */; };
 		DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */; };
+		DF7BDE0F2993863E004696BB /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE0E2993863E004696BB /* CategoriesViewController.swift */; };
+		DF7BDE122993942D004696BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE112993942D004696BB /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailedViewController.swift; sourceTree = "<group>"; };
 		DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionViewController.swift; sourceTree = "<group>"; };
 		DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
+		DF7BDE0E2993863E004696BB /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +126,7 @@
 				DF21D3032991CC1000EA6FAB /* Model */,
 				DF21D3042991CC1900EA6FAB /* View */,
 				DF21D3052991CC2300EA6FAB /* Controller */,
+				DF7BDE1029939412004696BB /* SupportFiles */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
 				DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */,
 				DF21D2D929906A4200EA6FAB /* Main.storyboard */,
@@ -177,8 +182,17 @@
 				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
 				DF21D3182992445A00EA6FAB /* InputTransactionViewController.swift */,
 				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
+				DF7BDE0E2993863E004696BB /* CategoriesViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		DF7BDE1029939412004696BB /* SupportFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DF7BDE112993942D004696BB /* Constants.swift */,
+			);
+			path = SupportFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,8 +336,10 @@
 				DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */,
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
+				DF7BDE122993942D004696BB /* Constants.swift in Sources */,
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
+				DF7BDE0F2993863E004696BB /* CategoriesViewController.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -507,8 +523,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -536,8 +552,8 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
