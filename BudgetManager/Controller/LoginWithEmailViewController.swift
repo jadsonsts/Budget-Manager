@@ -9,13 +9,20 @@ import UIKit
 
 class LoginWithEmailViewController: UIViewController {
 
+    @IBOutlet weak var emailTxtField: CustomTxtField!
+    @IBOutlet weak var passwordTxtField: CustomTxtField!
+    @IBOutlet weak var logInButton: CustomButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func logInPressed(_ sender: Any) {
+    }
+    
     /*
     // MARK: - Navigation
 

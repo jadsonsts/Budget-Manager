@@ -9,6 +9,16 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    @IBOutlet weak var profilePictureImageView: UIImageView!
+    @IBOutlet weak var firstNameTxtField: CustomTxtField!
+    @IBOutlet weak var lastNameTxtField: CustomTxtField!
+    @IBOutlet weak var emailTxtField: CustomTxtField!
+    @IBOutlet weak var phoneTxtField: CustomTxtField!
+    @IBOutlet weak var passwordTxtField: CustomTxtField!
+    @IBOutlet weak var confirmPasswordTxtField: CustomTxtField!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -16,6 +26,8 @@ class SignUpViewController: UIViewController {
     }
     
 
+    @IBAction func signUpPressed(_ sender: CustomButton) {
+    }
     /*
     // MARK: - Navigation
 

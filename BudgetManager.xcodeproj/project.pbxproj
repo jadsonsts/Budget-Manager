@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AB2998FAF00020340A /* CustomButton.swift */; };
+		DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */; };
 		DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D329906A4200EA6FAB /* AppDelegate.swift */; };
 		DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */; };
 		DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */; };
@@ -48,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DF15E0AB2998FAF00020340A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		DF21D2D029906A4200EA6FAB /* BudgetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF21D2D329906A4200EA6FAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 		DF21D3042991CC1900EA6FAB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				DF15E0AB2998FAF00020340A /* CustomButton.swift */,
+				DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -330,6 +336,7 @@
 				DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */,
 				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
 				DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */,
+				DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */,
 				DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
@@ -338,6 +345,7 @@
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
 				DF7BDE122993942D004696BB /* Constants.swift in Sources */,
+				DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */,
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
