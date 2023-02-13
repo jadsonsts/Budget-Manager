@@ -6,14 +6,26 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 
 
 class LoginWithAppsViewController: UIViewController {
 
+    @IBOutlet weak var signInGoogleButton: GIDSignInButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+    }
+    
+    @IBAction func signInWithGoogle(sender: Any) {
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+            guard error == nil else { return }
+            
+            // If sign in succeeded, display the app's main content View.
+            //perfom request with token to retrieve user data (API)
+            //send to home view controller
+        }
     }
 
 

@@ -8,14 +8,27 @@
 import UIKit
 
 class UserSettingsViewController: UIViewController {
-
+    
+    
+    @IBOutlet weak var userProfilePicture: UIImageView!
+    @IBOutlet weak var userName: CustomTxtField!
+    @IBOutlet weak var lastName: CustomTxtField!
+    @IBOutlet weak var email: CustomTxtField!
+    @IBOutlet weak var phoneNumber: CustomTxtField!
+    @IBOutlet weak var password: CustomTxtField!
+    @IBOutlet weak var confirmPassword: CustomTxtField!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func updateProfileButtonPressed(_ sender: CustomButton) {
+    }
+    
     /*
     // MARK: - Navigation
 

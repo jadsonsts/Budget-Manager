@@ -8,13 +8,10 @@
 import UIKit
 
 class CustomTxtField: UITextField {
-    
-    let borderColor = CGColor(red: 0.00, green: 0.72, blue: 0.67, alpha: 1.0)
-    let errorBorderColor = CGColor(red: 1.00, green: 0.31, blue: 0.31, alpha: 1.00)
 
     override func awakeFromNib() {
         self.layer.cornerRadius = self.frame.height / 4
-        self.layer.borderColor = borderColor
+        self.layer.borderColor = CustomColors.greenColor.cgColor
         self.layer.borderWidth = 1
     }
     
@@ -37,7 +34,7 @@ class CustomTxtField: UITextField {
 extension UITextField {
     func showError() {
         layer.borderWidth = 1
-        layer.borderColor = UIColor.red.cgColor
+        layer.borderColor = CustomColors.expenseLabelColor.cgColor
     }
     
     func hideError() {
@@ -46,8 +43,3 @@ extension UITextField {
     }
 }
 
-//extension UIColor {
-//    func borderColor() -> UIColor {
-//        return UIColor(cgColor: CGColor(red: 0.00, green: 0.72, blue: 0.67, alpha: 1.0))
-//    }
-//}

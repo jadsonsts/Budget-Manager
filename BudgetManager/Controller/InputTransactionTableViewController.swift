@@ -8,7 +8,16 @@
 import UIKit
 
 class InputTransactionTableViewController: UITableViewController {
-
+    
+    
+    @IBOutlet weak var transactionTypeSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var transactionReferenceTxtField: CustomTxtField!
+    @IBOutlet weak var transactionAmountTxtField: CustomTxtField!
+    @IBOutlet weak var categoryImage: UIImageView!
+    @IBOutlet weak var categoryName: UILabel!
+    @IBOutlet weak var transactionDate: UIDatePicker!
+    @IBOutlet weak var transactionComments: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,7 +27,12 @@ class InputTransactionTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
