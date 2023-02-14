@@ -10,18 +10,25 @@ import GoogleSignIn
 import FirebaseCore
 import FirebaseFirestore
 import FBSDKLoginKit
+import FBSDKCoreKit
+import FBSDKCoreKit_Basics
+
+
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     static let signInConfig = GIDConfiguration(clientID: "341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com")
+    
+     //341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-//        GIDSignIn.sharedInstance.configuration?.serverClientID = "
+        
+        ApplicationDelegate.shared.application(application , didFinishLaunchingWithOptions: launchOptions)
         
        
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
@@ -52,8 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        var handled: Bool
         
+        //MARK: - Facebook URL Handle
+        
+        ApplicationDelegate.shared.application(
+            app,
+            open: url,
+            sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+            annotation: options[UIApplication.OpenURLOptionsKey.annotation]
+        )
+        
+        //MARK: - Google URL Handle
+        var handled: Bool
         handled = GIDSignIn.sharedInstance.handle(url)
         if handled {
             return true

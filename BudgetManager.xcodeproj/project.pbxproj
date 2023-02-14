@@ -95,6 +95,10 @@
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewController.swift; sourceTree = "<group>"; };
 		DFE57015299B2B4A00F7B2C4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DFE57017299B401E00F7B2C4 /* BudgetManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudgetManager.entitlements; sourceTree = "<group>"; };
+		DFE57018299B431000F7B2C4 /* FBSDKCoreKit_Basics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit_Basics.xcframework; path = Pods/FBSDKCoreKit_Basics/XCFrameworks/FBSDKCoreKit_Basics.xcframework; sourceTree = "<group>"; };
+		DFE5701C299B432400F7B2C4 /* FBSDKCoreKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit.xcframework; path = Pods/FBSDKCoreKit/XCFrameworks/FBSDKCoreKit.xcframework; sourceTree = "<group>"; };
+		DFE5701D299B432400F7B2C4 /* FBSDKLoginKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKLoginKit.xcframework; path = Pods/FBSDKLoginKit/XCFrameworks/FBSDKLoginKit.xcframework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +145,9 @@
 		CD18F18C047DF1053F69C2C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DFE5701C299B432400F7B2C4 /* FBSDKCoreKit.xcframework */,
+				DFE5701D299B432400F7B2C4 /* FBSDKLoginKit.xcframework */,
+				DFE57018299B431000F7B2C4 /* FBSDKCoreKit_Basics.xcframework */,
 				9C8BDCE315E2C94ACDF4360C /* Pods_BudgetManager.framework */,
 				838CE86F6CB284C49814F3D6 /* Pods_BudgetManager_BudgetManagerUITests.framework */,
 				3B0F98707390C76D904BD0C7 /* Pods_BudgetManagerTests.framework */,
@@ -173,6 +180,7 @@
 		DF21D2D229906A4200EA6FAB /* BudgetManager */ = {
 			isa = PBXGroup;
 			children = (
+				DFE57017299B401E00F7B2C4 /* BudgetManager.entitlements */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
 				DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */,
 				DF21D3032991CC1000EA6FAB /* Model */,
@@ -684,6 +692,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BudgetManager/BudgetManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
@@ -715,6 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BudgetManager/BudgetManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;

@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleSignIn
+import FBSDKLoginKit
 
 
 
@@ -16,6 +17,17 @@ class LoginWithAppsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let loginButton = FBLoginButton()
+        loginButton.center = view.center
+        view.addSubview(loginButton)
+        loginButton.permissions = ["public_profile", "email"]
+        
+        if let fbToken = AccessToken.current,
+           !fbToken.isExpired {
+            // User is logged in, do work such as go to next view controller.
+        }
+        
     }
     
     @IBAction func signInWithGoogle(sender: Any) {
