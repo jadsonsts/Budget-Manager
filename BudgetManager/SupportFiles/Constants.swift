@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+struct K {
+    static let loginSegue = "LoginToHome"
+    static let registerSegue = "RegisterToHome"
+    static let transactionCell = "TransactionCell"
+    static let categoryCell = "CategoryCell"
+    static let detailCell = "DetailTransactionCell"
+}

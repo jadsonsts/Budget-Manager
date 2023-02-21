@@ -7,12 +7,10 @@
 
 import Foundation
 
-struct Transactions: Identifiable {
-    var id: Int
-    var category: [Categories]
-    var amount: Double
-    var reference: String
-    var date: Date
-    var comments: String
-    var transactionType: String
+struct Transaction: Codable {
+    let reference: String
+    let amount: Int
+    let date, category: String
+    let comments: String?
+    let transactionType: String
 }

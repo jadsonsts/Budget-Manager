@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Wallet: Identifiable {
-    var id: Int
+struct Wallet: Codable {
     var name: String
     var amount: Double
     var transactions: [Transactions]

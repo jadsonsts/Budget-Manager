@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginWithEmailViewController: UIViewController {
 
@@ -21,6 +22,17 @@ class LoginWithEmailViewController: UIViewController {
     }
     
     @IBAction func logInPressed(_ sender: Any) {
+        if let email = emailTxtField.text,
+           let password = passwordTxtField.text {
+            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                if let e = error {
+                    print (e.localizedDescription) //put alert for user
+                } else {
+                    self.performSegue(withIdentifier: K.loginSegue, sender: self)
+                    //FUNC FOR RETRIEVE THE DATA FROM DB (USE ASSYNC?)
+                }
+            }
+        }
     }
     
     /*

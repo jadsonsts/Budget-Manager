@@ -6,14 +6,16 @@
 //
 
 import Foundation
-import UIKit
 
-struct Customer: Identifiable {
-    var id: Int
-    var name: String
-    var familyName: String
-    var phone: Int
-    var password: String
-    var profilePicture: UIImage
-    var wallet: Wallet
+
+struct Customer: Codable {
+    let id, name, familyName, email: String
+    let phone: Int
+    let profilePicture: String
+    let wallet: Wallet
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "ID"
+        case name, familyName, email, phone, profilePicture, wallet
+    }
 }
