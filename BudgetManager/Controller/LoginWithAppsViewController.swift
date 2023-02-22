@@ -54,7 +54,7 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
                                                  version: nil,
                                                  httpMethod: .get)
         request.start(completion: { connection, result, error in
-            print("\(result)")
+            print(":\(result)")
         })
         
     }

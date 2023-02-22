@@ -8,7 +8,7 @@
 import Foundation
 
 struct Wallet: Codable {
-    var name: String
-    var amount: Double
-    var transactions: [Transactions]
+    let walletName: String
+    let amount: Int
+    let transactions: [Transactions]
 }

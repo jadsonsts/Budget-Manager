@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zDN-YK-5GA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aLj-OD-jqA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -993,7 +993,7 @@
                         <outlet property="emailTxtField" destination="R9C-1n-Kyq" id="Ogf-nH-xsD"/>
                         <outlet property="logInButton" destination="tNq-M5-xLA" id="9Po-dk-WsU"/>
                         <outlet property="passwordTxtField" destination="5xx-Ro-kHI" id="9Qz-6J-bCT"/>
-                        <segue destination="aLj-OD-jqA" kind="show" identifier="LoginToHome" id="xlg-b4-Tp8"/>
+                        <segue destination="7bA-fs-kJ1" kind="show" identifier="LoginToHome" id="ATs-Y2-diT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8j-Kd-DYP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1120,7 +1120,7 @@
                         <outlet property="phoneTxtField" destination="itH-jK-YZu" id="cPw-pD-hip"/>
                         <outlet property="profilePictureImageView" destination="q3b-aR-MLr" id="ZcI-pt-Frg"/>
                         <outlet property="signUpButton" destination="uip-2W-EPI" id="nI3-Tv-piH"/>
-                        <segue destination="aLj-OD-jqA" kind="show" identifier="RegisterToHome" id="nUg-dw-fAo"/>
+                        <segue destination="7bA-fs-kJ1" kind="show" identifier="RegisterToHome" id="K8m-mY-WWK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E0w-SX-GbX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1132,6 +1132,7 @@
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7bA-fs-kJ1" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="a8w-zB-QSA"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DA8-VA-QCG">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1146,7 +1147,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ils-kS-Eek" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1434" y="-1345"/>
+            <point key="canvasLocation" x="-547" y="-1111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qA4-K3-Kzg">
@@ -1166,11 +1167,11 @@
             </objects>
             <point key="canvasLocation" x="-547" y="-2688"/>
         </scene>
-        <!--Transactions-->
+        <!--Transaction-->
         <scene sceneID="6rr-qD-qDe">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7IM-Ta-LSr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Transactions" image="list.bullet.rectangle.portrait" catalog="system" id="Ew9-Sc-z8O"/>
+                    <tabBarItem key="tabBarItem" title="Transaction" image="plus" catalog="system" id="Ew9-Sc-z8O"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="j56-GO-p5A">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1206,7 +1207,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="o4Y-Oi-VdJ"/>
+        <segue reference="ATs-Y2-diT"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="airplane" catalog="system" width="128" height="115"/>
@@ -1214,9 +1215,9 @@
         <image name="eye.fill" catalog="system" width="128" height="80"/>
         <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
-        <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="power.circle.fill" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="AccentColor">

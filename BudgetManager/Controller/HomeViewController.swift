@@ -8,6 +8,11 @@
 import UIKit
 import FirebaseAuth
 
+struct Section {
+    let date: String
+    var transaction: [Transactions]
+}
+
 class HomeViewController: UIViewController {
     
     //let customer = Customer()
@@ -19,6 +24,8 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var transactionsTableView: UITableView!
     @IBOutlet weak var hideValuesButton: UIButton!
     
+    var dataSource = [Section]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,7 +34,8 @@ class HomeViewController: UIViewController {
         transactionsTableView.rowHeight = 30
         
         navigationItem.hidesBackButton = true
-        loadTransactions()
+        self.tabBarController?.navigationItem.hidesBackButton = true
+        fetchAllTransactions()
 
         self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
         transactionsSegmentedControl.hightlightSelectedSegment()
@@ -38,6 +46,7 @@ class HomeViewController: UIViewController {
     @IBAction func hideValuesButton(_ sender: Any) {
         
     }
+    
     
     @IBAction func logOutPressed(_ sender: Any) {
         do {
@@ -52,7 +61,51 @@ class HomeViewController: UIViewController {
         transactionsSegmentedControl.underlinePosition()
     }
     
-    func loadTransactions() {
+    //MARK: - fetching data - move later (?)
+    func fetchAllTransactions() {
+        if let path = Bundle.main.path(forResource: "budgetManager", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let newResponse = try JSONDecoder().decode(Customer.self, from: data)
+                print (newResponse)
+                
+                //create sections
+                newResponse.wallet.transactions.forEach({ transactions in
+                    if !self.dataSource.contains(where: {$0.date == transactions.date}) {
+                        self.dataSource.append(Section(date: transactions.date, transaction: [transactions]))
+                        
+                    } else {
+                        guard let index = self.dataSource.firstIndex(where: { $0.date == transactions.date}) else { return }
+                        self.dataSource[index].transaction.append(transactions)
+                        }
+                })
+                
+                DispatchQueue.main.async { [self] in
+                    transactionsTableView.reloadData()
+                }
+                
+            } catch let DecodingError.dataCorrupted(context) {
+                print(context)
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.typeMismatch(type, context)  {
+                print("Type '\(type)' mismatch:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch {
+                print("error: ", error)
+            }
+        }
+    }
+    
+    func fetchIncomeTransactions() {
+        
+    }
+    
+    func fetchExpenseTransactions() {
         
     }
 
@@ -61,20 +114,20 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return dataSource.count
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section: \(section)"
+        return dataSource[section].date
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return dataSource[section].transaction.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
-//            let transaction = DataService.instance.getCustomer().wallet.transactions[indexPath.row]
-//            cell.updateViews(transaction: transaction)
+            let transaction = dataSource[indexPath.section].transaction[indexPath.row]
+            cell.updateViews(transaction: transaction)
             return cell
         } else {
             return TransactionsTableViewCell()

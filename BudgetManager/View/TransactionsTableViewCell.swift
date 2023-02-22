@@ -16,12 +16,12 @@ class TransactionsTableViewCell: UITableViewCell {
     func updateViews(transaction: Transactions) {
         referenceCell.text = transaction.reference
         
-        if transaction.transactionType == .income { //change to enum [done]
+        if transaction.transactionType == "income" { //change to enum if possible
             amountCell.textColor = CustomColors.greenColor
-            amountCell.text = String(format: "$%.2f", transaction.amount)
+            amountCell.text = String(format: "+$%.2f", transaction.amount)
         } else {
             amountCell.textColor = CustomColors.expenseLabelColor
-            amountCell.text = String(format: "$%.2f", transaction.amount)
+            amountCell.text = String(format: "-$%.2f", transaction.amount)
         }
         
     }
