@@ -29,20 +29,9 @@ class LoginWithEmailViewController: UIViewController {
                     print (e.localizedDescription) //put alert for user
                 } else {
                     self.performSegue(withIdentifier: K.loginSegue, sender: self)
-                    //FUNC FOR RETRIEVE THE DATA FROM DB (USE ASSYNC?)
+                    //FUNC FOR RETRIEVE THE DATA FROM DB (USE ASYNC?)
                 }
             }
         }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

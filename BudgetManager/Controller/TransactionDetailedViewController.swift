@@ -8,22 +8,32 @@
 import UIKit
 
 class TransactionDetailedViewController: UIViewController {
+    
+    @IBOutlet weak var transactionTypeLabel: UILabel!
+    @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var detailAmountLabel: UILabel!
+    @IBOutlet weak var referenceLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var commentsLabel: UILabel!
+    
+    
+    var transaction: Transactions!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadLabels()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func loadLabels() {
+                transactionTypeLabel.text = transaction.transactionType
+                amountLabel.text = String(format: "%.2f", transaction.amount)
+                detailAmountLabel.text = String(format: "%.2f", transaction.amount)
+                referenceLabel.text = transaction.reference
+                categoryLabel.text = transaction.category
+                dateLabel.text = transaction.date
+                commentsLabel.text = transaction.comments
+        
     }
-    */
-
 }

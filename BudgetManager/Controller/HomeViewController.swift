@@ -31,17 +31,16 @@ class HomeViewController: UIViewController {
         
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
-        transactionsTableView.rowHeight = 30
+        transactionsTableView.rowHeight = 55
+        transactionsTableView.separatorColor = CustomColors.greenColor
         
-        navigationItem.hidesBackButton = true
+        //navigationItem.hidesBackButton = true
         self.tabBarController?.navigationItem.hidesBackButton = true
         fetchAllTransactions()
 
         self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
         transactionsSegmentedControl.hightlightSelectedSegment()
-        
-       
-}
+    }
     
     @IBAction func hideValuesButton(_ sender: Any) {
         
@@ -67,7 +66,7 @@ class HomeViewController: UIViewController {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let newResponse = try JSONDecoder().decode(Customer.self, from: data)
-                print (newResponse)
+                //print (newResponse)
                 
                 //create sections
                 newResponse.wallet.transactions.forEach({ transactions in
@@ -110,7 +109,7 @@ class HomeViewController: UIViewController {
     }
 
 }
-
+//MARK: - TableView
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,6 +126,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
             let transaction = dataSource[indexPath.section].transaction[indexPath.row]
+            print(transaction.amount)
             cell.updateViews(transaction: transaction)
             return cell
         } else {
@@ -136,10 +136,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let transaction = dataSource[indexPath.section].transaction[indexPath.row]
+        performSegue(withIdentifier: K.detailSegue, sender: transaction)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transactions {
+            destinationVC.transaction = transaction
+        }
         
     }
     

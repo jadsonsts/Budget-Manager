@@ -27,7 +27,7 @@ class LoginWithAppsViewController: UIViewController {
         } else {
             signInFacebookButton.permissions = ["public_profile", "email"]
             signInFacebookButton.delegate = self
-            signInFacebookButton.frame.size.height = 60
+            //signInFacebookButton.frame.size.height = 60
         }
         
     }

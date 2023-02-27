@@ -9,7 +9,6 @@ import UIKit
 
 class TransactionsTableViewCell: UITableViewCell {
 
-
     @IBOutlet weak var referenceCell : UILabel!
     @IBOutlet weak var amountCell : UILabel!
     
@@ -17,11 +16,12 @@ class TransactionsTableViewCell: UITableViewCell {
         referenceCell.text = transaction.reference
         
         if transaction.transactionType == "income" { //change to enum if possible
+            amountCell.text = String(format: "+$ %.2f", transaction.amount)
             amountCell.textColor = CustomColors.greenColor
-            amountCell.text = String(format: "+$%.2f", transaction.amount)
+            
         } else {
+            amountCell.text = String(format: "-$ %.2f", transaction.amount)
             amountCell.textColor = CustomColors.expenseLabelColor
-            amountCell.text = String(format: "-$%.2f", transaction.amount)
         }
         
     }

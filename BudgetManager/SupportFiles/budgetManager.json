@@ -12,15 +12,15 @@
         "transactions" : [
             {
             "reference": "Pub with friends",
-            "amount": 500.0,
-            "date": "2020-01-04",
+            "amount": 500,
+            "date": "2020-01-05",
             "category": "entertainment",
             "comments": "too much money spent",
             "transactionType": "expense"
         },
         {
             "reference": "Water bill",
-            "amount": 70.0,
+            "amount": 70,
             "date": "2020-01-05",
             "category": "Bills",
             "comments": null,
@@ -28,15 +28,15 @@
         },
         {
             "reference": "Power Bill",
-            "amount": 150.0,
-            "date": "2020-01-05",
+            "amount": 150,
+            "date": "2020-01-04",
             "category": "Bills",
             "comments": null,
             "transactionType": "expense"
         },
         {
             "reference": "Refund",
-            "amount": 1500.0,
+            "amount": 1500,
             "date": "2020-01-03",
             "category": "entretenimento",
             "comments": "money I lent to my Dad",

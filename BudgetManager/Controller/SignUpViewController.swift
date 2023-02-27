@@ -44,11 +44,8 @@ class SignUpViewController: UIViewController {
                     if let userID = Auth.auth().currentUser?.uid {
                         print (userID)
                     }
-                    
                 }
-                
             }
-            
         }
     }
 }
