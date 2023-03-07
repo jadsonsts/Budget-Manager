@@ -13,5 +13,6 @@ struct K {
     static let detailSegue = "GoToTransactionDetail"
     static let transactionCell = "TransactionCell"
     static let categoryCell = "CategoryCell"
+    static let categorySelection = "GoToSelectCategory"
     //static let detailCell = "DetailTransactionCell"
 }

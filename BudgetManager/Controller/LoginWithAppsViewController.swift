@@ -13,8 +13,10 @@ import FBSDKLoginKit
 
 class LoginWithAppsViewController: UIViewController {
 
-    @IBOutlet weak var signInGoogleButton: GIDSignInButton!
+    
+    @IBOutlet weak var signInGoogleButton: UIButton!
     @IBOutlet weak var signInFacebookButton: FBLoginButton!
+    @IBOutlet weak var signInAppleButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class LoginWithAppsViewController: UIViewController {
         } else {
             signInFacebookButton.permissions = ["public_profile", "email"]
             signInFacebookButton.delegate = self
-            //signInFacebookButton.frame.size.height = 60
+            signInFacebookButton.frame.size.height = 60
         }
         
     }

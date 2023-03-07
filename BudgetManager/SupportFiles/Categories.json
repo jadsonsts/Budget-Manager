@@ -1,0 +1,81 @@
+[
+    {
+        "id": 0,
+        "name": "Bills",
+        "iconName": "list.bullet.rectangle.portrait"
+    },
+    {
+        "id": 1, 
+        "name": "Cash", 
+        "iconName": "dollarsign.circle.fill"
+    },
+    {
+        "id": 2,
+        "name": "Eating Out", 
+        "iconName": "fork.knife.circle.fill"
+    },
+    {
+        "id": 3,
+        "name": "Entertainment",
+        "iconName": "ticket.fill"
+    },
+    {
+        "id": 4, 
+        "name": "Family", 
+        "iconName": "heart.circle.fill"
+    },
+    {
+        "id": 5, 
+        "name": "General", 
+        "iconName": "square.grid.2x2"
+    },
+    {
+        "id": 6, 
+        "name": "Groceries", 
+        "iconName": "carrot.fill"
+    },
+    {
+        "id": 7, 
+        "name": "Housing", 
+        "iconName": "house.circle.fill"
+    },
+    {
+        "id": 8, 
+        "name": "Investments", 
+        "iconName": "chart.line.uptrend.xyaxis.circle.fill"
+    },
+    {
+        "id": 9, 
+        "name": "Salary", 
+        "iconName": "briefcase.circle.fill"
+    },
+    {
+        "id": 10,
+        "name": "Education", 
+        "iconName": "books.vertical.circle.fill"
+    },
+    {
+        "id": 11,
+        "name": "Health", 
+        "iconName": "waveform.path.ecg.rectangle.fill"
+    },
+    {
+        "id": 12,
+        "name": "Trips", 
+        "iconName": "airplane.circle.fill"
+    },
+    {
+        "id": 13,
+        "name": "Shopping", 
+        "iconName": "bag.circle.fill"
+    }
+
+
+]
+    
+
+
+                       
+
+
+

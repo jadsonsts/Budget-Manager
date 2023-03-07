@@ -1,0 +1,64 @@
+{
+    "ID": "1",
+    "name": "Jadson",
+    "familyName": "Santos Carneiro",
+    "email": "jadson@gmail.com",
+    "phone": 999999999,
+    "profilePicture": "",
+    "wallet" :
+    {
+        "walletName": "Main",
+        "amount": 500.0,
+        "transactions" : [
+            {
+                "reference" : "Pub with friends",
+                "amount": 500.0,
+                "date": "2020-01-04",
+                "category" : {
+                    "id": 3,
+                    "name": "Entertainment",
+                    "iconName": "ticket.fill"
+                },
+                "comments" : "too much money spent",
+                "transactionType": "expense"
+            },
+            {
+                "reference" : "Water bill",
+                "amount": 70.0,
+                "date": "2020-01-05",
+                "category" : {
+                    "id": 0,
+                    "name": "Bills",
+                    "iconName": "list.bullet.rectangle.portrait"
+                },
+                "comments" : null,
+                "transactionType": "expense"
+            },
+            {
+                "reference" : "Power Bill",
+                "amount": 150.0,
+                "date": "2020-01-05",
+                "category" : {
+                    "id": 0,
+                    "name": "Bills",
+                    "iconName": "list.bullet.rectangle.portrait"
+                },
+                "comments" : null,
+                "transactionType": "expense"
+            },
+            {
+                "reference" : "Refund",
+                "amount": 1500.0,
+                "date": "2020-01-03",
+                "category" : {
+                    "id": 1,
+                    "name": "Cash",
+                    "iconName": "dollarsign.circle.fill"
+                },
+                "comments" : "money I lent to my Dad",
+                "transactionType": "income"
+            }
+        ]
+    }
+}
+

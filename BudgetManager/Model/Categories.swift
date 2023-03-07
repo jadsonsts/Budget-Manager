@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Categories: Identifiable {
-    var id: Int
-    var name: String
-    var isActive: Bool
+struct CategoryElement: Codable, Equatable {
+    let id: Int
+    let name, iconName: String
 }
+
+typealias Category = [CategoryElement]

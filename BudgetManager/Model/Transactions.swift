@@ -10,7 +10,8 @@ import Foundation
 struct Transactions: Codable {
     let reference: String
     let amount: Int
-    let date, category: String
+    let date: String
+    let category: CategoryElement
     let comments: String?
     let transactionType: String
     

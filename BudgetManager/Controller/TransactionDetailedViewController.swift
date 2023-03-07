@@ -23,15 +23,15 @@ class TransactionDetailedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadLabels()
+        loadData()
     }
     
-    func loadLabels() {
+    func loadData() {
                 transactionTypeLabel.text = transaction.transactionType
                 amountLabel.text = String(format: "%.2f", transaction.amount)
                 detailAmountLabel.text = String(format: "%.2f", transaction.amount)
                 referenceLabel.text = transaction.reference
-                categoryLabel.text = transaction.category
+                categoryLabel.text = transaction.category.name
                 dateLabel.text = transaction.date
                 commentsLabel.text = transaction.comments
         

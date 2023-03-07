@@ -19,9 +19,14 @@ import FBSDKCoreKit_Basics
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    //static let signInConfig = GIDConfiguration(clientID: "341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com")
+    static let signInConfig = GIDConfiguration(clientID: "341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com")
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        
+        
+        
+        
         // Override point for customization after application launch.
         FirebaseApp.configure()
         

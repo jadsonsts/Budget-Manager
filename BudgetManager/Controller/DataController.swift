@@ -20,6 +20,8 @@ class DataController {
         let transactionURL = baseURL.appendingPathComponent("\(userID)")
     }
     
+
+    
     
 //MARK: - creates user as they SignUp
     func createUser(with userID: String, completion: @escaping (String?) -> Void) {

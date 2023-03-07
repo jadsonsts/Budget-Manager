@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
     
     //MARK: - fetching data - move later (?)
     func fetchAllTransactions() {
-        if let path = Bundle.main.path(forResource: "budgetManager", ofType: "json") {
+        if let path = Bundle.main.path(forResource: "CustomerExample", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let newResponse = try JSONDecoder().decode(Customer.self, from: data)
@@ -126,7 +126,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
             let transaction = dataSource[indexPath.section].transaction[indexPath.row]
-            print(transaction.amount)
+           //print(transaction.amount)
             cell.updateViews(transaction: transaction)
             return cell
         } else {
