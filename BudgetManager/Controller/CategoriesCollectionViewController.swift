@@ -83,6 +83,11 @@ class CategoriesCollectionViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
+//        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell {
+//            cell.layer.cornerRadius = 1
+//            cell.layer.borderWidth = 1
+//            cell.layer.borderColor = CustomColors.greenColor.cgColor
+//        }
         
     }
 

@@ -9,7 +9,7 @@ import Foundation
 
 struct CategoryElement: Codable, Equatable {
     let id: Int
-    let name, iconName: String
+    let name, iconName, color: String
 }
 
 typealias Category = [CategoryElement]

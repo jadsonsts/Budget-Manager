@@ -2,80 +2,85 @@
     {
         "id": 0,
         "name": "Bills",
-        "iconName": "list.bullet.rectangle.portrait"
+        "iconName": "list.bullet.rectangle.portrait",
+        "color": "edb37e"
     },
     {
-        "id": 1, 
-        "name": "Cash", 
-        "iconName": "dollarsign.circle.fill"
+        "id": 1,
+        "name": "Cash",
+        "iconName": "dollarsign.circle.fill",
+        "color": "afcca2"
     },
     {
         "id": 2,
-        "name": "Eating Out", 
-        "iconName": "fork.knife.circle.fill"
+        "name": "Eating Out",
+        "iconName": "fork.knife.circle.fill",
+        "color": "92b0ea"
     },
     {
         "id": 3,
         "name": "Entertainment",
-        "iconName": "ticket.fill"
+        "iconName": "ticket.fill",
+        "color": "9cddd5"
     },
     {
-        "id": 4, 
-        "name": "Family", 
-        "iconName": "heart.circle.fill"
+        "id": 4,
+        "name": "Family",
+        "iconName": "heart.circle.fill",
+        "color": "f2a9cd"
     },
     {
-        "id": 5, 
-        "name": "General", 
-        "iconName": "square.grid.2x2"
+        "id": 5,
+        "name": "General",
+        "iconName": "square.grid.2x2",
+        "color": "cccfcc"
     },
     {
-        "id": 6, 
-        "name": "Groceries", 
-        "iconName": "carrot.fill"
+        "id": 6,
+        "name": "Groceries",
+        "iconName": "carrot.fill",
+        "color": "fc8d93"
     },
     {
-        "id": 7, 
-        "name": "Housing", 
-        "iconName": "house.circle.fill"
+        "id": 7,
+        "name": "Housing",
+        "iconName": "house.circle.fill",
+        "color": "e7c3d7"
     },
     {
-        "id": 8, 
-        "name": "Investments", 
-        "iconName": "chart.line.uptrend.xyaxis.circle.fill"
+        "id": 8,
+        "name": "Investments",
+        "iconName": "chart.line.uptrend.xyaxis.circle.fill",
+        "color": "34c759"
     },
     {
-        "id": 9, 
-        "name": "Salary", 
-        "iconName": "briefcase.circle.fill"
+        "id": 9,
+        "name": "Salary",
+        "iconName": "briefcase.circle.fill",
+        "color": "78a6fb"
     },
     {
         "id": 10,
-        "name": "Education", 
-        "iconName": "books.vertical.circle.fill"
+        "name": "Education",
+        "iconName": "books.vertical.circle.fill",
+        "color": "99cdd8"
     },
     {
         "id": 11,
-        "name": "Health", 
-        "iconName": "waveform.path.ecg.rectangle.fill"
+        "name": "Health",
+        "iconName": "staroflife",
+        "color": "FF0000"
     },
     {
         "id": 12,
-        "name": "Trips", 
-        "iconName": "airplane.circle.fill"
+        "name": "Trips",
+        "iconName": "airplane.circle.fill",
+        "color": "c7ad96"
     },
     {
         "id": 13,
-        "name": "Shopping", 
-        "iconName": "bag.circle.fill"
+        "name": "Shopping",
+        "iconName": "bag.circle.fill",
+        "color": "7c89bd"
     }
-
-
 ]
-    
-
-
-                       
-
-
-

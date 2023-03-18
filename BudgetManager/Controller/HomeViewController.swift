@@ -23,18 +23,31 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var transactionsSegmentedControl: CustomSegmentedControl!
     @IBOutlet weak var transactionsTableView: UITableView!
     @IBOutlet weak var hideValuesButton: UIButton!
+    @IBOutlet weak var searchTransaction: UISearchBar!
     
     var dataSource = [Section]()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = false
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.hidesSearchBarWhenScrolling = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchTransaction.delegate = self
         
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
         transactionsTableView.rowHeight = 55
         transactionsTableView.separatorColor = CustomColors.greenColor
         
-        //navigationItem.hidesBackButton = true
         self.tabBarController?.navigationItem.hidesBackButton = true
         fetchAllTransactions()
 
@@ -146,6 +159,28 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             destinationVC.transaction = transaction
         }
         
+    }
+    
+}
+
+extension HomeViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        //todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
+        
+        transactionsTableView.reloadData()
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            //func to fetch all transactions (check the segmented selected all, income, expense)
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
     
 }

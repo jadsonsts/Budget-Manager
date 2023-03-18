@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zDN-YK-5GA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7bA-fs-kJ1">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -253,11 +253,8 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="OYR-Ne-9hY">
-                                <rect key="frame" x="0.0" y="316" width="393" height="536"/>
+                                <rect key="frame" x="0.0" y="372" width="393" height="480"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="536" id="F8h-YZ-fKo"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="TransactionCell" rowHeight="66" id="s15-Lj-Xrg" customClass="TransactionsTableViewCell" customModule="BudgetManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="66"/>
@@ -314,22 +311,35 @@
                                     <action selector="transactionSegmentedControlDidChange:" destination="aLj-OD-jqA" eventType="valueChanged" id="v6c-Sh-dX0"/>
                                 </connections>
                             </segmentedControl>
+                            <searchBar contentMode="redraw" placeholder="Search by name, category, amount" translatesAutoresizingMaskIntoConstraints="NO" id="K9l-Ue-qP7">
+                                <rect key="frame" x="0.0" y="316" width="393" height="56"/>
+                                <color key="backgroundColor" name="backgroundColor"/>
+                                <color key="barTintColor" name="backgroundColor"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="aLj-OD-jqA" id="p4j-fw-6ka"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="srl-DY-1Ml"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="OYR-Ne-9hY" firstAttribute="top" secondItem="bEP-R6-TcX" secondAttribute="bottom" id="1uW-Xs-hgB"/>
+                            <constraint firstItem="OYR-Ne-9hY" firstAttribute="top" secondItem="K9l-Ue-qP7" secondAttribute="bottom" id="1uW-Xs-hgB"/>
                             <constraint firstItem="gOJ-Ax-954" firstAttribute="trailing" secondItem="srl-DY-1Ml" secondAttribute="trailing" id="3fU-6L-FY1"/>
+                            <constraint firstItem="K9l-Ue-qP7" firstAttribute="leading" secondItem="srl-DY-1Ml" secondAttribute="leading" id="8Ue-Ol-kps"/>
                             <constraint firstItem="bEP-R6-TcX" firstAttribute="trailing" secondItem="srl-DY-1Ml" secondAttribute="trailing" id="KfT-ST-Bp2"/>
                             <constraint firstItem="bEP-R6-TcX" firstAttribute="leading" secondItem="srl-DY-1Ml" secondAttribute="leading" id="SSd-wn-O9o"/>
                             <constraint firstItem="gOJ-Ax-954" firstAttribute="leading" secondItem="srl-DY-1Ml" secondAttribute="leading" id="XAE-n5-dCT"/>
+                            <constraint firstAttribute="bottom" secondItem="OYR-Ne-9hY" secondAttribute="bottom" id="b5P-Ic-MaO"/>
                             <constraint firstItem="FQm-hc-YWp" firstAttribute="trailing" secondItem="srl-DY-1Ml" secondAttribute="trailing" id="dD9-CZ-FIO"/>
                             <constraint firstItem="OYR-Ne-9hY" firstAttribute="leading" secondItem="srl-DY-1Ml" secondAttribute="leading" id="exh-W2-Txx"/>
                             <constraint firstItem="FQm-hc-YWp" firstAttribute="top" secondItem="l8u-aa-1vI" secondAttribute="top" id="hVF-RR-Er6"/>
                             <constraint firstItem="gOJ-Ax-954" firstAttribute="top" secondItem="FQm-hc-YWp" secondAttribute="bottom" id="kuY-YL-NiE"/>
                             <constraint firstItem="bEP-R6-TcX" firstAttribute="top" secondItem="gOJ-Ax-954" secondAttribute="bottom" id="muH-WO-MlS"/>
                             <constraint firstItem="OYR-Ne-9hY" firstAttribute="trailing" secondItem="srl-DY-1Ml" secondAttribute="trailing" id="nXT-ZO-yMB"/>
+                            <constraint firstItem="K9l-Ue-qP7" firstAttribute="top" secondItem="bEP-R6-TcX" secondAttribute="bottom" id="qF0-Lp-mcW"/>
                             <constraint firstItem="FQm-hc-YWp" firstAttribute="leading" secondItem="srl-DY-1Ml" secondAttribute="leading" id="tA9-nB-GnK"/>
+                            <constraint firstItem="K9l-Ue-qP7" firstAttribute="trailing" secondItem="srl-DY-1Ml" secondAttribute="trailing" id="vPf-pJ-msb"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="htY-Cd-hDD"/>
@@ -337,6 +347,7 @@
                     <connections>
                         <outlet property="hideValuesButton" destination="2YC-Zc-OHt" id="pmY-EL-HR2"/>
                         <outlet property="profilePictureUIImage" destination="uvi-y8-bLh" id="HVs-tu-tvT"/>
+                        <outlet property="searchTransaction" destination="K9l-Ue-qP7" id="suB-KB-e10"/>
                         <outlet property="transactionsSegmentedControl" destination="bEP-R6-TcX" id="y6M-ib-l1I"/>
                         <outlet property="transactionsTableView" destination="OYR-Ne-9hY" id="ZgC-PF-fih"/>
                         <outlet property="userNameLabel" destination="oSu-TX-tf4" id="dyA-vc-oOd"/>
@@ -346,7 +357,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lVL-SI-Bha" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1640" y="-373"/>
+            <point key="canvasLocation" x="-1640.4580152671756" y="-373.23943661971833"/>
         </scene>
         <!--Settings-->
         <scene sceneID="B9R-dl-cMu">
@@ -922,8 +933,12 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Transaction Details" id="teW-1r-Cqj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="U8a-93-FEu">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="U8a-93-FEu">
+                            <imageReference key="image" image="pencil" catalog="system" symbolScale="large"/>
                             <color key="tintColor" name="tabBarColor"/>
+                            <connections>
+                                <action selector="editButtonTapped:" destination="XzD-L2-Dm1" id="a7H-R8-8WK"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -1296,6 +1311,7 @@
         <image name="gear.circle" catalog="system" width="128" height="123"/>
         <image name="house" catalog="system" width="128" height="104"/>
         <image name="icons8-google-30" width="30" height="30"/>
+        <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>

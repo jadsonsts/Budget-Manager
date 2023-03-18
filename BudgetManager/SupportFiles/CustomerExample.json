@@ -17,7 +17,8 @@
                 "category" : {
                     "id": 3,
                     "name": "Entertainment",
-                    "iconName": "ticket.fill"
+                    "iconName": "ticket.fill",
+                    "color": "9cddd5"
                 },
                 "comments" : "too much money spent",
                 "transactionType": "expense"
@@ -29,7 +30,8 @@
                 "category" : {
                     "id": 0,
                     "name": "Bills",
-                    "iconName": "list.bullet.rectangle.portrait"
+                    "iconName": "list.bullet.rectangle.portrait",
+                    "color": "edb37e"
                 },
                 "comments" : null,
                 "transactionType": "expense"
@@ -41,7 +43,8 @@
                 "category" : {
                     "id": 0,
                     "name": "Bills",
-                    "iconName": "list.bullet.rectangle.portrait"
+                    "iconName": "list.bullet.rectangle.portrait",
+                    "color": "edb37e"
                 },
                 "comments" : null,
                 "transactionType": "expense"
@@ -53,7 +56,8 @@
                 "category" : {
                     "id": 1,
                     "name": "Cash",
-                    "iconName": "dollarsign.circle.fill"
+                    "iconName": "dollarsign.circle.fill",
+                    "color": "afcca2"
                 },
                 "comments" : "money I lent to my Dad",
                 "transactionType": "income"

@@ -26,6 +26,12 @@ class TransactionDetailedViewController: UIViewController {
         loadData()
     }
     
+    @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
+        
+        
+    }
+    
+    
     func loadData() {
                 transactionTypeLabel.text = transaction.transactionType
                 amountLabel.text = String(format: "%.2f", transaction.amount)
