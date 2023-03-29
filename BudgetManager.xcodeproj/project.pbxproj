@@ -37,6 +37,8 @@
 		DF7BDE122993942D004696BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE112993942D004696BB /* Constants.swift */; };
 		DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */; };
 		DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86E76C29AC2B5700E912D9 /* DataController.swift */; };
+		DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F529D41CCE00291940 /* Extentions.swift */; };
+		DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */; };
 		DFB0A2B12998B37600247D30 /* CategoriesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */; };
 		DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */; };
 		DFB571FE29A6136C00B92639 /* CustomerExample.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB571FD29A6136C00B92639 /* CustomerExample.json */; };
@@ -101,6 +103,8 @@
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		DF9A38F529D41CCE00291940 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
+		DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatonObj.swift; sourceTree = "<group>"; };
 		DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewController.swift; sourceTree = "<group>"; };
 		DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
 		DFB571FD29A6136C00B92639 /* CustomerExample.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CustomerExample.json; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 		DF7BDE1029939412004696BB /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				DF9A38F529D41CCE00291940 /* Extentions.swift */,
+				DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */,
 				DF7BDE112993942D004696BB /* Constants.swift */,
 				DF15E0B1299A0DE50020340A /* CustomColors.swift */,
 				DFB571FD29A6136C00B92639 /* CustomerExample.json */,
@@ -536,6 +542,8 @@
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF15E0B2299A0DE50020340A /* CustomColors.swift in Sources */,
 				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
+				DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */,
+				DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
