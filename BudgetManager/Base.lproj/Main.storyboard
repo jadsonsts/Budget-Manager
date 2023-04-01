@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zDN-YK-5GA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zDN-YK-5GA">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -1109,7 +1109,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uip-2W-EPI" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
-                                <rect key="frame" x="20" y="623" width="353" height="60"/>
+                                <rect key="frame" x="20" y="824" width="353" height="60"/>
                                 <color key="backgroundColor" name="tabBarColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="D3W-0q-65q"/>
@@ -1124,7 +1124,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="ILh-0A-dCx">
-                                <rect key="frame" x="10" y="213" width="373" height="390"/>
+                                <rect key="frame" x="10" y="212" width="373" height="589"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iho-Cu-x31" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
@@ -1135,9 +1135,18 @@
                                         <color key="textColor" name="generalLabelColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="name"/>
+                                        <connections>
+                                            <action selector="firstNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Arb-VA-Dn7"/>
+                                        </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOt-49-OFO">
+                                        <rect key="frame" x="0.0" y="59" width="373" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" name="expenseLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dFl-ZD-Fp0" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="59" width="373" height="50"/>
+                                        <rect key="frame" x="0.0" y="80" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Re1-Ey-nve"/>
@@ -1145,9 +1154,18 @@
                                         <color key="textColor" name="generalLabelColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="family-name"/>
+                                        <connections>
+                                            <action selector="lastNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="yMw-EA-BLk"/>
+                                        </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ir-Ahj">
+                                        <rect key="frame" x="0.0" y="139" width="373" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" name="expenseLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-va-WRS" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="118" width="373" height="50"/>
+                                        <rect key="frame" x="0.0" y="160" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="L97-vb-eYA"/>
@@ -1157,16 +1175,17 @@
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES" textContentType="email"/>
                                         <connections>
                                             <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingDidEnd" id="7Ve-Hp-3ya"/>
+                                            <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="HS3-qE-3N1"/>
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jt-OB-Grg">
-                                        <rect key="frame" x="0.0" y="177" width="373" height="12"/>
+                                        <rect key="frame" x="0.0" y="219" width="373" height="12"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                         <color key="textColor" name="expenseLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itH-jK-YZu" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="373" height="50"/>
+                                        <rect key="frame" x="0.0" y="240" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="eBi-H7-uWh"/>
@@ -1174,9 +1193,18 @@
                                         <color key="textColor" name="generalLabelColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" textContentType="tel"/>
+                                        <connections>
+                                            <action selector="phoneTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Iod-PU-ozV"/>
+                                        </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2s-9d-Vw4">
+                                        <rect key="frame" x="0.0" y="299" width="373" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" name="expenseLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeB-X2-9YV" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="257" width="373" height="50"/>
+                                        <rect key="frame" x="0.0" y="320" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="vKq-hF-QIg"/>
@@ -1186,25 +1214,27 @@
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="rDK-d0-Zew">
-                                        <rect key="frame" x="0.0" y="316" width="373" height="15"/>
+                                        <rect key="frame" x="0.0" y="379" width="373" height="130"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-16-3e0">
-                                                <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="15" height="130"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="15" id="GSM-QJ-6fj"/>
                                                     <constraint firstAttribute="width" constant="15" id="kea-0h-n6u"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUL-md-FyL">
-                                                <rect key="frame" x="24" y="0.0" width="349" height="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUL-md-FyL">
+                                                <rect key="frame" x="24" y="0.0" width="349" height="130"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <color key="textColor" name="expenseLabelColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="105" id="WME-IV-IOS"/>
+                                        </constraints>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-f0-l1c" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="340" width="373" height="50"/>
+                                        <rect key="frame" x="0.0" y="518" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="8OW-5H-ueJ"/>
@@ -1212,35 +1242,49 @@
                                         <color key="textColor" name="generalLabelColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
+                                        <connections>
+                                            <action selector="confPasswordTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="nke-dd-RXf"/>
+                                        </connections>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YR-BX-mJe">
+                                        <rect key="frame" x="0.0" y="577" width="373" height="12"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" name="expenseLabelColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xp8-zt-bbi"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ILh-0A-dCx" firstAttribute="top" secondItem="q3b-aR-MLr" secondAttribute="bottom" constant="30" id="DY7-Kp-wQ1"/>
+                            <constraint firstItem="ILh-0A-dCx" firstAttribute="top" secondItem="q3b-aR-MLr" secondAttribute="bottom" constant="29" id="DY7-Kp-wQ1"/>
                             <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="ILh-0A-dCx" secondAttribute="trailing" constant="10" id="IaJ-a3-EFs"/>
                             <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="uip-2W-EPI" secondAttribute="trailing" constant="20" id="bEO-Ph-Stz"/>
                             <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="q3b-aR-MLr" secondAttribute="trailing" constant="150" id="bhJ-mO-Qgb"/>
                             <constraint firstItem="ILh-0A-dCx" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="10" id="fJp-c4-9zO"/>
                             <constraint firstItem="q3b-aR-MLr" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="150" id="hxJ-JX-UP6"/>
+                            <constraint firstItem="uip-2W-EPI" firstAttribute="top" secondItem="ILh-0A-dCx" secondAttribute="bottom" constant="23" id="nLe-A4-Di0"/>
                             <constraint firstItem="uip-2W-EPI" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="20" id="nMv-Wy-TeG"/>
                             <constraint firstItem="q3b-aR-MLr" firstAttribute="top" secondItem="xp8-zt-bbi" secondAttribute="top" constant="20" id="q8Z-ng-u0L"/>
-                            <constraint firstItem="uip-2W-EPI" firstAttribute="top" secondItem="ILh-0A-dCx" secondAttribute="bottom" constant="20" id="zJA-Kl-ycM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="HBU-q0-xHB"/>
                     <connections>
+                        <outlet property="confPasswordValidationLabel" destination="6YR-BX-mJe" id="mG6-We-HQD"/>
                         <outlet property="confirmPasswordTxtField" destination="VHl-f0-l1c" id="7JH-UB-x5K"/>
                         <outlet property="emailTxtField" destination="Qsi-va-WRS" id="yQ3-zF-5RC"/>
                         <outlet property="emailValidationLabel" destination="1Jt-OB-Grg" id="6Vz-gz-DDB"/>
+                        <outlet property="familyNameValidationLabel" destination="9fb-Ir-Ahj" id="yic-AD-XpZ"/>
                         <outlet property="firstNameTxtField" destination="Iho-Cu-x31" id="jvM-EV-0Jm"/>
+                        <outlet property="firstNameValidationLabel" destination="sOt-49-OFO" id="601-sc-bG8"/>
                         <outlet property="lastNameTxtField" destination="dFl-ZD-Fp0" id="6AN-EY-2mb"/>
+                        <outlet property="passwordCheckStackView" destination="rDK-d0-Zew" id="WNo-C1-CTQ"/>
                         <outlet property="passwordImageViewValidation" destination="KwZ-16-3e0" id="qNV-eA-x9v"/>
                         <outlet property="passwordTxtField" destination="zeB-X2-9YV" id="bhP-Qa-49L"/>
                         <outlet property="passwordValidationLabel" destination="vUL-md-FyL" id="58L-bh-uG1"/>
                         <outlet property="phoneTxtField" destination="itH-jK-YZu" id="cPw-pD-hip"/>
+                        <outlet property="phoneValidationLabel" destination="u2s-9d-Vw4" id="iXE-Dn-98X"/>
                         <outlet property="profilePictureImageView" destination="q3b-aR-MLr" id="ZcI-pt-Frg"/>
                         <outlet property="signUpButton" destination="uip-2W-EPI" id="nI3-Tv-piH"/>
                         <segue destination="7bA-fs-kJ1" kind="show" identifier="RegisterToHome" id="K8m-mY-WWK"/>
@@ -1248,7 +1292,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E0w-SX-GbX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1640" y="-1925"/>
+            <point key="canvasLocation" x="-1640.4580152671756" y="-1925.3521126760563"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Q5e-OF-ikr">

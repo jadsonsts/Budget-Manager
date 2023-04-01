@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 enum Field: String {
-    case username
+    //case username
     case password
 }
 
@@ -19,12 +19,14 @@ enum ValidationState {
 }
 
 enum ValidationType {
+    
     case isNotEmpty
     case minCharacters(min: Int)
     case hasSymbols
     case hasUppercasedLetters
     case hasLowercasedLetters
     case hasNumbers
+    
     
     func fulfills(string: String) -> Bool {
         switch self {
@@ -78,57 +80,64 @@ struct Validation: Identifiable {
 }
 
 //MARK: - TEXT FIELD STYLE
-class ThemedTextField: UITextField {
-    var icon: UIImage? {
-        didSet {
-            updateIcon()
-        }
-    }
-    
-    private let iconView = UIImageView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setup()
-    }
-    
-    private func setup() {
-        // Set text field properties
-        textColor = .white
-        font = .systemFont(ofSize: UIFont.systemFontSize, weight: .semibold)
-        autocapitalizationType = .none
-        autocorrectionType = .no
-        
-        // Add icon view
-        leftView = iconView
-        leftViewMode = .always
-        
-        // Add border
-        layer.cornerRadius = 20
-        layer.borderWidth = 2
-        layer.borderColor = UIColor.white.cgColor
-        
-        // Add padding
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
-        leftView = paddingView
-        rightView = paddingView
-        leftViewMode = .always
-        rightViewMode = .always
-    }
-    
-    private func updateIcon() {
-        iconView.image = icon?.withRenderingMode(.alwaysTemplate)
-        iconView.tintColor = .white
-    }
-}
+//class ThemedTextField: UITextField {
+//    var icon: UIImage? {
+//        didSet {
+//            updateIcon()
+//        }
+//    }
+//    
+//    private let iconView = UIImageView()
+//    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        setup()
+//    }
+//    
+//    required init?(coder: NSCoder) {
+//        super.init(coder: coder)
+//        setup()
+//    }
+//    
+//    private func setup() {
+//        // Set text field properties
+//        textColor = .white
+//        font = .systemFont(ofSize: UIFont.systemFontSize, weight: .semibold)
+//        autocapitalizationType = .none
+//        autocorrectionType = .no
+//        
+//        // Add icon view
+//        leftView = iconView
+//        leftViewMode = .always
+//        
+//        // Add border
+//        layer.cornerRadius = 20
+//        layer.borderWidth = 2
+//        layer.borderColor = UIColor.white.cgColor
+//        
+//        // Add padding
+//        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
+//        leftView = paddingView
+//        rightView = paddingView
+//        leftViewMode = .always
+//        rightViewMode = .always
+//    }
+//    
+//    private func updateIcon() {
+//        iconView.image = icon?.withRenderingMode(.alwaysTemplate)
+//        iconView.tintColor = .white
+//    }
+//}
 
 //MARK: - EMAIL AND PASSWORD REGEX
 extension String {
+    
+    func isValidNameAndFamilyName(_ nameFamilyName: String) -> Bool {
+        let nameRegEx = "([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,30}"
+        
+        let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
+        return nameTest.evaluate(with: nameFamilyName)
+    }
     
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx =
