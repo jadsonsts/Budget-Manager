@@ -79,64 +79,46 @@ struct Validation: Identifiable {
     }
 }
 
-//MARK: - TEXT FIELD STYLE
-//class ThemedTextField: UITextField {
-//    var icon: UIImage? {
-//        didSet {
-//            updateIcon()
-//        }
-//    }
-//    
-//    private let iconView = UIImageView()
-//    
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        setup()
-//    }
-//    
-//    required init?(coder: NSCoder) {
-//        super.init(coder: coder)
-//        setup()
-//    }
-//    
-//    private func setup() {
-//        // Set text field properties
-//        textColor = .white
-//        font = .systemFont(ofSize: UIFont.systemFontSize, weight: .semibold)
-//        autocapitalizationType = .none
-//        autocorrectionType = .no
-//        
-//        // Add icon view
-//        leftView = iconView
-//        leftViewMode = .always
-//        
-//        // Add border
-//        layer.cornerRadius = 20
-//        layer.borderWidth = 2
-//        layer.borderColor = UIColor.white.cgColor
-//        
-//        // Add padding
-//        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 24, height: 0))
-//        leftView = paddingView
-//        rightView = paddingView
-//        leftViewMode = .always
-//        rightViewMode = .always
-//    }
-//    
-//    private func updateIcon() {
-//        iconView.image = icon?.withRenderingMode(.alwaysTemplate)
-//        iconView.tintColor = .white
-//    }
-//}
+enum ErrorMessageType: String {
+    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword
+    
+    func message() -> String {
+        switch self {
+            case .validEmail:
+                return "Please enter a valid email."
+            case .notEmpty:
+                return "The field cannot be empty."
+            case .validName:
+                return "Please enter a valid Name."
+            case .validFamilyName:
+                return "Please enter a valid Family Name."
+            case .validPhone:
+                return "Please enter a valid phone number."
+            case .confirmationPassword:
+                return "Field must be equal to password."
+        }
+    }
+}
 
 //MARK: - EMAIL AND PASSWORD REGEX
 extension String {
     
-    func isValidNameAndFamilyName(_ nameFamilyName: String) -> Bool {
-        let nameRegEx = "([a-zA-Z',.-]+( [a-zA-Z',.-]+)*){3,30}"
-        
+    func isValidPhoneNumber (_ number: String) -> Bool {
+        let phoneRegEx = "^\\+(?:[0-9]●?){6,14}[0-9]$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
+        return phoneTest.evaluate(with: number)
+    }
+    
+    func isValidName(_ name: String) -> Bool {
+        let nameRegEx = "^[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}(?:\\s[A-Za-zÀ-ÖØ-öø-ÿ]{3,50})*$"
         let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
-        return nameTest.evaluate(with: nameFamilyName)
+        return nameTest.evaluate(with: name)
+    }
+    
+    func isValidFamilyName(_ familyName: String) -> Bool {
+        let nameRegEx = "^[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}(?:\\s[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}){0,2}$"
+        let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
+        return nameTest.evaluate(with: familyName)
     }
     
     func isValidEmail(_ email: String) -> Bool {
@@ -182,3 +164,25 @@ extension String {
     
 }
 
+extension UIViewController {
+    
+    static func addDoneButtonOnKeyboard(for views: [UIView], target: Any?, selector: Selector?) {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: target, action: selector)
+        
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        views.forEach { view in
+            if let textField = view as? UITextField {
+                textField.inputAccessoryView = doneToolbar
+            } else if let textView = view as? UITextView {
+                textView.inputAccessoryView = doneToolbar
+            }
+        }
+    }
+}

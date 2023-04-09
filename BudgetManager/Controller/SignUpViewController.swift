@@ -24,7 +24,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var passwordImageViewValidation: UIImageView!
     @IBOutlet weak var firstNameValidationLabel: UILabel!
-    @IBOutlet weak var familyNameValidationLabel: UILabel!
+    @IBOutlet weak var lastNameValidationLabel: UILabel!
     @IBOutlet weak var phoneValidationLabel: UILabel!
     @IBOutlet weak var confPasswordValidationLabel: UILabel!
     @IBOutlet weak var passwordCheckStackView: UIStackView!
@@ -40,7 +40,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         
         firstNameValidationLabel.isHidden = true
-        familyNameValidationLabel.isHidden = true
+        lastNameValidationLabel.isHidden = true
         emailValidationLabel.isHidden = true
         phoneValidationLabel.isHidden = true
         confPasswordValidationLabel.isHidden = true
@@ -53,6 +53,8 @@ class SignUpViewController: UIViewController {
             self.updatePasswordValidationLabel()
             self.updatePasswordValidationImage()
         }
+        
+        createKeyboardDoneButton()
     }
     // Updates the password validation label
     func updatePasswordValidationLabel() {
@@ -109,10 +111,12 @@ class SignUpViewController: UIViewController {
     @IBAction func emailTxtFieldChanged(_ sender: CustomTxtField) {
         let email = sender.text ?? ""
         if !email.isValidEmail(email) {
+            emailTxtField.showError()
             emailValidationLabel.isHidden = false
-            emailValidationLabel.text = "Please insert a valid email."
+            emailValidationLabel.text = ErrorMessageType.validEmail.message()
             insertImageRightTextField(textField: emailTxtField, error: true)
         } else {
+            emailTxtField.hideError()
             emailValidationLabel.isHidden = true
             emailValidationLabel.text = ""
             insertImageRightTextField(textField: emailTxtField, error: false)
@@ -122,12 +126,21 @@ class SignUpViewController: UIViewController {
     @IBAction func firstNameTxtChanged(_ sender: CustomTxtField) {
         let name = sender.text ?? ""
         if name.count == 0 {
-            firstNameValidationLabel.text = "Name cannot be empty"
+            firstNameValidationLabel.text = ErrorMessageType.notEmpty.message()
+            firstNameTxtField.showError()
+            UIView.animate(withDuration: 0.3) {
+                self.firstNameValidationLabel.isHidden = false
+                self.insertImageRightTextField(textField: self.firstNameTxtField, error: true)
+            }
+        } else if !name.isValidName(name) {
+            firstNameTxtField.showError()
+            firstNameValidationLabel.text = ErrorMessageType.validName.message()
             UIView.animate(withDuration: 0.3) {
                 self.firstNameValidationLabel.isHidden = false
                 self.insertImageRightTextField(textField: self.firstNameTxtField, error: true)
             }
         } else {
+            firstNameTxtField.hideError()
             firstNameValidationLabel.text = ""
             UIView.animate(withDuration: 0.3) {
                 self.firstNameValidationLabel.isHidden = true
@@ -137,23 +150,59 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func lastNameTxtChanged(_ sender: CustomTxtField) {
-        
+        let lastName = sender.text ?? ""
+        if lastName.count == 0 {
+            lastNameTxtField.showError()
+            lastNameValidationLabel.text = ErrorMessageType.notEmpty.message()
+            UIView.animate(withDuration: 0.3) {
+                self.lastNameValidationLabel.isHidden = false
+                self.insertImageRightTextField(textField: self.lastNameTxtField, error: true)
+            }
+        } else if !lastName.isValidName(lastName) {
+            lastNameTxtField.showError()
+            lastNameValidationLabel.text = ErrorMessageType.validName.message()
+            UIView.animate(withDuration: 0.3) {
+                self.lastNameValidationLabel.isHidden = false
+                self.insertImageRightTextField(textField: self.lastNameTxtField, error: true)
+            }
+        } else {
+            lastNameTxtField.hideError()
+            lastNameValidationLabel.text = ""
+            UIView.animate(withDuration: 0.3) {
+                self.lastNameValidationLabel.isHidden = true
+                self.insertImageRightTextField(textField: self.lastNameTxtField, error: false)
+            }
+        }
     }
     
     
     @IBAction func phoneTxtChanged(_ sender: CustomTxtField) {
+        let phone = sender.text ?? ""
+        if !phone.isValidPhoneNumber(phone) {
+            phoneTxtField.showError()
+            phoneValidationLabel.isHidden = false
+            phoneValidationLabel.text = ErrorMessageType.validPhone.message()
+            insertImageRightTextField(textField: phoneTxtField, error: true)
+        } else {
+            phoneTxtField.hideError()
+            phoneValidationLabel.isHidden = true
+            phoneValidationLabel.text = ""
+            insertImageRightTextField(textField: phoneTxtField, error: false)
+        }
     }
     
     @IBAction func confPasswordTxtChanged(_ sender: CustomTxtField) {
         if let password = passwordTxtField.text {
             let confPassword = sender.text ?? ""
             if confPassword != password {
-                confPasswordValidationLabel.text = "Password and Confirm Password fields must be the same"
+                confirmPasswordTxtField.showError()
+                confPasswordValidationLabel.text = ErrorMessageType.confirmationPassword.message()
                 self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: true)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = false
                 }
             } else {
+                confirmPasswordTxtField.hideError()
                 self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: false)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = true
@@ -210,6 +259,17 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    //MARK: - DONE BUTTON CREATION
+    func createKeyboardDoneButton() {
+        let textFields: [UITextField] = [lastNameTxtField, firstNameTxtField, emailTxtField, phoneTxtField, passwordTxtField, confirmPasswordTxtField]
+        
+        UIViewController.addDoneButtonOnKeyboard(for: textFields, target: self, selector: #selector(doneButtonAction))
+    }
+    
+    @objc func doneButtonAction(){
+        view.endEditing(true)
     }
 }
 

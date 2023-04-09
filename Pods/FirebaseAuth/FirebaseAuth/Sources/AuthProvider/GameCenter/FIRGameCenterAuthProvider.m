@@ -54,10 +54,40 @@ NS_ASSUME_NONNULL_BEGIN
     }
     return;
   }
-
-  [localPlayer
-    generateIdentityVerificationSignatureWithCompletionHandler:^(
-        NSURL *publicKeyURL, NSData *signature, NSData *salt, uint64_t timestamp, NSError *error) {
+  if (@available(iOS 13.5, macOS 10.15.5, macCatalyst 13.5,
+  // Availability of fetchItemsForIdentityVerificationSignature was extended to tvOS 13.4.8 in
+  // Xcode 14 (from tvOS 13.5 in Xcode 13).
+  // TODO: Remove this check when we no longer support Xcode 13.
+#if defined(__TVOS_16_0)
+                 tvOS 13.4.8,
+#else
+                 tvOS 13.5,
+#endif
+                     *)) {
+    [localPlayer fetchItemsForIdentityVerificationSignature:^(
+                     NSURL *_Nullable publicKeyURL, NSData *_Nullable signature,
+                     NSData *_Nullable salt, uint64_t timestamp, NSError *_Nullable error) {
+      if (error) {
+        if (completion) {
+          completion(nil, error);
+        }
+      } else {
+        FIRGameCenterAuthCredential *credential =
+            [[FIRGameCenterAuthCredential alloc] initWithPlayerID:localPlayer.playerID
+                                                     teamPlayerID:localPlayer.teamPlayerID
+                                                     gamePlayerID:localPlayer.gamePlayerID
+                                                     publicKeyURL:publicKeyURL
+                                                        signature:signature
+                                                             salt:salt
+                                                        timestamp:timestamp
+                                                      displayName:localPlayer.displayName];
+        completion(credential, nil);
+      }
+    }];
+  } else {
+    [localPlayer generateIdentityVerificationSignatureWithCompletionHandler:^(
+                     NSURL *publicKeyURL, NSData *signature, NSData *salt, uint64_t timestamp,
+                     NSError *error) {
       if (error) {
         if (completion) {
           completion(nil, error);
@@ -75,6 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
           FIRGameCenterAuthCredential *credential =
               [[FIRGameCenterAuthCredential alloc] initWithPlayerID:localPlayer.playerID
+                                                       teamPlayerID:nil
+                                                       gamePlayerID:nil
                                                        publicKeyURL:publicKeyURL
                                                           signature:signature
                                                                salt:salt
@@ -85,6 +117,7 @@ NS_ASSUME_NONNULL_BEGIN
         }
       }
     }];
+  }
 }
 
 @end

@@ -27,7 +27,8 @@ class InputTransactionTableViewController: UITableViewController {
         transactionAmountTxtField.delegate = self
         transactionDateFormart()
         tableView.separatorColor = CustomColors.greenColor
-        addDoneButtonOnKeyboard()
+//        addDoneButtonOnKeyboard()
+        createKeyboardDoneButton()
         
 
     }
@@ -38,6 +39,15 @@ class InputTransactionTableViewController: UITableViewController {
         transactionDate.date = midnightToday
     }
     
+    func createKeyboardDoneButton() {
+        let uiViews: [UIView] = [transactionReferenceTxtField, transactionAmountTxtField, transactionComments]
+        
+        UIViewController.addDoneButtonOnKeyboard(for: uiViews, target: self, selector: #selector(doneButtonAction))
+    }
+    
+    @objc func doneButtonAction(){
+        view.endEditing(true)
+    }
 
     
     
@@ -66,12 +76,8 @@ class InputTransactionTableViewController: UITableViewController {
 }
 
 
-
-
-
 extension InputTransactionTableViewController: UITextFieldDelegate {
     
-   
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         transactionReferenceTxtField.endEditing(true)
@@ -84,28 +90,5 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
             textField.resignFirstResponder()
         }
         return true
-    }
-    
-    func addDoneButtonOnKeyboard(){
-        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        
-        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
-        
-        let items = [flexSpace, done]
-        doneToolbar.items = items
-        doneToolbar.sizeToFit()
-        
-        transactionReferenceTxtField.inputAccessoryView = doneToolbar
-        transactionAmountTxtField.inputAccessoryView = doneToolbar
-        transactionComments.inputAccessoryView = doneToolbar
-        
-    }
-    
-    @objc func doneButtonAction(){
-        transactionAmountTxtField.resignFirstResponder()
-        transactionReferenceTxtField.resignFirstResponder()
-        transactionComments.resignFirstResponder()
     }
 }

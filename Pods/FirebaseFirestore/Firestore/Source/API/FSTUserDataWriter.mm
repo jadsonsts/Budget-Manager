@@ -14,8 +14,6 @@
 
 #include "Firestore/Source/API/FSTUserDataWriter.h"
 
-#import <Firestore/core/src/nanopb/nanopb_util.h>
-#import <Firestore/core/src/util/hard_assert.h>
 #import <Foundation/Foundation.h>
 
 #include <string>
@@ -31,13 +29,14 @@
 #include "Firestore/core/src/model/document_key.h"
 #include "Firestore/core/src/model/server_timestamp_util.h"
 #include "Firestore/core/src/model/value_util.h"
+#include "Firestore/core/src/nanopb/nanopb_util.h"
+#include "Firestore/core/src/util/hard_assert.h"
 #include "Firestore/core/src/util/log.h"
 #include "Firestore/core/src/util/string_apple.h"
 
 @class FIRTimestamp;
 
 namespace api = firebase::firestore::api;
-namespace util = firebase::firestore::util;
 namespace model = firebase::firestore::model;
 namespace nanopb = firebase::firestore::nanopb;
 
@@ -49,14 +48,15 @@ using firebase::firestore::google_firestore_v1_ArrayValue;
 using firebase::firestore::google_firestore_v1_MapValue;
 using firebase::firestore::google_firestore_v1_Value;
 using firebase::firestore::google_protobuf_Timestamp;
+using firebase::firestore::util::MakeNSString;
 using model::DatabaseId;
 using model::DocumentKey;
 using model::GetLocalWriteTime;
 using model::GetPreviousValue;
 using model::GetTypeOrder;
 using model::TypeOrder;
-using nanopb::MakeByteString;
 using nanopb::MakeBytesArray;
+using nanopb::MakeByteString;
 using nanopb::MakeNSData;
 using nanopb::MakeString;
 using nanopb::MakeStringView;
@@ -99,12 +99,15 @@ NS_ASSUME_NONNULL_BEGIN
                  ? @(value.integer_value)
                  : @(value.double_value);
     case TypeOrder::kString:
-      return util::MakeNSString(MakeStringView(value.string_value));
+      return MakeNSString(MakeStringView(value.string_value));
     case TypeOrder::kBlob:
       return MakeNSData(value.bytes_value);
     case TypeOrder::kGeoPoint:
       return MakeFIRGeoPoint(
           GeoPoint(value.geo_point_value.latitude, value.geo_point_value.longitude));
+    case TypeOrder::kMaxValue:
+      // It is not possible for users to construct a kMaxValue manually.
+      break;
   }
 
   UNREACHABLE();
@@ -115,7 +118,7 @@ NS_ASSUME_NONNULL_BEGIN
   for (pb_size_t i = 0; i < mapValue.fields_count; ++i) {
     absl::string_view key = MakeStringView(mapValue.fields[i].key);
     const google_firestore_v1_Value &value = mapValue.fields[i].value;
-    result[util::MakeNSString(key)] = [self convertedValue:value];
+    result[MakeNSString(key)] = [self convertedValue:value];
   }
   return result;
 }

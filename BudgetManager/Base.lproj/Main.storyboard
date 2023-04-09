@@ -472,12 +472,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Settings" id="AMz-N4-nP7"/>
                     <connections>
-                        <outlet property="confirmPassword" destination="Vfq-81-EEE" id="Pdt-YE-mbb"/>
-                        <outlet property="email" destination="DBT-1o-Rf0" id="gku-Ip-hEd"/>
-                        <outlet property="lastName" destination="da7-3J-GK7" id="Oyu-lA-Lxi"/>
-                        <outlet property="password" destination="rCk-OT-aFF" id="sAR-BA-XLz"/>
-                        <outlet property="phoneNumber" destination="QJc-OY-jf9" id="ZeM-sb-HZf"/>
-                        <outlet property="userName" destination="oRT-A0-p5g" id="2p9-4l-Kl0"/>
+                        <outlet property="confirmPasswordTextField" destination="Vfq-81-EEE" id="Pdt-YE-mbb"/>
+                        <outlet property="emailTextField" destination="DBT-1o-Rf0" id="gku-Ip-hEd"/>
+                        <outlet property="firstNameTextField" destination="oRT-A0-p5g" id="2p9-4l-Kl0"/>
+                        <outlet property="lastNameTextField" destination="da7-3J-GK7" id="Oyu-lA-Lxi"/>
+                        <outlet property="passwordTextField" destination="rCk-OT-aFF" id="sAR-BA-XLz"/>
+                        <outlet property="phoneNumberTextField" destination="QJc-OY-jf9" id="ZeM-sb-HZf"/>
                         <outlet property="userProfilePicture" destination="mJN-qb-zmm" id="tcP-kL-cgm"/>
                     </connections>
                 </viewController>
@@ -1098,187 +1098,214 @@
             <objects>
                 <viewController id="RtP-9w-NaU" customClass="SignUpViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xsT-Xh-jD9">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-aR-MLr">
-                                <rect key="frame" x="150" y="124.66666666666667" width="93" height="57.333333333333329"/>
-                                <color key="tintColor" name="tabBarColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="NV3-Uu-ubA"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uip-2W-EPI" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
-                                <rect key="frame" x="20" y="824" width="353" height="60"/>
-                                <color key="backgroundColor" name="tabBarColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="D3W-0q-65q"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Sign up">
-                                    <color key="titleColor" name="generalLabelColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="signUpPressed:" destination="RtP-9w-NaU" eventType="touchUpInside" id="L6H-RT-jFY"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="ILh-0A-dCx">
-                                <rect key="frame" x="10" y="212" width="373" height="589"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="71r-Gs-FGp">
+                                <rect key="frame" x="0.0" y="103" width="393" height="897"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iho-Cu-x31" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="PPG-Is-U5a"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="name"/>
-                                        <connections>
-                                            <action selector="firstNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Arb-VA-Dn7"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOt-49-OFO">
-                                        <rect key="frame" x="0.0" y="59" width="373" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" name="expenseLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dFl-ZD-Fp0" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="80" width="373" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="Re1-Ey-nve"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="family-name"/>
-                                        <connections>
-                                            <action selector="lastNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="yMw-EA-BLk"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ir-Ahj">
-                                        <rect key="frame" x="0.0" y="139" width="373" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" name="expenseLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-va-WRS" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="160" width="373" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="L97-vb-eYA"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES" textContentType="email"/>
-                                        <connections>
-                                            <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingDidEnd" id="7Ve-Hp-3ya"/>
-                                            <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="HS3-qE-3N1"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jt-OB-Grg">
-                                        <rect key="frame" x="0.0" y="219" width="373" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" name="expenseLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itH-jK-YZu" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="240" width="373" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="eBi-H7-uWh"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" textContentType="tel"/>
-                                        <connections>
-                                            <action selector="phoneTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Iod-PU-ozV"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2s-9d-Vw4">
-                                        <rect key="frame" x="0.0" y="299" width="373" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" name="expenseLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeB-X2-9YV" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="320" width="373" height="50"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="vKq-hF-QIg"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
-                                    </textField>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="rDK-d0-Zew">
-                                        <rect key="frame" x="0.0" y="379" width="373" height="130"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rLg-gB-uxI" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="900"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-16-3e0">
-                                                <rect key="frame" x="0.0" y="0.0" width="15" height="130"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="q3b-aR-MLr">
+                                                <rect key="frame" x="150" y="11.666666666666668" width="93" height="57.333333333333329"/>
+                                                <color key="tintColor" name="tabBarColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="15" id="kea-0h-n6u"/>
+                                                    <constraint firstAttribute="height" constant="60" id="0v4-sR-Sby"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUL-md-FyL">
-                                                <rect key="frame" x="24" y="0.0" width="349" height="130"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                <color key="textColor" name="expenseLabelColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="ILh-0A-dCx">
+                                                <rect key="frame" x="10" y="90" width="373" height="589"/>
+                                                <subviews>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iho-Cu-x31" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="PPG-Is-U5a"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="name"/>
+                                                        <connections>
+                                                            <action selector="firstNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Arb-VA-Dn7"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOt-49-OFO">
+                                                        <rect key="frame" x="0.0" y="59" width="373" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" name="expenseLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dFl-ZD-Fp0" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="80" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="Re1-Ey-nve"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="family-name"/>
+                                                        <connections>
+                                                            <action selector="lastNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="yMw-EA-BLk"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ir-Ahj">
+                                                        <rect key="frame" x="0.0" y="139" width="373" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" name="expenseLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-va-WRS" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="160" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="L97-vb-eYA"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" enablesReturnKeyAutomatically="YES" textContentType="email"/>
+                                                        <connections>
+                                                            <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingDidEnd" id="7Ve-Hp-3ya"/>
+                                                            <action selector="emailTxtFieldChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="HS3-qE-3N1"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jt-OB-Grg">
+                                                        <rect key="frame" x="0.0" y="219" width="373" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" name="expenseLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="i.e. +0000000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itH-jK-YZu" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="240" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="eBi-H7-uWh"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" textContentType="tel"/>
+                                                        <connections>
+                                                            <action selector="phoneTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Iod-PU-ozV"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2s-9d-Vw4">
+                                                        <rect key="frame" x="0.0" y="299" width="373" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" name="expenseLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeB-X2-9YV" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="320" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="vKq-hF-QIg"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
+                                                    </textField>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="rDK-d0-Zew">
+                                                        <rect key="frame" x="0.0" y="379" width="373" height="130"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-16-3e0">
+                                                                <rect key="frame" x="0.0" y="0.0" width="15" height="130"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="15" id="kea-0h-n6u"/>
+                                                                </constraints>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUL-md-FyL">
+                                                                <rect key="frame" x="24" y="0.0" width="349" height="130"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                <color key="textColor" name="expenseLabelColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="105" id="WME-IV-IOS"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-f0-l1c" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="518" width="373" height="50"/>
+                                                        <color key="backgroundColor" name="backgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="8OW-5H-ueJ"/>
+                                                        </constraints>
+                                                        <color key="textColor" name="generalLabelColor"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
+                                                        <connections>
+                                                            <action selector="confPasswordTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="nke-dd-RXf"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YR-BX-mJe">
+                                                        <rect key="frame" x="0.0" y="577" width="373" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" name="expenseLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uip-2W-EPI" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
+                                                <rect key="frame" x="20" y="699" width="353" height="60"/>
+                                                <color key="backgroundColor" name="tabBarColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="D3W-0q-65q"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="18"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" title="Sign up">
+                                                    <color key="titleColor" name="generalLabelColor"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="signUpPressed:" destination="RtP-9w-NaU" eventType="touchUpInside" id="L6H-RT-jFY"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="105" id="WME-IV-IOS"/>
-                                        </constraints>
-                                    </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-f0-l1c" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="518" width="373" height="50"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="8OW-5H-ueJ"/>
+                                            <constraint firstItem="ILh-0A-dCx" firstAttribute="leading" secondItem="rLg-gB-uxI" secondAttribute="leading" constant="10" id="AtQ-rV-wSR"/>
+                                            <constraint firstItem="q3b-aR-MLr" firstAttribute="leading" secondItem="rLg-gB-uxI" secondAttribute="leading" constant="150" id="AvN-Ae-4v3"/>
+                                            <constraint firstItem="uip-2W-EPI" firstAttribute="leading" secondItem="rLg-gB-uxI" secondAttribute="leading" constant="20" symbolic="YES" id="Rwi-mU-5QB"/>
+                                            <constraint firstAttribute="trailing" secondItem="q3b-aR-MLr" secondAttribute="trailing" constant="150" id="V29-sY-eb5"/>
+                                            <constraint firstItem="ILh-0A-dCx" firstAttribute="top" secondItem="q3b-aR-MLr" secondAttribute="bottom" constant="20" id="Yix-Dg-74w"/>
+                                            <constraint firstAttribute="trailing" secondItem="uip-2W-EPI" secondAttribute="trailing" constant="20" symbolic="YES" id="iqP-ji-zGv"/>
+                                            <constraint firstItem="uip-2W-EPI" firstAttribute="top" secondItem="ILh-0A-dCx" secondAttribute="bottom" constant="20" id="kTr-Nt-ZX4"/>
+                                            <constraint firstAttribute="height" constant="900" id="kqJ-dy-fcj"/>
+                                            <constraint firstAttribute="trailing" secondItem="ILh-0A-dCx" secondAttribute="trailing" constant="10" id="p4B-74-UnF"/>
+                                            <constraint firstItem="q3b-aR-MLr" firstAttribute="top" secondItem="rLg-gB-uxI" secondAttribute="top" constant="10" id="uNT-2Y-nGS"/>
                                         </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" textContentType="password"/>
-                                        <connections>
-                                            <action selector="confPasswordTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="nke-dd-RXf"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YR-BX-mJe">
-                                        <rect key="frame" x="0.0" y="577" width="373" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" name="expenseLabelColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    </view>
                                 </subviews>
-                            </stackView>
+                                <keyboardLayoutGuide key="keyboard" id="Euw-uC-tlq"/>
+                                <constraints>
+                                    <constraint firstItem="rLg-gB-uxI" firstAttribute="top" secondItem="71r-Gs-FGp" secondAttribute="top" constant="-5" id="5Ud-bz-xvR"/>
+                                    <constraint firstAttribute="bottom" secondItem="rLg-gB-uxI" secondAttribute="bottom" constant="2" id="lNZ-sZ-5w3"/>
+                                    <constraint firstAttribute="trailing" secondItem="rLg-gB-uxI" secondAttribute="trailing" id="qdI-th-WEV"/>
+                                    <constraint firstItem="rLg-gB-uxI" firstAttribute="leading" secondItem="71r-Gs-FGp" secondAttribute="leading" id="rTl-UX-U1a"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="xp8-zt-bbi"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="ILh-0A-dCx" firstAttribute="top" secondItem="q3b-aR-MLr" secondAttribute="bottom" constant="29" id="DY7-Kp-wQ1"/>
-                            <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="ILh-0A-dCx" secondAttribute="trailing" constant="10" id="IaJ-a3-EFs"/>
-                            <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="uip-2W-EPI" secondAttribute="trailing" constant="20" id="bEO-Ph-Stz"/>
-                            <constraint firstItem="xp8-zt-bbi" firstAttribute="trailing" secondItem="q3b-aR-MLr" secondAttribute="trailing" constant="150" id="bhJ-mO-Qgb"/>
-                            <constraint firstItem="ILh-0A-dCx" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="10" id="fJp-c4-9zO"/>
-                            <constraint firstItem="q3b-aR-MLr" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="150" id="hxJ-JX-UP6"/>
-                            <constraint firstItem="uip-2W-EPI" firstAttribute="top" secondItem="ILh-0A-dCx" secondAttribute="bottom" constant="23" id="nLe-A4-Di0"/>
-                            <constraint firstItem="uip-2W-EPI" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" constant="20" id="nMv-Wy-TeG"/>
-                            <constraint firstItem="q3b-aR-MLr" firstAttribute="top" secondItem="xp8-zt-bbi" secondAttribute="top" constant="20" id="q8Z-ng-u0L"/>
+                            <constraint firstAttribute="bottom" secondItem="71r-Gs-FGp" secondAttribute="bottom" id="BXu-kK-1D0"/>
+                            <constraint firstItem="71r-Gs-FGp" firstAttribute="trailing" secondItem="xp8-zt-bbi" secondAttribute="trailing" id="GKC-m8-vVJ"/>
+                            <constraint firstItem="71r-Gs-FGp" firstAttribute="top" secondItem="xp8-zt-bbi" secondAttribute="top" id="WRk-8f-eZ1"/>
+                            <constraint firstItem="71r-Gs-FGp" firstAttribute="leading" secondItem="xp8-zt-bbi" secondAttribute="leading" id="beq-zH-UXr"/>
+                            <constraint firstItem="rLg-gB-uxI" firstAttribute="width" secondItem="xsT-Xh-jD9" secondAttribute="width" multiplier="0.810857" constant="74.333333333333314" id="ouk-fP-dpW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="HBU-q0-xHB"/>
+                    <size key="freeformSize" width="393" height="1000"/>
                     <connections>
                         <outlet property="confPasswordValidationLabel" destination="6YR-BX-mJe" id="mG6-We-HQD"/>
                         <outlet property="confirmPasswordTxtField" destination="VHl-f0-l1c" id="7JH-UB-x5K"/>
                         <outlet property="emailTxtField" destination="Qsi-va-WRS" id="yQ3-zF-5RC"/>
                         <outlet property="emailValidationLabel" destination="1Jt-OB-Grg" id="6Vz-gz-DDB"/>
-                        <outlet property="familyNameValidationLabel" destination="9fb-Ir-Ahj" id="yic-AD-XpZ"/>
                         <outlet property="firstNameTxtField" destination="Iho-Cu-x31" id="jvM-EV-0Jm"/>
                         <outlet property="firstNameValidationLabel" destination="sOt-49-OFO" id="601-sc-bG8"/>
                         <outlet property="lastNameTxtField" destination="dFl-ZD-Fp0" id="6AN-EY-2mb"/>
+                        <outlet property="lastNameValidationLabel" destination="9fb-Ir-Ahj" id="yic-AD-XpZ"/>
                         <outlet property="passwordCheckStackView" destination="rDK-d0-Zew" id="WNo-C1-CTQ"/>
                         <outlet property="passwordImageViewValidation" destination="KwZ-16-3e0" id="qNV-eA-x9v"/>
                         <outlet property="passwordTxtField" destination="zeB-X2-9YV" id="bhP-Qa-49L"/>

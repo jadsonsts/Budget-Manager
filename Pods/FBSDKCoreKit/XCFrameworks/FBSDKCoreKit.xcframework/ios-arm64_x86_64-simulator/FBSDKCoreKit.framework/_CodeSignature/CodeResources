@@ -134,7 +134,7 @@
 		</data>
 		<key>Headers/FBSDKAppEventsUtilityProtocol.h</key>
 		<data>
-		B92A9n5nK+eW2zqCL/7Wnm44kqQ=
+		w++q3FMjWosIk0QoN6chRjfvng8=
 		</data>
 		<key>Headers/FBSDKAppLinkCreating.h</key>
 		<data>
@@ -310,7 +310,7 @@
 		</data>
 		<key>Headers/FBSDKCoreKitVersions.h</key>
 		<data>
-		Zs2oGMHN+XgH3d8cZvC6qYMi76o=
+		+NFk93Lr6oou/VXgl4ux+bhZW5s=
 		</data>
 		<key>Headers/FBSDKCrashObserver.h</key>
 		<data>
@@ -838,7 +838,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		riaOANsht/12ciMwmPiwsYqVTA8=
+		d5Ie3pMs/5nD1/7tmb/LxU9hfhU=
 		</data>
 		<key>Modules/FBSDKCoreKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -858,7 +858,7 @@
 		</data>
 		<key>Modules/FBSDKCoreKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		lmhzC4zJdNsdvwxJFJPlPeeHzpY=
+		q+M8zR5IrO0BeFWi3o2EvaYSw4c=
 		</data>
 		<key>Modules/FBSDKCoreKit.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -878,7 +878,7 @@
 		</data>
 		<key>Modules/FBSDKCoreKit.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		62ccWL41J92inBFfwHaogBUz830=
+		Sej0I+Hd0DpC8BCVSeU9QdaDSqE=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -1115,7 +1115,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GqSDBtnO6Rl9YeKVM4HW9KL0ei1VQnXIZ4Z4Ucg6Frc=
+			5XYISqTXIOZPBrYNgUjayHCm4HMFKWuvcjLD+DYj3GA=
 			</data>
 		</dict>
 		<key>Headers/FBSDKAppLinkCreating.h</key>
@@ -1423,7 +1423,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			twWSef97pH9pVIOe5/EhhAeVe7c2FvXlmE/vWXu1N5Q=
+			rG6hI41C2RhzSh53nSrTe0Et5itdXO4WKuUhNRA8NG4=
 			</data>
 		</dict>
 		<key>Headers/FBSDKCrashObserver.h</key>
@@ -2375,7 +2375,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TWdPP9meQN7l+XJNW9jTaI0b9LAHM0t3DV3w6uPAW1g=
+			V3oR+krLtEIatv43j2/GqJU3BnV1wNmgiLqYVMyKUsY=
 			</data>
 		</dict>
 		<key>Modules/FBSDKCoreKit.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -2410,7 +2410,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LnTE/Enc4Cb7rIEH0nNSRm6d079aJzqmZEHe+7pv48s=
+			NdDc0aoO5vrziXi59LDRFReanBaAJ6jS3qCcj+6iNeU=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
