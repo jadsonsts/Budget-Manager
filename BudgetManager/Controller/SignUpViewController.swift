@@ -110,7 +110,6 @@ class SignUpViewController: UIViewController {
         }
     }
     
-   
     func setupProfilePicture() {
         profilePictureImageView.layer.cornerRadius = 40
         profilePictureImageView.clipsToBounds = true
@@ -118,8 +117,6 @@ class SignUpViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
         profilePictureImageView.addGestureRecognizer(tapGesture)
     }
-    
-    
     
     //MARK: - TextField functions
     
@@ -277,7 +274,6 @@ class SignUpViewController: UIViewController {
                 
             }
         }
-        
         
         //                else {
         //                    self.performSegue(withIdentifier: K.registerSegue, sender: self)

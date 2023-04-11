@@ -12,19 +12,20 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
 
+let REF_USER = "users"
+let STORAGE_PROFILE = "profilePicture"
+let URL_STORAGE_ROOT = "gs://budget-manager-75102.appspot.com"
+let UID = "uid"
+let EMAIL = "email"
+let PROFILE_IMAGE_URL = "profileImageUrl"
+let CONTENT_TYPE = "image/jpg"
+
 class DataController {
     static let shared = DataController()
     
     
     let baseURL = URL(string: "aaa")!
     let jsonDecoder = JSONDecoder()
-    
-    func fetchTransactions(for userID: String) {
-        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
-        let transactionURL = baseURL.appendingPathComponent("\(userID)")
-    }
-    
-
     
     
 //MARK: - creates user as they SignUp
@@ -40,45 +41,69 @@ class DataController {
                 return
             }
             if let authData = authResult {
-                print(authData.user.email)
+               // print(authData.user.email)
                 var dict: Dictionary<String, Any> = [
-                    "uid": authData.user.uid,
-                    "email": authData.user.email,
-                    "profileImageUrl": ""
+                    UID: authData.user.uid,
+                    EMAIL: authData.user.email,
+                    PROFILE_IMAGE_URL: ""
                 ]
                 //create the reference to the storage on firebase
-                let storageRef = Storage.storage().reference(forURL: "gs://budget-manager-75102.appspot.com")
-                let storageProfileRef = storageRef.child("profilePicture").child(authData.user.uid)
+                let storageRef = Storage.storage().reference(forURL: URL_STORAGE_ROOT)
+                let storageProfileRef = storageRef.child(STORAGE_PROFILE).child(authData.user.uid)
                 
                 let metadata = StorageMetadata()
-                metadata.contentType = "image/jpg"
-                storageProfileRef.putData(imageData,metadata: metadata) { storageMetadata, error in
-                    if error != nil {
-                        print(error?.localizedDescription)
-                        return
+                metadata.contentType = CONTENT_TYPE
+                
+                self.savePhoto(uid: authData.user.uid, imageData: imageData, metadata: metadata, storageProfileRef: storageProfileRef, dict: dict) {
+                    onSucess()
+                } onError: { errorMessage in
+                    onError(errorMessage)
+                }
+            }
+        }
+    }
+    
+    //MARK: - FIREBASE STORAGE SERVICE
+    
+    func savePhoto(uid: String, imageData: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+        
+        storageProfileRef.putData(imageData,metadata: metadata) { storageMetadata, error in
+            if error != nil {
+                //print(error?.localizedDescription)
+                onError(error!.localizedDescription)
+                return
+            }
+            
+            //download the image to save on the dictionary
+            storageProfileRef.downloadURL { url, error in
+                if let metaImageUrl = url?.absoluteString {
+                    
+                    if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
+                        changeRequest.photoURL = url
+                        changeRequest.commitChanges { error in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            }
+                        }
                     }
                     
-                    //download the image to save on the dictionary
-                    storageProfileRef.downloadURL { url, error in
-                        if let metaImageUrl = url?.absoluteString {
-                            dict["profileImageUrl"] = metaImageUrl
-                            
-                            Database.database().reference().child("users").child(authData.user.uid).updateChildValues(dict) { error, ref in
-                                if error == nil {
-                                    onSucess()
-                                } else {
-                                    onError(error!.localizedDescription)
-                                }
-                            }
+                    var dictTemp = dict
+                    dictTemp[PROFILE_IMAGE_URL] = metaImageUrl
+                    
+                    Database.database().reference().child(REF_USER).child(uid).updateChildValues(dictTemp) { error, ref in
+                        if error == nil {
+                            onSucess()
+                        } else {
+                            onError(error!.localizedDescription)
                         }
                     }
                 }
             }
         }
-        
     }
     
-    //create the user on the database (mysql)
+    //MARK: - create the user on the database (mysql)
+    
     func createUser(with userID: String, completion: @escaping (String?) -> Void) {
         let userURL = baseURL.appendingPathComponent("user:\(userID)")
         
@@ -99,8 +124,9 @@ class DataController {
             }
         }
         task.resume()
-        
     }
+   
+    //MARK: - CREATE THE TRANSACTION
     
     func createTransaction(for userID: String, completion: @escaping (String?) -> Void) {
         let transactionURL = baseURL.appendingPathComponent("user:\(userID)")
@@ -124,13 +150,23 @@ class DataController {
         task.resume()
     }
     
+    //MARK: - FETCH TRANSACTIONS
+    func fetchTransactions(for userID: String) {
+        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
+        let transactionURL = baseURL.appendingPathComponent("\(userID)")
+    }
+    
+    //MARK: - UPDATE THE USER
+    
     func updateUser(_ userID: String){
         
     }
+    //MARK: - UPDATE TRANSACTION
     
     func updateTransaction(_ transactionID: Int){
         
     }
+    //MARK: - DELETE TRANSACTION
     
     func deleteTransaction(_ transactionID: Int){
         
