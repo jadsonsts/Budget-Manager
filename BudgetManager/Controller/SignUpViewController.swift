@@ -7,6 +7,9 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseFirestore
+import FirebaseStorage
 
 class SignUpViewController: UIViewController {
     
@@ -28,24 +31,23 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var phoneValidationLabel: UILabel!
     @IBOutlet weak var confPasswordValidationLabel: UILabel!
     @IBOutlet weak var passwordCheckStackView: UIStackView!
-    
+    @IBOutlet weak var imageValidationLabel: UILabel!
     
     let passwordValidation = PasswordValidationObj()
-    
-    var validationLabels: [UILabel] = []
-    var validationImageViews: [UIImageView] = []
+    var image: UIImage? = nil
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        imageValidationLabel.isHidden = true
         firstNameValidationLabel.isHidden = true
         lastNameValidationLabel.isHidden = true
         emailValidationLabel.isHidden = true
         phoneValidationLabel.isHidden = true
         confPasswordValidationLabel.isHidden = true
         hidePasswordCheckStackView()
-        
+        setupProfilePicture()
         
         passwordTxtField.delegate = self
         passwordValidation.onChange = { [weak self] _ in
@@ -107,6 +109,19 @@ class SignUpViewController: UIViewController {
             }
         }
     }
+    
+   
+    func setupProfilePicture() {
+        profilePictureImageView.layer.cornerRadius = 40
+        profilePictureImageView.clipsToBounds = true
+        profilePictureImageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
+        profilePictureImageView.addGestureRecognizer(tapGesture)
+    }
+    
+    
+    
+    //MARK: - TextField functions
     
     @IBAction func emailTxtFieldChanged(_ sender: CustomTxtField) {
         let email = sender.text ?? ""
@@ -174,7 +189,6 @@ class SignUpViewController: UIViewController {
             }
         }
     }
-    
     
     @IBAction func phoneTxtChanged(_ sender: CustomTxtField) {
         let phone = sender.text ?? ""
@@ -244,21 +258,34 @@ class SignUpViewController: UIViewController {
         //        while passwordTxtField.text == nil && confirmPasswordTxtField.text == passwordTxtField.text {
         //            signUpButton.isEnabled = false
         //        }
+        
+        //checking if the image is available, if so, convert it to data to storage on firebase
+        guard let imageSelected = self.image else {
+            imageValidationLabel.isHidden = false
+            imageValidationLabel.text = ErrorMessageType.noImage.message()
+            return
+        }
+        imageValidationLabel.isHidden = true
+        
         if
             let email = emailTxtField.text,
             let password = passwordTxtField.text {
-            Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-                if let e = error {
-                    print(e.localizedDescription) //CREATE POPUP WITH THE ERROR
-                } else {
-                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
-                    //func to send the rest of the data through API
-                    if let userID = Auth.auth().currentUser?.uid {
-                        print (userID)
-                    }
-                }
+            
+            DataController.shared.signUp(withEmail: email, password: password, image: imageSelected) {
+                
+            } onError: { errorMessage in
+                
             }
         }
+        
+        
+        //                else {
+        //                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
+        //                    //func to send the rest of the data through API
+        //                    if let userID = Auth.auth().currentUser?.uid {
+        //                        print (userID)
+        //                    }
+        //                }
     }
     
     //MARK: - DONE BUTTON CREATION
@@ -287,4 +314,43 @@ extension SignUpViewController: UITextFieldDelegate {
         
         return true
     }
+}
+
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    @objc func presentPicker() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        
+        let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
+                picker.sourceType = .camera
+                self.present(picker, animated: true, completion: nil)
+            }
+            alertController.addAction(cameraAction)
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
+                picker.sourceType = .photoLibrary
+                self.present(picker, animated: true, completion: nil)
+            }
+            alertController.addAction(photoLibraryAction)
+        }
+        
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let originalImage = info[.originalImage] as? UIImage {
+            profilePictureImageView.image = originalImage
+            image = originalImage
+        }
+        picker.dismiss(animated: true)
+    }
+    
 }

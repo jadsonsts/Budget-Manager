@@ -80,22 +80,24 @@ struct Validation: Identifiable {
 }
 
 enum ErrorMessageType: String {
-    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword
+    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword, noImage
     
     func message() -> String {
         switch self {
             case .validEmail:
-                return "Please enter a valid email."
+                return "✖︎ Please enter a valid email."
             case .notEmpty:
-                return "The field cannot be empty."
+                return "✖︎ The field cannot be empty."
             case .validName:
-                return "Please enter a valid Name."
+                return "✖︎ Please enter a valid Name."
             case .validFamilyName:
-                return "Please enter a valid Family Name."
+                return "✖︎ Please enter a valid Family Name."
             case .validPhone:
-                return "Please enter a valid phone number."
+                return "✖︎ Please enter a valid phone number."
             case .confirmationPassword:
-                return "Field must be equal to password."
+                return "✖︎ Field must be equal to password."
+            case .noImage:
+                return "✖︎ Please choose your pro one image"
         }
     }
 }
@@ -110,13 +112,13 @@ extension String {
     }
     
     func isValidName(_ name: String) -> Bool {
-        let nameRegEx = "^[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}(?:\\s[A-Za-zÀ-ÖØ-öø-ÿ]{3,50})*$"
+        let nameRegEx = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
         let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
         return nameTest.evaluate(with: name)
     }
     
     func isValidFamilyName(_ familyName: String) -> Bool {
-        let nameRegEx = "^[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}(?:\\s[A-Za-zÀ-ÖØ-öø-ÿ]{2,50}){0,2}$"
+        let nameRegEx = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
         let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
         return nameTest.evaluate(with: familyName)
     }

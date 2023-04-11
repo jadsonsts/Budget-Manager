@@ -13,6 +13,7 @@ class CustomTxtField: UITextField {
         self.layer.cornerRadius = self.frame.height / 4
         self.layer.borderColor = CustomColors.greenColor.cgColor
         self.layer.borderWidth = 1
+        self.clipsToBounds = true
     }
     
     let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -37,8 +38,8 @@ extension UITextField {
     }
     
     func hideError() {
-        layer.borderWidth = 0
-        layer.borderColor = nil
+        layer.borderWidth = 1
+        layer.borderColor = CustomColors.greenColor.cgColor
     }
 }
 

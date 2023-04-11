@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Budget Manager need access to your camera to take the picture</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Budget Manager need access to yout library to pick the photo you chose</string>
 	<key>OAuth client ID</key>
 	<string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
 	<key>UIApplicationSceneManifest</key>
