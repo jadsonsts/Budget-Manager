@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
+import ProgressHUD
 
 class SignUpViewController: UIViewController {
     
@@ -251,10 +252,33 @@ class SignUpViewController: UIViewController {
         }
     }
     
+//    func validateFields() -> Bool {
+//        guard let name = firstNameTxtField.text, !name.isEmpty,
+//              let lastName = lastNameTxtField.text, !lastName.isEmpty,
+//              let phone = phoneTxtField.text, !phone.isEmpty,
+//              let email = emailTxtField.text, !email.isEmpty,
+//              let password = passwordTxtField.text, !password.isEmpty,
+//              let confPassword = confirmPasswordTxtField.text, !confPassword.isEmpty else {
+//                  ProgressHUD.showError(ErrorMessageType.emptyForm.message())
+//            return false
+//        }
+//         return true
+//    }
+    
+    func validateFields() -> (firstName: String, lastName: String, phone: String, email: String, password: String, confPassword: String)? {
+        guard let firstName = firstNameTxtField.text, !firstName.isEmpty,
+              let lastName = lastNameTxtField.text, !lastName.isEmpty,
+              let phone = phoneTxtField.text, !phone.isEmpty,
+              let email = emailTxtField.text, !email.isEmpty,
+              let password = passwordTxtField.text, !password.isEmpty,
+              let confPassword = confirmPasswordTxtField.text, !confPassword.isEmpty else {
+            ProgressHUD.showError(ErrorMessageType.emptyForm.message())
+            return nil
+        }
+        return (firstName, lastName, phone, email, password, confPassword)
+    }
+
     @IBAction func signUpPressed(_ sender: CustomButton) {
-        //        while passwordTxtField.text == nil && confirmPasswordTxtField.text == passwordTxtField.text {
-        //            signUpButton.isEnabled = false
-        //        }
         
         //checking if the image is available, if so, convert it to data to storage on firebase
         guard let imageSelected = self.image else {
@@ -264,17 +288,16 @@ class SignUpViewController: UIViewController {
         }
         imageValidationLabel.isHidden = true
         
-        if
-            let email = emailTxtField.text,
-            let password = passwordTxtField.text {
-            
-            DataController.shared.signUp(withEmail: email, password: password, image: imageSelected) {
-                
+        //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase and the server
+        guard let fields = validateFields() else { return }
+        ProgressHUD.show()
+        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
+            ProgressHUD.showSuccess()
             } onError: { errorMessage in
-                
+                ProgressHUD.showError(errorMessage)
             }
-        }
         
+
         //                else {
         //                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
         //                    //func to send the rest of the data through API

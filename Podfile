@@ -14,6 +14,7 @@ pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
 pod 'FirebaseDatabase'
 pod 'FirebaseStorage'
+pod 'ProgressHUD'
 
   
 

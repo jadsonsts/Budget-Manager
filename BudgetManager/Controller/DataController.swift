@@ -11,6 +11,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
+import ProgressHUD
 
 let REF_USER = "users"
 let STORAGE_PROFILE = "profilePicture"
@@ -37,12 +38,12 @@ class DataController {
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let e = error {
-                print(e.localizedDescription) //CREATE POPUP WITH THE ERROR
+                ProgressHUD.showError(e.localizedDescription)
                 return
             }
             if let authData = authResult {
                // print(authData.user.email)
-                var dict: Dictionary<String, Any> = [
+                let dict: Dictionary<String, Any> = [
                     UID: authData.user.uid,
                     EMAIL: authData.user.email,
                     PROFILE_IMAGE_URL: ""

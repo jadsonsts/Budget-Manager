@@ -80,7 +80,7 @@ struct Validation: Identifiable {
 }
 
 enum ErrorMessageType: String {
-    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword, noImage
+    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword, noImage, emptyForm
     
     func message() -> String {
         switch self {
@@ -97,7 +97,9 @@ enum ErrorMessageType: String {
             case .confirmationPassword:
                 return "✖︎ Field must be equal to password."
             case .noImage:
-                return "✖︎ Please choose your pro one image"
+                return "✖︎ Please choose your profile picture"
+            case .emptyForm:
+                return " Please fill out the form"
         }
     }
 }
