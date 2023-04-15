@@ -37,6 +37,10 @@ class SignUpViewController: UIViewController {
     let passwordValidation = PasswordValidationObj()
     var image: UIImage? = nil
     
+    override func viewWillAppear(_ animated: Bool) {
+        hidePasswordCheckStackView()
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +142,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func firstNameTxtChanged(_ sender: CustomTxtField) {
         let name = sender.text ?? ""
-        if name.count == 0 {
+        if name.count == 0 || name.isEmpty || name == ""{
             firstNameValidationLabel.text = ErrorMessageType.notEmpty.message()
             firstNameTxtField.showError()
             UIView.animate(withDuration: 0.3) {
@@ -164,7 +168,7 @@ class SignUpViewController: UIViewController {
     
     @IBAction func lastNameTxtChanged(_ sender: CustomTxtField) {
         let lastName = sender.text ?? ""
-        if lastName.count == 0 {
+        if lastName.count == 0 || lastName.isEmpty || lastName == "" {
             lastNameTxtField.showError()
             lastNameValidationLabel.text = ErrorMessageType.notEmpty.message()
             UIView.animate(withDuration: 0.3) {
@@ -252,19 +256,6 @@ class SignUpViewController: UIViewController {
         }
     }
     
-//    func validateFields() -> Bool {
-//        guard let name = firstNameTxtField.text, !name.isEmpty,
-//              let lastName = lastNameTxtField.text, !lastName.isEmpty,
-//              let phone = phoneTxtField.text, !phone.isEmpty,
-//              let email = emailTxtField.text, !email.isEmpty,
-//              let password = passwordTxtField.text, !password.isEmpty,
-//              let confPassword = confirmPasswordTxtField.text, !confPassword.isEmpty else {
-//                  ProgressHUD.showError(ErrorMessageType.emptyForm.message())
-//            return false
-//        }
-//         return true
-//    }
-    
     func validateFields() -> (firstName: String, lastName: String, phone: String, email: String, password: String, confPassword: String)? {
         guard let firstName = firstNameTxtField.text, !firstName.isEmpty,
               let lastName = lastNameTxtField.text, !lastName.isEmpty,
@@ -293,6 +284,8 @@ class SignUpViewController: UIViewController {
         ProgressHUD.show()
         DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
             ProgressHUD.showSuccess()
+            //create user, create wallet functions
+            //perform segue to main controller
             } onError: { errorMessage in
                 ProgressHUD.showError(errorMessage)
             }
@@ -336,9 +329,11 @@ extension SignUpViewController: UITextFieldDelegate {
 }
 
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @objc func presentPicker() {
         let picker = UIImagePickerController()
         picker.delegate = self
+        picker.allowsEditing = true
         
         let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -368,6 +363,12 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         if let originalImage = info[.originalImage] as? UIImage {
             profilePictureImageView.image = originalImage
             image = originalImage
+        }
+        
+        if let editedImage = info[.editedImage] as? UIImage {
+            profilePictureImageView.image = editedImage
+            image = editedImage
+            
         }
         picker.dismiss(animated: true)
     }

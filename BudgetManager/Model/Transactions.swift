@@ -7,15 +7,13 @@
 
 import Foundation
 
-struct Transactions: Codable {
+struct Transaction: Codable {
+    let id: Int
     let reference: String
-    let amount: Int
-    let date: String
-    let category: CategoryElement
-    let comments: String?
-    let transactionType: String
-    
-    enum CodingKeys: String, CodingKey {
-        case reference, amount, date, category, comments, transactionType
-    }
+    let amount: Double
+    let date, comment, transactionType: String
+    let walletID, categoryID: Int
 }
+
+typealias Transactions = [Transaction]
+

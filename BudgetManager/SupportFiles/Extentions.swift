@@ -33,7 +33,7 @@ enum ValidationType {
         case .isNotEmpty:
             return !string.isEmpty
         case .minCharacters(min: let min):
-            return string.count > min
+            return string.count >= min
         case .hasSymbols:
             return string.containsCharacter()
         case .hasUppercasedLetters:

@@ -8,6 +8,7 @@
 import UIKit
 import GoogleSignIn
 import FBSDKLoginKit
+import FBSDKCoreKit
 
 class LoginWithAppsViewController: UIViewController {
 
@@ -28,11 +29,9 @@ class LoginWithAppsViewController: UIViewController {
         }
         
         setupButtonUI()
-        
     }
 
     // setting button title and image
-    
     func setupButtonUI() {
         
         let fbColor = UIColor(red: 0.26, green: 0.40, blue: 0.70, alpha: 1.00)

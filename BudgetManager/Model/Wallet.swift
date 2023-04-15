@@ -8,7 +8,13 @@
 import Foundation
 
 struct Wallet: Codable {
+    let walletID: Int
     let walletName: String
-    let amount: Int
-    let transactions: [Transactions]
+    let amount: Double
+    let customerID: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case walletID, walletName, amount
+        case customerID = "customer_ID"
+    }
 }

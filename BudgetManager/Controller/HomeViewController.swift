@@ -7,6 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseFirestore
+import ProgressHUD
+
 
 struct Section {
     let date: String
@@ -66,6 +71,7 @@ class HomeViewController: UIViewController {
             navigationController?.popToRootViewController(animated: true)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
+            ProgressHUD.showError(signOutError as? String)
         }
     }
     
@@ -78,11 +84,11 @@ class HomeViewController: UIViewController {
         if let path = Bundle.main.path(forResource: "CustomerExample", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let newResponse = try JSONDecoder().decode(Customer.self, from: data)
+                let newResponse = try JSONDecoder().decode(Transactions.self, from: data)
                 //print (newResponse)
                 
                 //create sections
-                newResponse.wallet.transactions.forEach({ transactions in
+                newResponse.forEach({ transactions in
                     if !self.dataSource.contains(where: {$0.date == transactions.date}) {
                         self.dataSource.append(Section(date: transactions.date, transaction: [transactions]))
                         
