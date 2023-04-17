@@ -13,14 +13,10 @@ import FirebaseFirestore
 import ProgressHUD
 
 
-struct Section {
-    let date: String
-    var transaction: [Transactions]
-}
-
 class HomeViewController: UIViewController {
     
-    //let customer = Customer()
+    var customer: Customer!
+    var wallet: Wallet!
 
     @IBOutlet weak var profilePictureUIImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -35,6 +31,16 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+        DataController.shared.fetchCustomer("34jk25h") { customer in
+            if let customerID = customer.id {
+                //DataController.shared.fetchUserWallet(customerID)
+            }
+            
+        } onError: { errorMessage in
+            ProgressHUD.showError(errorMessage)
+        }
+
         
     }
     
@@ -58,6 +64,8 @@ class HomeViewController: UIViewController {
 
         self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
         transactionsSegmentedControl.hightlightSelectedSegment()
+        
+        //fetchTransactions()
     }
     
     @IBAction func hideValuesButton(_ sender: Any) {
@@ -75,19 +83,53 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func transactionSegmentedControlDidChange(_ sender: Any) {
+    @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
         transactionsSegmentedControl.underlinePosition()
+       
+        switch sender.selectedSegmentIndex {
+            case 0:
+                fetchTransactions(type: 0)
+            case 1:
+                fetchTransactions(type: 1)
+            case 2:
+                fetchTransactions(type: 2)
+            default:
+                //fetch all
+                fetchTransactions(type: 0)
+        }
+       
     }
     
-    //MARK: - fetching data - move later (?)
-    func fetchAllTransactions() {
+//MARK: - fetching data and creating sections by date
+    func fetchAllTransactions(type: Int = 0) {
+        
+        DataController.shared.fetchTransactions(type: type, walletID: wallet.walletID!) { transactions in
+            for transaction in transactions {
+                if !self.dataSource.contains(where: {$0.date == transaction.date}) {
+                    self.dataSource.append(Section(date: transaction.date, transaction: [transaction]))
+                    
+                } else {
+                    guard let index = self.dataSource.firstIndex(where: { $0.date == transaction.date}) else { return }
+                    self.dataSource[index].transaction.append(transaction)
+                }
+            }
+
+            DispatchQueue.main.async { [self] in
+                transactionsTableView.reloadData()
+            }
+        } onError: { error in
+            print(error)
+        }
+    }
+  /* func fetchAllTransactions() {
         if let path = Bundle.main.path(forResource: "CustomerExample", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let newResponse = try JSONDecoder().decode(Transactions.self, from: data)
+                let newResponse = try JSONDecoder().decode(Transaction.self, from: data)
                 //print (newResponse)
                 
                 //create sections
+                let transactionInSections = Transaction.self
                 newResponse.forEach({ transactions in
                     if !self.dataSource.contains(where: {$0.date == transactions.date}) {
                         self.dataSource.append(Section(date: transactions.date, transaction: [transactions]))
@@ -117,16 +159,37 @@ class HomeViewController: UIViewController {
                 print("error: ", error)
             }
         }
+    } */
+    
+    func fetchTransactions(type: Int = 0) {
+        DataController.shared.fetchTransactions(type: type, walletID: 1) { transactions in //change wallet to be dinamic
+            ProgressHUD.show()
+            self.dataSource = self.createSections(transactions: transactions)
+            ProgressHUD.dismiss()
+        } onError: { error in
+            ProgressHUD.showError(error)
+        }
     }
     
-    func fetchIncomeTransactions() {
+    //organizing the transactions by date:
+    func createSections(transactions: Transactions) -> [Section] {
+        var transactionsByDate: [String: [Transaction]] = [:]
+        for transaction in transactions {
+            if var transactionsForDate = transactionsByDate[transaction.date] {
+                transactionsForDate.append(transaction)
+                transactionsByDate[transaction.date] = transactionsForDate
+            } else {
+                transactionsByDate[transaction.date] = [transaction]
+            }
+        }
+        var sections: [Section] = []
+        for (date, transactions) in transactionsByDate {
+            sections.append(Section(date: date, transaction: transactions))
+        }
         
+        sections.sort { $0.date > $1.date }
+        return sections
     }
-    
-    func fetchExpenseTransactions() {
-        
-    }
-
 }
 //MARK: - TableView
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
@@ -161,7 +224,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transactions {
+        if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
             destinationVC.transaction = transaction
         }
         

@@ -42,7 +42,6 @@ class DataController {
         }
     }
     
-    
 //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
     func signUp(withEmail email: String, password: String, image: UIImage?, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
@@ -117,84 +116,166 @@ class DataController {
     
     //MARK: - create the user on the database (mysql)
     
-    func createUser(with userID: String, completion: @escaping (String?) -> Void) {
+    func createUser(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer")
-        
         var request = URLRequest(url: userURL)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let data: [String: Any] = ["User": userID]
         
-        let jsonData = try? jsonEnconder.encode(data)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let data = data, let user = try? self.jsonDecoder.decode(Customer.self, from: data) {
-                completion(user.name)
-            } else {
-                completion(nil)
+        do {
+            let body = try jsonEnconder.encode(customer)
+            request.httpBody = body
+            let task = session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onError(error.localizedDescription)
+                        return
+                    }
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        onError("Failed to get data from the server")
+                        return
+                    }
+                    do {
+                        if response.statusCode == 200 {
+                            let customer = try self.jsonDecoder.decode(Customer.self, from: data)
+                            onSucess(customer)
+                        } else {
+                            let err = try self.jsonDecoder.decode(APIError.self, from: data)
+                            onError(err.message)
+                        }
+                    } catch {
+                        onError(error.localizedDescription)
+                    }
+                }
             }
+            task.resume()
+        } catch {
+            onError(error.localizedDescription)
         }
-        task.resume()
     }
     
     //MARK: - Create the user's wallet
     
-    func createUserWallet (with userID: String, completion: @escaping (String?) -> Void) {
+    func createUserWallet (for wallet: Wallet, onSucess: @escaping (Wallet) -> Void, onError: @escaping (String) -> Void) {
         let userWalletURL = baseURL.appendingPathComponent("/wallet")
-        
         var request = URLRequest(url: userWalletURL)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let data: [String: Any] = ["User": userID]
         
-        let jsonData = try? jsonEnconder.encode(data)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let data = data, let user = try? self.jsonDecoder.decode(Customer.self, from: data) {
-                completion(user.name)
-            } else {
-                completion(nil)
+        do {
+            let body = try jsonEnconder.encode(wallet)
+            request.httpBody = body
+            let task = session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async { [self] in
+                    if let error = error {
+                        onError(error.localizedDescription)
+                        return
+                    }
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        onError("Failed to get data from the server")
+                        return
+                    }
+                    do {
+                        if response.statusCode == 200 {
+                            let customer = try jsonDecoder.decode(Wallet.self, from: data)
+                            onSucess(wallet)
+                        } else {
+                            let err = try jsonDecoder.decode(APIError.self, from: data)
+                            onError(err.message)
+                        }
+                    } catch {
+                        onError(error.localizedDescription)
+                    }
+                }
             }
+            task.resume()
+        } catch {
+            onError(error.localizedDescription)
         }
-        task.resume()
     }
    
     //MARK: - CREATE THE TRANSACTION
     
-    func createTransaction(for userID: String, completion: @escaping (String?) -> Void) {
+    func createTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
         let transactionURL = baseURL.appendingPathComponent("/transaction)")
-        
         var request = URLRequest(url: transactionURL)
         request.httpMethod = "POST"
-        request.setValue("", forHTTPHeaderField: "")
-        let data: [String: String] = ["User": userID]
-        let jsonData = try? jsonEnconder.encode(data)
         
-        request.httpBody = jsonData
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            if let data = data, let transaction = try? self.jsonDecoder.decode(Transaction.self, from: data) {
-                completion(transaction.reference)
-            } else {
-                completion(nil)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        do {
+            let body = try jsonEnconder.encode(transaction)
+            request.httpBody = body
+            let task = session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onError(error.localizedDescription)
+                        return
+                    }
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        onError("Failed to get data from the server")
+                        return
+                    }
+                    do {
+                        if response.statusCode == 200 {
+                            let customer = try self.jsonDecoder.decode(Transaction.self, from: data)
+                            onSucess(transaction)
+                        } else {
+                            let err = try self.jsonDecoder.decode(APIError.self, from: data)
+                            onError(err.message)
+                        }
+                    } catch {
+                        onError(error.localizedDescription)
+                    }
+                }
+            }
+            task.resume()
+        } catch {
+            onError(error.localizedDescription)
+        }
+    }
+    
+    //MARK: - FETCH TRANSACTIONS
+    func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
+        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
+        let transactionURL = baseURL.appendingPathComponent("/\(type)/\(walletID)")
+        
+        let task = session.dataTask(with: transactionURL) { data, response, error in
+            DispatchQueue.main.async { [self] in
+                if let error = error {
+                    onError (error.localizedDescription)
+                    return
+                }
+                
+                guard let data = data, let response = response as? HTTPURLResponse else {
+                    onError("Invalid Data or response")
+                    return
+                }
+                
+                do {
+                    if response.statusCode == 200 {
+                        let transactions = try jsonDecoder.decode(Transactions.self, from: data)
+                        onSuccess(transactions)
+                    } else {
+                        let error = try jsonDecoder.decode(APIError.self, from: data)
+                        onError(error.message)
+                    }
+                } catch {
+                    onError (error.localizedDescription)
+                }
             }
         }
         task.resume()
     }
     
-    //MARK: - FETCH TRANSACTIONS
-    func fetchTransactions(for type: String, walletID: Int) {
-        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
-        let transactionURL = baseURL.appendingPathComponent("/\(type)/\(walletID)")
-    }
-    
     //MARK: - FETCH USER
     
-    func fetchUser(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+    func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/byid/\(userID)")
             let task = session.dataTask(with: userURL) { data, response, error in
                 DispatchQueue.main.async  { [self] in
@@ -221,23 +302,44 @@ class DataController {
     
     //MARK: - FETCH WALLET
     
-    func fetchUserWallet(_ userID: String){
-        
+    func fetchUserWallet(walletID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        let walletURL = baseURL.appendingPathComponent("/wallet/\(walletID)")
+        let task = session.dataTask(with: walletURL) { data, response, error in
+            DispatchQueue.main.async  { [self] in
+                if let error = error {
+                    onError(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
+                    return
+                }
+                guard let safeData = data else {
+                    onError("Invalid Data")
+                    return
+                }
+                do {
+                    let customer = try jsonDecoder.decode(Wallet.self, from: safeData)
+                    onSuccess(customer)
+                } catch {
+                    onError(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
+                }
+            }
+        }
+        task.resume()
     }
     
     //MARK: - UPDATE USER
     
-    func updateUser(_ userID: String){
+    func updateUser(_ userID: String) {
         
     }
     //MARK: - UPDATE TRANSACTION
     
-    func updateTransaction(_ transactionID: Int){
+    func updateTransaction(_ transactionID: Int) {
         
     }
     //MARK: - DELETE TRANSACTION
     
-    func deleteTransaction(_ transactionID: Int){
+    func deleteTransaction(_ transactionID: Int) {
         
     }
     

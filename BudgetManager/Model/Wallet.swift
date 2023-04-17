@@ -8,7 +8,7 @@
 import Foundation
 
 struct Wallet: Codable {
-    let walletID: Int
+    let walletID: Int?
     let walletName: String
     let amount: Double
     let customerID: Int

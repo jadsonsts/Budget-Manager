@@ -268,7 +268,7 @@ class SignUpViewController: UIViewController {
         }
         return (firstName, lastName, phone, email, password, confPassword)
     }
-
+    
     @IBAction func signUpPressed(_ sender: CustomButton) {
         
         //checking if the image is available, if so, convert it to data to storage on firebase
@@ -284,20 +284,46 @@ class SignUpViewController: UIViewController {
         ProgressHUD.show()
         DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
             ProgressHUD.showSuccess()
-            //create user, create wallet functions
-            //perform segue to main controller
+            guard let userID = Auth.auth().currentUser?.uid else { return }
+            
+            //create the customer object to pass in and input the data on the mySql database
+            let customer = Customer(id: nil,
+                                    firebaseID: userID,
+                                    name: fields.firstName,
+                                    familyName: fields.lastName,
+                                    email: fields.email,
+                                    phone: fields.phone,
+                                    profilePicture: nil,
+                                    isActive: true)
+            DataController.shared.createUser(with: customer) { customer in
+                guard let customerID = customer.id else { return }
+                let wallet = Wallet(walletID: nil,
+                                    walletName: "Main",
+                                    amount: 0.0,
+                                    customerID: customerID)
+                
+                DataController.shared.createUserWallet(for: wallet) { wallet in
+                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
+                } onError: { errorMessage in
+                    ProgressHUD.showError(errorMessage)
+                }
+                
             } onError: { errorMessage in
                 ProgressHUD.showError(errorMessage)
             }
-        
-
-        //                else {
-        //                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
-        //                    //func to send the rest of the data through API
-        //                    if let userID = Auth.auth().currentUser?.uid {
-        //                        print (userID)
-        //                    }
-        //                }
+            
+            //create user[ok], create wallet functions
+        } onError: { errorMessage in
+            ProgressHUD.showError(errorMessage)
+        }
+    }
+    
+    //send the objects through 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationVC = segue.destination as? HomeViewController, let customer = sender as? Customer, let wallet = sender as? Wallet {
+            destinationVC.customer = customer
+            destinationVC.wallet = wallet
+        }
     }
     
     //MARK: - DONE BUTTON CREATION

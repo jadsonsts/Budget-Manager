@@ -14,6 +14,9 @@ struct Transaction: Codable {
     let date, comment, transactionType: String
     let walletID, categoryID: Int
 }
-
 typealias Transactions = [Transaction]
 
+struct Section {
+    let date: String
+    var transaction: [Transaction]
+}

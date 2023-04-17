@@ -442,7 +442,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-hn-RMR" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
-                                <rect key="frame" x="40" y="618" width="313" height="60"/>
+                                <rect key="frame" x="10" y="618" width="373" height="60"/>
                                 <color key="backgroundColor" name="tabBarColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="7R1-ma-GoO"/>
@@ -460,11 +460,11 @@
                         <viewLayoutGuide key="safeArea" id="7mm-Ig-7Rl"/>
                         <color key="backgroundColor" name="backgroundColor"/>
                         <constraints>
-                            <constraint firstItem="7mm-Ig-7Rl" firstAttribute="trailing" secondItem="Ogy-hn-RMR" secondAttribute="trailing" constant="40" id="1h3-Nz-nML"/>
+                            <constraint firstItem="7mm-Ig-7Rl" firstAttribute="trailing" secondItem="Ogy-hn-RMR" secondAttribute="trailing" constant="10" id="1h3-Nz-nML"/>
                             <constraint firstItem="Wi7-2c-R3X" firstAttribute="leading" secondItem="7mm-Ig-7Rl" secondAttribute="leading" constant="10" id="78n-xS-sJz"/>
                             <constraint firstItem="mJN-qb-zmm" firstAttribute="centerX" secondItem="5d6-qa-ODn" secondAttribute="centerX" id="Erm-tR-heK"/>
                             <constraint firstItem="Wi7-2c-R3X" firstAttribute="top" secondItem="mJN-qb-zmm" secondAttribute="bottom" constant="20" id="LCW-G0-ypA"/>
-                            <constraint firstItem="Ogy-hn-RMR" firstAttribute="leading" secondItem="7mm-Ig-7Rl" secondAttribute="leading" constant="40" id="d1i-l0-sMl"/>
+                            <constraint firstItem="Ogy-hn-RMR" firstAttribute="leading" secondItem="7mm-Ig-7Rl" secondAttribute="leading" constant="10" id="d1i-l0-sMl"/>
                             <constraint firstItem="7mm-Ig-7Rl" firstAttribute="trailing" secondItem="Wi7-2c-R3X" secondAttribute="trailing" constant="10" id="g87-Yl-aCw"/>
                             <constraint firstItem="Ogy-hn-RMR" firstAttribute="top" secondItem="Wi7-2c-R3X" secondAttribute="bottom" constant="20" id="hHL-y6-W8Y"/>
                             <constraint firstItem="mJN-qb-zmm" firstAttribute="top" secondItem="7mm-Ig-7Rl" secondAttribute="top" constant="20" id="oy8-dk-vTt"/>
