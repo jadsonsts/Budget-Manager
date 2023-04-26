@@ -20,12 +20,13 @@ let UID = "uid"
 let EMAIL = "email"
 let PROFILE_IMAGE_URL = "profileImageUrl"
 let CONTENT_TYPE = "image/jpg"
+let USER_DEFAULTS_IMG_URL = "imageURL"
 
 class DataController {
     static let shared = DataController()
     
     
-    let baseURL = URL(string: "https://localhost:7167")!
+    let baseURL = URL(string: "http://localhost:5105")!
     let jsonDecoder = JSONDecoder()
     let jsonEnconder = JSONEncoder()
     let session = URLSession(configuration: .default)
@@ -54,7 +55,6 @@ class DataController {
                 return
             }
             if let authData = authResult {
-               // print(authData.user.email)
                 let dict: Dictionary<String, Any> = [
                     UID: authData.user.uid,
                     EMAIL: authData.user.email,
@@ -79,9 +79,8 @@ class DataController {
     //MARK: - FIREBASE STORAGE SERVICE
     func savePhoto(uid: String, imageData: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
-        storageProfileRef.putData(imageData,metadata: metadata) { storageMetadata, error in
+        storageProfileRef.putData(imageData, metadata: metadata) { storageMetadata, error in
             if error != nil {
-                //print(error?.localizedDescription)
                 onError(error!.localizedDescription)
                 return
             }
@@ -90,6 +89,10 @@ class DataController {
             storageProfileRef.downloadURL { url, error in
                 if let metaImageUrl = url?.absoluteString {
                     
+                    //add the image url on UserDefautls
+                    UserDefaults.standard.set(metaImageUrl, forKey: USER_DEFAULTS_IMG_URL)
+                    
+                    //change into firebase
                     if let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest() {
                         changeRequest.photoURL = url
                         changeRequest.commitChanges { error in
@@ -114,9 +117,28 @@ class DataController {
         }
     }
     
+    func loadPhoto(completion: @escaping (UIImage?) -> Void) {
+        guard let urlString = UserDefaults.standard.value(forKey: USER_DEFAULTS_IMG_URL) as? String, let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            let profilePicture = UIImage(data: data)
+            DispatchQueue.main.async {
+                completion(profilePicture)
+            }
+        }
+        task.resume()
+    }
     //MARK: - create the user on the database (mysql)
     
-    func createUser(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
+    func createCustomer(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer")
         var request = URLRequest(url: userURL)
         request.httpMethod = "POST"
@@ -181,7 +203,7 @@ class DataController {
                     }
                     do {
                         if response.statusCode == 200 {
-                            let customer = try jsonDecoder.decode(Wallet.self, from: data)
+                            let wallet = try jsonDecoder.decode(Wallet.self, from: data)
                             onSucess(wallet)
                         } else {
                             let err = try jsonDecoder.decode(APIError.self, from: data)
@@ -223,7 +245,7 @@ class DataController {
                     }
                     do {
                         if response.statusCode == 200 {
-                            let customer = try self.jsonDecoder.decode(Transaction.self, from: data)
+                            let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
                             onSucess(transaction)
                         } else {
                             let err = try self.jsonDecoder.decode(APIError.self, from: data)
@@ -243,7 +265,7 @@ class DataController {
     //MARK: - FETCH TRANSACTIONS
     func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
         //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
-        let transactionURL = baseURL.appendingPathComponent("/\(type)/\(walletID)")
+        let transactionURL = baseURL.appendingPathComponent("/transaction/\(type)/\(walletID)")
         
         let task = session.dataTask(with: transactionURL) { data, response, error in
             DispatchQueue.main.async { [self] in
@@ -267,21 +289,23 @@ class DataController {
                     }
                 } catch {
                     onError (error.localizedDescription)
+                    print(String(describing: error))
                 }
             }
         }
         task.resume()
     }
     
-    //MARK: - FETCH USER
+    //MARK: - FETCH CUSTOMER
     
     func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let userURL = baseURL.appendingPathComponent("/byid/\(userID)")
+        let userURL = baseURL.appendingPathComponent("/customer/byid/\(userID)")
             let task = session.dataTask(with: userURL) { data, response, error in
                 DispatchQueue.main.async  { [self] in
                     if let error = error {
                         onError(error.localizedDescription)
                         ProgressHUD.showError(error.localizedDescription)
+                        print(String(describing: error))
                         return
                     }
                     guard let safeData = data else {
@@ -302,8 +326,8 @@ class DataController {
     
     //MARK: - FETCH WALLET
     
-    func fetchUserWallet(walletID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let walletURL = baseURL.appendingPathComponent("/wallet/\(walletID)")
+    func fetchUserWallet(for customerID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        let walletURL = baseURL.appendingPathComponent("/wallet/\(customerID)")
         let task = session.dataTask(with: walletURL) { data, response, error in
             DispatchQueue.main.async  { [self] in
                 if let error = error {
@@ -316,8 +340,8 @@ class DataController {
                     return
                 }
                 do {
-                    let customer = try jsonDecoder.decode(Wallet.self, from: safeData)
-                    onSuccess(customer)
+                    let wallet = try jsonDecoder.decode(Wallet.self, from: safeData)
+                    onSuccess(wallet)
                 } catch {
                     onError(error.localizedDescription)
                     ProgressHUD.showError(error.localizedDescription)
@@ -329,7 +353,7 @@ class DataController {
     
     //MARK: - UPDATE USER
     
-    func updateUser(_ userID: String) {
+    func updateCustomer(_ customerID: String) {
         
     }
     //MARK: - UPDATE TRANSACTION

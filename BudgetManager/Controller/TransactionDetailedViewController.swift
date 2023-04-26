@@ -34,8 +34,8 @@ class TransactionDetailedViewController: UIViewController {
     
     func loadData() {
                 transactionTypeLabel.text = transaction.transactionType
-                amountLabel.text = String(format: "%.2f", transaction.amount)
-                detailAmountLabel.text = String(format: "%.2f", transaction.amount)
+                amountLabel.text = String(format: " $%.2f", transaction.amount)
+                detailAmountLabel.text = String(format: "$%.2f", transaction.amount)
                 referenceLabel.text = transaction.reference
                 categoryLabel.text = String(transaction.categoryID) //change for name
                 dateLabel.text = transaction.date

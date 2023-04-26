@@ -295,7 +295,7 @@ class SignUpViewController: UIViewController {
                                     phone: fields.phone,
                                     profilePicture: nil,
                                     isActive: true)
-            DataController.shared.createUser(with: customer) { customer in
+            DataController.shared.createCustomer(with: customer) { customer in
                 guard let customerID = customer.id else { return }
                 let wallet = Wallet(walletID: nil,
                                     walletName: "Main",
@@ -312,7 +312,7 @@ class SignUpViewController: UIViewController {
                 ProgressHUD.showError(errorMessage)
             }
             
-            //create user[ok], create wallet functions
+            //create user[ok], create wallet functions [ok]
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }

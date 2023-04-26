@@ -17,7 +17,8 @@ class HomeViewController: UIViewController {
     
     var customer: Customer!
     var wallet: Wallet!
-
+    var dataSource = [Section]()
+    
     @IBOutlet weak var profilePictureUIImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var walletAmountLabel: UILabel!
@@ -26,15 +27,28 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var hideValuesButton: UIButton!
     @IBOutlet weak var searchTransaction: UISearchBar!
     
-    var dataSource = [Section]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
         
-        DataController.shared.fetchCustomer("34jk25h") { customer in
+        DataController.shared.fetchCustomer(customer.firebaseID) { customer in
+            ProgressHUD.show("Fetching User Information")
+            self.customer = customer
+            
             if let customerID = customer.id {
-                //DataController.shared.fetchUserWallet(customerID)
+                DataController.shared.fetchUserWallet(for: customerID) { wallet in
+                    ProgressHUD.show("Fetching Wallet Information")
+                    self.wallet = wallet
+                    self.loadLabels()
+                    if let walletID = wallet.walletID {
+                        self.fetchAllTransactions(walletID: walletID)
+                    }
+                    ProgressHUD.dismiss()
+                } onError: { errorMessage in
+                    ProgressHUD.showError(errorMessage)
+                }
+
             }
             
         } onError: { errorMessage in
@@ -56,16 +70,34 @@ class HomeViewController: UIViewController {
         
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
-        transactionsTableView.rowHeight = 55
+        transactionsTableView.rowHeight = 60
         transactionsTableView.separatorColor = CustomColors.greenColor
         
         self.tabBarController?.navigationItem.hidesBackButton = true
-        fetchAllTransactions()
+        
 
         self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
         transactionsSegmentedControl.hightlightSelectedSegment()
         
-        //fetchTransactions()
+        loadPicture()
+    }
+    
+    func loadLabels() {
+        userNameLabel.text = "Hello, \(customer.name)"
+        walletAmountLabel.text = String(format: "$%.2f", wallet.amount)
+    }
+    
+    func loadPicture() {
+        profilePictureUIImage.layer.cornerRadius = 25
+        profilePictureUIImage.clipsToBounds = true
+        DataController.shared.loadPhoto { customerImage in
+            if let safeImage = customerImage {
+                self.profilePictureUIImage.image = safeImage
+            } else {
+                self.profilePictureUIImage.image = UIImage(systemName: "person.fill")
+            }
+            
+        }
     }
     
     @IBAction func hideValuesButton(_ sender: Any) {
@@ -94,16 +126,15 @@ class HomeViewController: UIViewController {
             case 2:
                 fetchTransactions(type: 2)
             default:
-                //fetch all
                 fetchTransactions(type: 0)
         }
        
     }
     
 //MARK: - fetching data and creating sections by date
-    func fetchAllTransactions(type: Int = 0) {
+    func fetchAllTransactions(type: Int = 0, walletID: Int) {
         
-        DataController.shared.fetchTransactions(type: type, walletID: wallet.walletID!) { transactions in
+        DataController.shared.fetchTransactions(type: type, walletID: walletID) { transactions in
             for transaction in transactions {
                 if !self.dataSource.contains(where: {$0.date == transaction.date}) {
                     self.dataSource.append(Section(date: transaction.date, transaction: [transaction]))
@@ -121,45 +152,6 @@ class HomeViewController: UIViewController {
             print(error)
         }
     }
-  /* func fetchAllTransactions() {
-        if let path = Bundle.main.path(forResource: "CustomerExample", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let newResponse = try JSONDecoder().decode(Transaction.self, from: data)
-                //print (newResponse)
-                
-                //create sections
-                let transactionInSections = Transaction.self
-                newResponse.forEach({ transactions in
-                    if !self.dataSource.contains(where: {$0.date == transactions.date}) {
-                        self.dataSource.append(Section(date: transactions.date, transaction: [transactions]))
-                        
-                    } else {
-                        guard let index = self.dataSource.firstIndex(where: { $0.date == transactions.date}) else { return }
-                        self.dataSource[index].transaction.append(transactions)
-                        }
-                })
-                
-                DispatchQueue.main.async { [self] in
-                    transactionsTableView.reloadData()
-                }
-                
-            } catch let DecodingError.dataCorrupted(context) {
-                print(context)
-            } catch let DecodingError.keyNotFound(key, context) {
-                print("Key '\(key)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch let DecodingError.valueNotFound(value, context) {
-                print("Value '\(value)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch let DecodingError.typeMismatch(type, context)  {
-                print("Type '\(type)' mismatch:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch {
-                print("error: ", error)
-            }
-        }
-    } */
     
     func fetchTransactions(type: Int = 0) {
         DataController.shared.fetchTransactions(type: type, walletID: 1) { transactions in //change wallet to be dinamic

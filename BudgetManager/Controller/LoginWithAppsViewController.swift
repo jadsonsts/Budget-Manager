@@ -55,7 +55,7 @@ class LoginWithAppsViewController: UIViewController {
     }
     
     
-    @IBAction func signInWithGoogle(sender: Any) {
+    @IBAction func signInWithGoogle(sender: CustomButton) {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else { return }
             
@@ -64,7 +64,15 @@ class LoginWithAppsViewController: UIViewController {
             //send to home view controller
         }
     }
-
+    
+    @IBAction func signInWithFacebook(_ sender: CustomButton) {
+        
+    }
+    
+    @IBAction func signInWithApple(_ sender: CustomButton) {
+        
+    }
+    
 
 }
 
@@ -77,7 +85,7 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
                                                  version: nil,
                                                  httpMethod: .get)
         request.start(completion: { connection, result, error in
-            print(":\(result)")
+            print(":\(String(describing: result))")
         })
         
     }
