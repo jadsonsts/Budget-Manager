@@ -35,31 +35,32 @@ Budget Manager is an application where you can keep track of every expense or in
 
 ## Logo
 
-<img src="Screenshots/logo.png" alt="SignUpThirdParty" width="512" height="512"/>
+<img src="Screenshots/logo.png" alt="SignUpThirdParty" width="256" height="256"/>
 
 
 ## Screenshots
 
-#Login with other accounts
+- Login with other accounts <br />
 <img src="Screenshots/SignUpThirdParty.png" alt="SignUpThirdParty" width="300" height="649"/>
 
-#SignIn with Email
+- SignIn with Email <br />
 <img src="Screenshots/SignIn.png" alt="SignIn" width="300" height="649"/>
 
-#SignUp
+- SignUp <br />
 <img src="Screenshots/SignUp.png" alt="SignUp" width="300" height="649"/>
 
-#Home screen
+- Home screen <br />
 <img src="Screenshots/Home.png" alt="Home" width="300" height="649"/>
 
-#Transaction details screen
+- Transaction details screen <br />
 <img src="Screenshots/TransactionDetails.png" alt="TransactionDetails" width="300" height="649"/>
 
-#Transaction management screen
-<img src="Screenshots/TransactionManagement.TransactionManagement" alt="Sign" width="300" height="649"/>
+- Transaction management screen <br />
+<img src="Screenshots/TransactionManagement.png" alt="TransactionManagement" width="300" height="649"/>
 
-#User settings screen
+- User settings screen <br />
 <img src="Screenshots/UserDetails.png" alt="UserDetails" width="300" height="649"/>
 
-
+<br />
+<br />
 "Images subject to be changed during the app development"
