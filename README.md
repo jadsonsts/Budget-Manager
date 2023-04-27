@@ -1,11 +1,12 @@
 
 # Budget Manager
 
-Budget Manager or Money Managment System is an application where you can keep track of every expense or income you have. This app allows you see all transactions and their details.
+Budget Manager is an application where you can keep track of every expense or income you have. This app allows you see all transactions and their details.
 
 
 ## Features
 
+- Login with third party apps (Google, Facebook and Apple)
 - Light/dark mode toggle (System)
 - List of all transactions:  Expenses and Incomes
 - Transaction Details
@@ -23,14 +24,16 @@ Budget Manager or Money Managment System is an application where you can keep tr
 | Label & Button Color | ![#01b8aa](https://via.placeholder.com/10/01b8aa?text=+) #01B8AA |
 
 
-## Authors
+## Tech Stack
 
-- [@jadsonsts](https://github.com/jadsonsts) (Swift)
-- [@janderson](https://github.com/JandersonMaraujo) (API)
+- MVC
+- UIKit
+- SDKS: Firebase, Google SignIn, Facebook SignIn, ProgressHUD
+- API (https://github.com/jadsonsts/API_BudgetManager)(in C#) Integration
+- MySQL database
+
 
 
 ## Screenshots
 
 COMING SOON...
-
-
