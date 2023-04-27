@@ -35,19 +35,31 @@ Budget Manager is an application where you can keep track of every expense or in
 
 ## Logo
 
-![Logo](Screenshots/logo.png)
+<img src="Screenshots/logo.png" alt="SignUpThirdParty" width="512" height="512"/>
+
 
 ## Screenshots
 
-<img src="Screenshots/SignUpThirdParty.png" alt="Sign" width="40" height="40"/>
+#Login with other accounts
+<img src="Screenshots/SignUpThirdParty.png" alt="SignUpThirdParty" width="300" height="649"/>
 
-![Login with other accounts](Screenshots/SignUpThirdParty.png)
-![SignIn with Email](Screenshots/SignIn.png)
-![SignUp](Screenshots/SignUp.png)
-![Home screen](Screenshots/Home.png)
-![Transacion details screen](Screenshots/TransactionDetails.png)
-![Transaction management screen](Screenshots/TransactionManagement.png)
-![User settings screen](Screenshots/UserDetails.png)
+#SignIn with Email
+<img src="Screenshots/SignIn.png" alt="SignIn" width="300" height="649"/>
+
+#SignUp
+<img src="Screenshots/SignUp.png" alt="SignUp" width="300" height="649"/>
+
+#Home screen
+<img src="Screenshots/Home.png" alt="Home" width="300" height="649"/>
+
+#Transaction details screen
+<img src="Screenshots/TransactionDetails.png" alt="TransactionDetails" width="300" height="649"/>
+
+#Transaction management screen
+<img src="Screenshots/TransactionManagement.TransactionManagement" alt="Sign" width="300" height="649"/>
+
+#User settings screen
+<img src="Screenshots/UserDetails.png" alt="UserDetails" width="300" height="649"/>
 
 
 "Images subject to be changed during the app development"
