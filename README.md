@@ -8,9 +8,9 @@ Budget Manager is an application where you can keep track of every expense or in
 
 - Login with third party apps (Google, Facebook and Apple)
 - Light/dark mode toggle (System)
-- List of all transactions:  Expenses and Incomes
+- List of transactions by type: Expense and Income
 - Transaction Details
-- Transaction Input (Income and Expense)
+- Transaction management (Create and Edit)
 
 
 ## Color Reference
@@ -29,7 +29,7 @@ Budget Manager is an application where you can keep track of every expense or in
 - MVC
 - UIKit
 - SDKS: Firebase, Google SignIn, Facebook SignIn, ProgressHUD
-- API (https://github.com/jadsonsts/API_BudgetManager)(in C#) Integration
+- @API (https://github.com/jadsonsts/API_BudgetManager) Integration
 - MySQL database
 
 
