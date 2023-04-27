@@ -39,6 +39,8 @@ Budget Manager is an application where you can keep track of every expense or in
 
 ## Screenshots
 
+<img src="Screenshots/SignUpThirdParty.png" alt="Sign" width="40" height="40"/>
+
 ![Login with other accounts](Screenshots/SignUpThirdParty.png)
 ![SignIn with Email](Screenshots/SignIn.png)
 ![SignUp](Screenshots/SignUp.png)
@@ -48,6 +50,4 @@ Budget Manager is an application where you can keep track of every expense or in
 ![User settings screen](Screenshots/UserDetails.png)
 
 
-
-
-COMING SOON...
+"Images subject to be changed during the app development"
