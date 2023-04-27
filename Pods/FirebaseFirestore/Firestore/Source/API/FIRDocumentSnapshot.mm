@@ -45,7 +45,6 @@
 #include "Firestore/core/src/util/log.h"
 #include "Firestore/core/src/util/string_apple.h"
 
-namespace util = firebase::firestore::util;
 using firebase::firestore::google_firestore_v1_Value;
 using firebase::firestore::api::DocumentSnapshot;
 using firebase::firestore::api::Firestore;
@@ -57,11 +56,11 @@ using firebase::firestore::model::Document;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::FieldPath;
 using firebase::firestore::model::ObjectValue;
-using firebase::firestore::remote::Serializer;
 using firebase::firestore::nanopb::MakeNSData;
+using firebase::firestore::remote::Serializer;
+using firebase::firestore::util::MakeNSString;
 using firebase::firestore::util::MakeString;
 using firebase::firestore::util::ThrowInvalidArgument;
-using firebase::firestore::google_firestore_v1_Value;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -135,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)documentID {
-  return util::MakeNSString(_snapshot.document_id());
+  return MakeNSString(_snapshot.document_id());
 }
 
 @dynamic metadata;

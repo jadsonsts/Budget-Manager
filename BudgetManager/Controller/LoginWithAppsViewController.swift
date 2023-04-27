@@ -8,33 +8,54 @@
 import UIKit
 import GoogleSignIn
 import FBSDKLoginKit
-
-
+import FBSDKCoreKit
 
 class LoginWithAppsViewController: UIViewController {
 
-    
-    @IBOutlet weak var signInGoogleButton: UIButton!
-    @IBOutlet weak var signInFacebookButton: FBLoginButton!
-    @IBOutlet weak var signInAppleButton: UIButton!
+    @IBOutlet weak var signInGoogleButton: CustomButton!
+    @IBOutlet weak var signInFacebookButton: CustomButton! //FBLoginButton! // FBSDKLoginButton
+    @IBOutlet weak var signInAppleButton: CustomButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         
         if let fbToken = AccessToken.current,
            !fbToken.isExpired {
             // User is logged in, do work such as go to next view controller.
         } else {
-            signInFacebookButton.permissions = ["public_profile", "email"]
-            signInFacebookButton.delegate = self
-            signInFacebookButton.frame.size.height = 60
+            //signInFacebookButton.permissions = ["public_profile", "email"]
+           // signInFacebookButton.delegate = self
         }
+        
+        setupButtonUI()
+    }
+
+    // setting button title and image
+    func setupButtonUI() {
+        
+        let fbColor = UIColor(red: 0.26, green: 0.40, blue: 0.70, alpha: 1.00)
+        
+        setupButton(signInGoogleButton, title: "Login with Google", imageName: "iconGoogle", background: .white)
+        setupButton(signInFacebookButton, title: "Login with Facebook", imageName: "iconFacebook", background: fbColor)
+        setupButton(signInAppleButton, title: "Login with Apple", imageName: "iconApple", background: .black)
         
     }
     
-    @IBAction func signInWithGoogle(sender: Any) {
+    func setupButton(_ button: UIButton, title: String, imageName: String,  background: UIColor) {
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 18)
+        button.backgroundColor = background
+        if let image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal) {
+            button.setImage(image, for: .normal)
+        }
+        button.imageView?.contentMode = .scaleAspectFit
+        button.imageEdgeInsets = UIEdgeInsets(top: 12, left: -20, bottom: 12, right: 220)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -120, bottom: 0, right: 0)
+    }
+    
+    
+    @IBAction func signInWithGoogle(sender: CustomButton) {
         GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
             guard error == nil else { return }
             
@@ -43,7 +64,15 @@ class LoginWithAppsViewController: UIViewController {
             //send to home view controller
         }
     }
-
+    
+    @IBAction func signInWithFacebook(_ sender: CustomButton) {
+        
+    }
+    
+    @IBAction func signInWithApple(_ sender: CustomButton) {
+        
+    }
+    
 
 }
 
@@ -56,7 +85,7 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
                                                  version: nil,
                                                  httpMethod: .get)
         request.start(completion: { connection, result, error in
-            print(":\(result)")
+            print(":\(String(describing: result))")
         })
         
     }

@@ -44,21 +44,23 @@
 #include "Firestore/core/src/util/statusor.h"
 #include "Firestore/core/src/util/string_apple.h"
 
-namespace util = firebase::firestore::util;
 using firebase::firestore::api::CollectionReference;
 using firebase::firestore::api::DocumentReference;
 using firebase::firestore::api::DocumentSnapshot;
 using firebase::firestore::api::DocumentSnapshotListener;
 using firebase::firestore::api::Firestore;
 using firebase::firestore::api::ListenerRegistration;
-using firebase::firestore::api::Source;
 using firebase::firestore::api::MakeSource;
+using firebase::firestore::api::Source;
 using firebase::firestore::core::EventListener;
 using firebase::firestore::core::ListenOptions;
 using firebase::firestore::core::ParsedSetData;
 using firebase::firestore::core::ParsedUpdateData;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::ResourcePath;
+using firebase::firestore::util::MakeCallback;
+using firebase::firestore::util::MakeNSString;
+using firebase::firestore::util::MakeString;
 using firebase::firestore::util::StatusOr;
 using firebase::firestore::util::StatusOrCallback;
 using firebase::firestore::util::ThrowInvalidArgument;
@@ -114,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)documentID {
-  return util::MakeNSString(_documentReference.document_id());
+  return MakeNSString(_documentReference.document_id());
 }
 
 - (FIRCollectionReference *)parent {
@@ -122,7 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (NSString *)path {
-  return util::MakeNSString(_documentReference.Path());
+  return MakeNSString(_documentReference.Path());
 }
 
 - (FIRCollectionReference *)collectionWithPath:(NSString *)collectionPath {
@@ -133,8 +135,7 @@ NS_ASSUME_NONNULL_BEGIN
     ThrowInvalidArgument("Collection path cannot be empty.");
   }
 
-  CollectionReference child =
-      _documentReference.GetCollectionReference(util::MakeString(collectionPath));
+  CollectionReference child = _documentReference.GetCollectionReference(MakeString(collectionPath));
   return [[FIRCollectionReference alloc] initWithReference:std::move(child)];
 }
 
@@ -162,7 +163,7 @@ NS_ASSUME_NONNULL_BEGIN
   auto dataReader = self.firestore.dataReader;
   ParsedSetData parsed = merge ? [dataReader parsedMergeData:documentData fieldMask:nil]
                                : [dataReader parsedSetData:documentData];
-  _documentReference.SetData(std::move(parsed), util::MakeCallback(completion));
+  _documentReference.SetData(std::move(parsed), MakeCallback(completion));
 }
 
 - (void)setData:(NSDictionary<NSString *, id> *)documentData
@@ -170,7 +171,7 @@ NS_ASSUME_NONNULL_BEGIN
      completion:(nullable void (^)(NSError *_Nullable error))completion {
   ParsedSetData parsed = [self.firestore.dataReader parsedMergeData:documentData
                                                           fieldMask:mergeFields];
-  _documentReference.SetData(std::move(parsed), util::MakeCallback(completion));
+  _documentReference.SetData(std::move(parsed), MakeCallback(completion));
 }
 
 - (void)updateData:(NSDictionary<id, id> *)fields {
@@ -180,7 +181,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)updateData:(NSDictionary<id, id> *)fields
         completion:(nullable void (^)(NSError *_Nullable error))completion {
   ParsedUpdateData parsed = [self.firestore.dataReader parsedUpdateData:fields];
-  _documentReference.UpdateData(std::move(parsed), util::MakeCallback(completion));
+  _documentReference.UpdateData(std::move(parsed), MakeCallback(completion));
 }
 
 - (void)deleteDocument {
@@ -188,7 +189,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)deleteDocumentWithCompletion:(nullable void (^)(NSError *_Nullable error))completion {
-  _documentReference.DeleteDocument(util::MakeCallback(completion));
+  _documentReference.DeleteDocument(MakeCallback(completion));
 }
 
 - (void)getDocumentWithCompletion:(FIRDocumentSnapshotBlock)completion {
@@ -231,7 +232,7 @@ NS_ASSUME_NONNULL_BEGIN
             [[FIRDocumentSnapshot alloc] initWithSnapshot:std::move(maybe_snapshot).ValueOrDie()];
         block_(result, nil);
       } else {
-        block_(nil, util::MakeNSError(maybe_snapshot.status()));
+        block_(nil, MakeNSError(maybe_snapshot.status()));
       }
     }
 

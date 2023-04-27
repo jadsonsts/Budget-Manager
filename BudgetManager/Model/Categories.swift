@@ -8,8 +8,8 @@
 import Foundation
 
 struct CategoryElement: Codable, Equatable {
-    let id: Int
-    let name, iconName, color: String
+    let categoryID: Int
+    let categoryName, iconName, color: String
 }
 
 typealias Category = [CategoryElement]

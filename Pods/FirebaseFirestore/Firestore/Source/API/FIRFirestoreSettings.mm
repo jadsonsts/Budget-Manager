@@ -19,19 +19,16 @@
 #include "Firestore/core/src/api/settings.h"
 #include "Firestore/core/src/util/exception.h"
 #include "Firestore/core/src/util/string_apple.h"
-#include "absl/base/attributes.h"
-#include "absl/memory/memory.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 namespace api = firebase::firestore::api;
-namespace util = firebase::firestore::util;
 using api::Settings;
-using util::ThrowInvalidArgument;
+using firebase::firestore::util::MakeString;
+using firebase::firestore::util::ThrowInvalidArgument;
 
 // Public constant
-ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
-    Settings::CacheSizeUnlimited;
+extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited = Settings::CacheSizeUnlimited;
 
 @implementation FIRFirestoreSettings
 
@@ -115,7 +112,7 @@ ABSL_CONST_INIT extern "C" const int64_t kFIRFirestoreCacheSizeUnlimited =
 
 - (Settings)internalSettings {
   Settings settings;
-  settings.set_host(util::MakeString(_host));
+  settings.set_host(MakeString(_host));
   settings.set_ssl_enabled(_sslEnabled);
   settings.set_persistence_enabled(_persistenceEnabled);
   settings.set_cache_size_bytes(_cacheSizeBytes);

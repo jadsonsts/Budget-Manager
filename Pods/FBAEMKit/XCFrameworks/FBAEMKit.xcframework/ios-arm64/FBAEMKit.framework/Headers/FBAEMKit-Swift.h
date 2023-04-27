@@ -259,11 +259,15 @@ SWIFT_PROTOCOL_NAMED("AEMNetworking")
 - (void)startGraphRequestWithGraphPath:(NSString * _Nonnull)graphPath parameters:(NSDictionary<NSString *, id> * _Nonnull)parameters tokenString:(NSString * _Nullable)tokenString HTTPMethod:(NSString * _Nullable)method completion:(void (^ _Nonnull)(id _Nullable, NSError * _Nullable))completion;
 @end
 
+@protocol FBSKAdNetworkReporting;
+@protocol FBSDKDataPersisting;
 @class NSURL;
 @class NSNumber;
 
 SWIFT_CLASS_NAMED("AEMReporter")
 @interface FBAEMReporter : NSObject
++ (void)configureWithNetworker:(id <FBAEMNetworking> _Nullable)networker appID:(NSString * _Nullable)appID reporter:(id <FBSKAdNetworkReporting> _Nullable)reporter;
++ (void)configureWithNetworker:(id <FBAEMNetworking> _Nullable)networker appID:(NSString * _Nullable)appID reporter:(id <FBSKAdNetworkReporting> _Nullable)reporter analyticsAppID:(NSString * _Nullable)analyticsAppID store:(id <FBSDKDataPersisting> _Nullable)store;
 /// Enable AEM reporting
 /// This function should be called in application(_:open:options:) from ApplicationDelegate
 + (void)enable;

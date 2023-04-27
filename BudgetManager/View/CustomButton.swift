@@ -21,6 +21,8 @@ class CustomButton: UIButton {
         //MARK: - Borders
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.systemGray.cgColor
+        
+        self.clipsToBounds = true
     }
 
 }

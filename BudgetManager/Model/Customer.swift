@@ -9,13 +9,9 @@ import Foundation
 
 
 struct Customer: Codable {
-    let id, name, familyName, email: String
-    let phone: Int
-    let profilePicture: String
-    let wallet: Wallet
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "ID"
-        case name, familyName, email, phone, profilePicture, wallet
-    }
+    let id: Int?
+    let firebaseID, name, familyName, email: String
+    let phone: String
+    let profilePicture: String?
+    let isActive: Bool
 }

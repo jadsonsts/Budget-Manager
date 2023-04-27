@@ -14,7 +14,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     
     func updateViews(category: CategoryElement) {
-        categoryName.text = category.name
+        categoryName.text = category.categoryName
         categoryImage.image = UIImage(systemName: category.iconName)?.imageWithInsets(insets: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4))
         categoryImage.contentMode = .scaleAspectFit
         categoryImage.layer.cornerRadius = categoryImage.bounds.width / 2
@@ -23,9 +23,6 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         categoryImage.setImageColor(color: UIColor(hexaRGB: category.color, alpha: 1.0) ?? .cyan)
         
         print (category.color)
-
-        
-        
     }
     
 }

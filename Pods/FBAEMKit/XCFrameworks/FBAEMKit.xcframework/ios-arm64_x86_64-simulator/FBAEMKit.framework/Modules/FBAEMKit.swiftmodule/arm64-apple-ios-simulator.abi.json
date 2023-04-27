@@ -12556,6 +12556,7 @@
             "static": true,
             "declAttributes": [
               "Final",
+              "AccessControl",
               "ObjC"
             ],
             "funcSelfKind": "NonMutating"
@@ -12648,6 +12649,7 @@
             "static": true,
             "declAttributes": [
               "Final",
+              "AccessControl",
               "ObjC"
             ],
             "funcSelfKind": "NonMutating"
@@ -17393,7 +17395,7 @@
       "kind": "StringLiteral",
       "offset": 539,
       "length": 8,
-      "value": "\"16.0.0\""
+      "value": "\"16.0.1\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBAEMKit\/FBAEMKit\/AEMNetworker.swift",
