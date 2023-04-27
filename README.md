@@ -33,12 +33,20 @@ Budget Manager is an application where you can keep track of every expense or in
 - MySQL database
 
 
+## Logo
+
+![Logo](Screenshots/logo.png)
 
 ## Screenshots
 
-#Logo
+![Login with other accounts](Screenshots/SignUpThirdParty.png)
+![SignIn with Email](Screenshots/SignIn.png)
+![SignUp](Screenshots/SignUp.png)
+![Home screen](Screenshots/Home.png)
+![Transacion details screen](Screenshots/TransactionDetails.png)
+![Transaction management screen](Screenshots/TransactionManagement.png)
+![User settings screen](Screenshots/UserDetails.png)
 
-![Logo](https://drive.google.com/drive/folders/1dezKCc67mNnupZZymgfo2vCD8xI1eNna)
 
 
 
