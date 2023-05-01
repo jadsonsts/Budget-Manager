@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,9 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Foundation
+@import FirebaseCore;
 
-///// A structure used to weakly box reference types.
-//struct WeakContainer<Object: AnyObject> {
-//  weak var object: Object?
-//}
+#import "FIRAppInternal.h"
+#import "FIRComponent.h"
+#import "FIRComponentContainer.h"
+#import "FIRComponentType.h"
+#import "FIRDependency.h"
+#import "FIRHeartbeatLogger.h"
+#import "FIRLibrary.h"
+#import "FIRLogger.h"
+#import "FIROptionsInternal.h"

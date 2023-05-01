@@ -610,7 +610,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) FBSDKTransfo
 + (FBSDKTransformerGraphRequestFactory * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)configureWithDatasetID:(NSString * _Nonnull)datasetID url:(NSString * _Nonnull)url accessKey:(NSString * _Nonnull)accessKey;
-- (void)callCapiGatewayAPIWith:(NSDictionary<NSString *, id> * _Nonnull)parameters;
+- (void)callCapiGatewayAPIWith:(NSDictionary<NSString *, id> * _Nonnull)parameters userAgent:(NSString * _Nonnull)userAgent;
 @end
 
 @class NSDate;

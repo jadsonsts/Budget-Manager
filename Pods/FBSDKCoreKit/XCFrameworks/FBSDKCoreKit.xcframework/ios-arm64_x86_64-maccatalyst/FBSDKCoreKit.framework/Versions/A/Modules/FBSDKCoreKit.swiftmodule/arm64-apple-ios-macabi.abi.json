@@ -20419,6 +20419,44 @@
             "fixedbinaryorder": 16
           },
           {
+            "kind": "Var",
+            "name": "campaignIds",
+            "printedName": "campaignIds",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(FBSDKCoreKit.AppEventUserAndAppDataField.Type) -> FBSDKCoreKit.AppEventUserAndAppDataField",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AppEventUserAndAppDataField",
+                    "printedName": "FBSDKCoreKit.AppEventUserAndAppDataField",
+                    "usr": "s:12FBSDKCoreKit015AppEventUserAndC9DataFieldO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "FBSDKCoreKit.AppEventUserAndAppDataField.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AppEventUserAndAppDataField",
+                        "printedName": "FBSDKCoreKit.AppEventUserAndAppDataField",
+                        "usr": "s:12FBSDKCoreKit015AppEventUserAndC9DataFieldO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12FBSDKCoreKit015AppEventUserAndC9DataFieldO11campaignIdsyA2CmF",
+            "mangledName": "$s12FBSDKCoreKit015AppEventUserAndC9DataFieldO11campaignIdsyA2CmF",
+            "moduleName": "FBSDKCoreKit",
+            "fixedbinaryorder": 17
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init(rawValue:)",
@@ -22260,6 +22298,44 @@
             "mangledName": "$s12FBSDKCoreKit33ConversionsAPIUserAndAppDataFieldO10urlSchemesyA2CmF",
             "moduleName": "FBSDKCoreKit",
             "fixedbinaryorder": 16
+          },
+          {
+            "kind": "Var",
+            "name": "campaignIds",
+            "printedName": "campaignIds",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(FBSDKCoreKit.ConversionsAPIUserAndAppDataField.Type) -> FBSDKCoreKit.ConversionsAPIUserAndAppDataField",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ConversionsAPIUserAndAppDataField",
+                    "printedName": "FBSDKCoreKit.ConversionsAPIUserAndAppDataField",
+                    "usr": "s:12FBSDKCoreKit33ConversionsAPIUserAndAppDataFieldO"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "FBSDKCoreKit.ConversionsAPIUserAndAppDataField.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ConversionsAPIUserAndAppDataField",
+                        "printedName": "FBSDKCoreKit.ConversionsAPIUserAndAppDataField",
+                        "usr": "s:12FBSDKCoreKit33ConversionsAPIUserAndAppDataFieldO"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "s:12FBSDKCoreKit33ConversionsAPIUserAndAppDataFieldO11campaignIdsyA2CmF",
+            "mangledName": "$s12FBSDKCoreKit33ConversionsAPIUserAndAppDataFieldO11campaignIdsyA2CmF",
+            "moduleName": "FBSDKCoreKit",
+            "fixedbinaryorder": 17
           },
           {
             "kind": "Constructor",
@@ -25939,8 +26015,8 @@
           },
           {
             "kind": "Var",
-            "name": "isEnabled",
-            "printedName": "isEnabled",
+            "name": "isSDKGKEnabled",
+            "printedName": "isSDKGKEnabled",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -25950,8 +26026,8 @@
               }
             ],
             "declKind": "Var",
-            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(py)isEnabled",
-            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC9isEnabledSbvp",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(py)isSDKGKEnabled",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC14isSDKGKEnabledSbvp",
             "moduleName": "FBSDKCoreKit",
             "declAttributes": [
               "HasInitialValue",
@@ -25975,8 +26051,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)isEnabled",
-                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC9isEnabledSbvg",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)isSDKGKEnabled",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC14isSDKGKEnabledSbvg",
                 "moduleName": "FBSDKCoreKit",
                 "implicit": true,
                 "declAttributes": [
@@ -26003,8 +26079,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)setIsEnabled:",
-                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC9isEnabledSbvs",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)setIsSDKGKEnabled:",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC14isSDKGKEnabledSbvs",
                 "moduleName": "FBSDKCoreKit",
                 "implicit": true,
                 "declAttributes": [
@@ -26025,8 +26101,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC9isEnabledSbvM",
-                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC9isEnabledSbvM",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC14isSDKGKEnabledSbvM",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC14isSDKGKEnabledSbvM",
                 "moduleName": "FBSDKCoreKit",
                 "implicit": true,
                 "declAttributes": [
@@ -26283,6 +26359,384 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "configRefreshTimestamp",
+            "printedName": "configRefreshTimestamp",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(py)configRefreshTimestamp",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC22configRefreshTimestamp10Foundation4DateVSgvp",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)configRefreshTimestamp",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC22configRefreshTimestamp10Foundation4DateVSgvg",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)setConfigRefreshTimestamp:",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC22configRefreshTimestamp10Foundation4DateVSgvs",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC22configRefreshTimestamp10Foundation4DateVSgvM",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC22configRefreshTimestamp10Foundation4DateVSgvM",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isLoadingConfig",
+            "printedName": "isLoadingConfig",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(py)isLoadingConfig",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC15isLoadingConfigSbvp",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)isLoadingConfig",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC15isLoadingConfigSbvg",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)setIsLoadingConfig:",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC15isLoadingConfigSbvs",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC15isLoadingConfigSbvM",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC15isLoadingConfigSbvM",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "completionBlocks",
+            "printedName": "completionBlocks",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[(Swift.Bool) -> ()]",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Swift.Bool) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvp",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvp",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[(Swift.Bool) -> ()]",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Swift.Bool) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvg",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvg",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[(Swift.Bool) -> ()]",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Swift.Bool) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Bool",
+                            "printedName": "Swift.Bool",
+                            "usr": "s:Sb"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvs",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvs",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvM",
+                "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC16completionBlocksSayySbcGvM",
+                "moduleName": "FBSDKCoreKit",
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
             "kind": "Constructor",
             "name": "init",
             "printedName": "init()",
@@ -26405,6 +26859,117 @@
               "Final",
               "ObjC",
               "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "load",
+            "printedName": "load(withBlock:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Swift.Bool) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)loadWithBlock:",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC4load9withBlockyySbc_tF",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "shouldRefresh",
+            "printedName": "shouldRefresh()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)shouldRefresh",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC13shouldRefreshSbyF",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "Final",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "isRefreshTimestampValid",
+            "printedName": "isRefreshTimestampValid()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)isRefreshTimestampValid",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC23isRefreshTimestampValidSbyF",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "Final",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "executeBlocks",
+            "printedName": "executeBlocks(isEnabled:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKAppEventsCAPIManager(im)executeBlocksWithIsEnabled:",
+            "mangledName": "$s12FBSDKCoreKit25FBSDKAppEventsCAPIManagerC13executeBlocks9isEnabledySb_tF",
+            "moduleName": "FBSDKCoreKit",
+            "declAttributes": [
+              "Final",
+              "ObjC"
             ],
             "funcSelfKind": "NonMutating"
           }
@@ -27292,7 +27857,7 @@
           {
             "kind": "Function",
             "name": "callCapiGatewayAPI",
-            "printedName": "callCapiGatewayAPI(with:)",
+            "printedName": "callCapiGatewayAPI(with:userAgent:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -27317,11 +27882,17 @@
                   }
                 ],
                 "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
               }
             ],
             "declKind": "Func",
-            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKTransformerGraphRequestFactory(im)callCapiGatewayAPIWith:",
-            "mangledName": "$s12FBSDKCoreKit35FBSDKTransformerGraphRequestFactoryC18callCapiGatewayAPI4withySDySSypG_tF",
+            "usr": "c:@M@FBSDKCoreKit@objc(cs)FBSDKTransformerGraphRequestFactory(im)callCapiGatewayAPIWith:userAgent:",
+            "mangledName": "$s12FBSDKCoreKit35FBSDKTransformerGraphRequestFactoryC18callCapiGatewayAPI4with9userAgentySDySSypG_SStF",
             "moduleName": "FBSDKCoreKit",
             "isOpen": true,
             "declAttributes": [
@@ -63081,6 +63652,13 @@
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
+      "offset": 2645,
+      "length": 14,
+      "value": "\"campaign_ids\""
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
+      "kind": "StringLiteral",
       "offset": 1988,
       "length": 9,
       "value": "\"anon_id\""
@@ -63193,714 +63771,735 @@
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2718,
+      "offset": 2645,
+      "length": 14,
+      "value": "\"campaign_ids\""
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
+      "kind": "StringLiteral",
+      "offset": 2754,
       "length": 11,
       "value": "\"user_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2747,
+      "offset": 2783,
       "length": 10,
       "value": "\"app_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2778,
+      "offset": 2814,
       "length": 13,
       "value": "\"custom_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2814,
+      "offset": 2850,
       "length": 15,
       "value": "\"custom_events\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2718,
+      "offset": 2754,
       "length": 11,
       "value": "\"user_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2747,
+      "offset": 2783,
       "length": 10,
       "value": "\"app_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2778,
+      "offset": 2814,
       "length": 13,
       "value": "\"custom_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2814,
+      "offset": 2850,
       "length": 15,
       "value": "\"custom_events\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2899,
+      "offset": 2935,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2926,
+      "offset": 2962,
       "length": 12,
       "value": "\"event_time\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2958,
+      "offset": 2994,
       "length": 12,
       "value": "\"event_name\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2991,
+      "offset": 3027,
       "length": 13,
       "value": "\"content_ids\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3042,
+      "offset": 3078,
       "length": 14,
       "value": "\"content_type\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3113,
+      "offset": 3149,
       "length": 18,
       "value": "\"max_rating_value\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3150,
+      "offset": 3186,
       "length": 11,
       "value": "\"num_items\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3192,
+      "offset": 3228,
       "length": 24,
       "value": "\"payment_info_available\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3245,
+      "offset": 3281,
       "length": 21,
       "value": "\"registration_method\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3289,
+      "offset": 3325,
       "length": 15,
       "value": "\"search_string\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3337,
+      "offset": 3373,
       "length": 10,
       "value": "\"order_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3364,
+      "offset": 3400,
       "length": 9,
       "value": "\"ad_type\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2899,
+      "offset": 2935,
       "length": 7,
       "value": "\"value\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2926,
+      "offset": 2962,
       "length": 12,
       "value": "\"event_time\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2958,
+      "offset": 2994,
       "length": 12,
       "value": "\"event_name\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 2991,
+      "offset": 3027,
       "length": 13,
       "value": "\"content_ids\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3042,
+      "offset": 3078,
       "length": 14,
       "value": "\"content_type\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3113,
+      "offset": 3149,
       "length": 18,
       "value": "\"max_rating_value\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3150,
+      "offset": 3186,
       "length": 11,
       "value": "\"num_items\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3192,
+      "offset": 3228,
       "length": 24,
       "value": "\"payment_info_available\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3245,
+      "offset": 3281,
       "length": 21,
       "value": "\"registration_method\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3289,
+      "offset": 3325,
       "length": 15,
       "value": "\"search_string\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3337,
+      "offset": 3373,
       "length": 10,
       "value": "\"order_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3364,
+      "offset": 3400,
       "length": 9,
       "value": "\"ad_type\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3480,
+      "offset": 3516,
       "length": 9,
       "value": "\"anon_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3509,
+      "offset": 3545,
       "length": 13,
       "value": "\"fb_login_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3552,
+      "offset": 3588,
       "length": 9,
       "value": "\"page_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3588,
+      "offset": 3624,
       "length": 21,
       "value": "\"page_scoped_user_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3628,
+      "offset": 3664,
       "length": 4,
       "value": "\"ud\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3670,
+      "offset": 3706,
       "length": 29,
       "value": "\"advertiser_tracking_enabled\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3715,
+      "offset": 3751,
       "length": 30,
       "value": "\"application_tracking_enabled\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3769,
+      "offset": 3805,
       "length": 16,
       "value": "\"consider_views\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3807,
+      "offset": 3843,
       "length": 14,
       "value": "\"device_token\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3863,
+      "offset": 3899,
       "length": 20,
       "value": "\"include_dwell_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3910,
+      "offset": 3946,
       "length": 20,
       "value": "\"include_video_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3956,
+      "offset": 3992,
       "length": 18,
       "value": "\"install_referrer\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4001,
+      "offset": 4037,
       "length": 19,
       "value": "\"installer_package\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4042,
+      "offset": 4078,
       "length": 14,
       "value": "\"receipt_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4077,
+      "offset": 4113,
       "length": 13,
       "value": "\"url_schemes\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3480,
+      "offset": 4148,
+      "length": 14,
+      "value": "\"campaign_ids\""
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
+      "kind": "StringLiteral",
+      "offset": 3516,
       "length": 9,
       "value": "\"anon_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3509,
+      "offset": 3545,
       "length": 13,
       "value": "\"fb_login_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3552,
+      "offset": 3588,
       "length": 9,
       "value": "\"page_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3588,
+      "offset": 3624,
       "length": 21,
       "value": "\"page_scoped_user_id\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3628,
+      "offset": 3664,
       "length": 4,
       "value": "\"ud\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3670,
+      "offset": 3706,
       "length": 29,
       "value": "\"advertiser_tracking_enabled\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3715,
+      "offset": 3751,
       "length": 30,
       "value": "\"application_tracking_enabled\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3769,
+      "offset": 3805,
       "length": 16,
       "value": "\"consider_views\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3807,
+      "offset": 3843,
       "length": 14,
       "value": "\"device_token\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3863,
+      "offset": 3899,
       "length": 20,
       "value": "\"include_dwell_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3910,
+      "offset": 3946,
       "length": 20,
       "value": "\"include_video_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 3956,
+      "offset": 3992,
       "length": 18,
       "value": "\"install_referrer\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4001,
+      "offset": 4037,
       "length": 19,
       "value": "\"installer_package\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4042,
+      "offset": 4078,
       "length": 14,
       "value": "\"receipt_data\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4077,
+      "offset": 4113,
       "length": 13,
       "value": "\"url_schemes\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4162,
+      "offset": 4148,
+      "length": 14,
+      "value": "\"campaign_ids\""
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
+      "kind": "StringLiteral",
+      "offset": 4234,
       "length": 21,
       "value": "\"AchievementUnlocked\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4205,
+      "offset": 4277,
       "length": 13,
       "value": "\"ActivateApp\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4243,
+      "offset": 4315,
       "length": 16,
       "value": "\"AddPaymentInfo\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4279,
+      "offset": 4351,
       "length": 11,
       "value": "\"AddToCart\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4314,
+      "offset": 4386,
       "length": 15,
       "value": "\"AddToWishlist\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4360,
+      "offset": 4432,
       "length": 22,
       "value": "\"CompleteRegistration\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4404,
+      "offset": 4476,
       "length": 13,
       "value": "\"ViewContent\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4444,
+      "offset": 4516,
       "length": 18,
       "value": "\"InitiateCheckout\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4486,
+      "offset": 4558,
       "length": 15,
       "value": "\"LevelAchieved\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4520,
+      "offset": 4592,
       "length": 10,
       "value": "\"Purchase\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4545,
+      "offset": 4617,
       "length": 6,
       "value": "\"Rate\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4568,
+      "offset": 4640,
       "length": 8,
       "value": "\"Search\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4599,
+      "offset": 4671,
       "length": 14,
       "value": "\"SpentCredits\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4642,
+      "offset": 4714,
       "length": 20,
       "value": "\"TutorialCompletion\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4162,
+      "offset": 4234,
       "length": 21,
       "value": "\"AchievementUnlocked\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4205,
+      "offset": 4277,
       "length": 13,
       "value": "\"ActivateApp\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4243,
+      "offset": 4315,
       "length": 16,
       "value": "\"AddPaymentInfo\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4279,
+      "offset": 4351,
       "length": 11,
       "value": "\"AddToCart\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4314,
+      "offset": 4386,
       "length": 15,
       "value": "\"AddToWishlist\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4360,
+      "offset": 4432,
       "length": 22,
       "value": "\"CompleteRegistration\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4404,
+      "offset": 4476,
       "length": 13,
       "value": "\"ViewContent\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4444,
+      "offset": 4516,
       "length": 18,
       "value": "\"InitiateCheckout\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4486,
+      "offset": 4558,
       "length": 15,
       "value": "\"LevelAchieved\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4520,
+      "offset": 4592,
       "length": 10,
       "value": "\"Purchase\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4545,
+      "offset": 4617,
       "length": 6,
       "value": "\"Rate\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4568,
+      "offset": 4640,
       "length": 8,
       "value": "\"Search\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4599,
+      "offset": 4671,
       "length": 14,
       "value": "\"SpentCredits\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4642,
+      "offset": 4714,
       "length": 20,
       "value": "\"TutorialCompletion\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4736,
+      "offset": 4808,
       "length": 15,
       "value": "\"action_source\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4789,
+      "offset": 4861,
       "length": 18,
       "value": "\"MobileAppInstall\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4834,
+      "offset": 4906,
       "length": 19,
       "value": "\"install_timestamp\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4736,
+      "offset": 4808,
       "length": 15,
       "value": "\"action_source\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4789,
+      "offset": 4861,
       "length": 18,
       "value": "\"MobileAppInstall\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 4834,
+      "offset": 4906,
       "length": 19,
       "value": "\"install_timestamp\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8491,
+      "offset": 8628,
       "length": 25,
       "value": "\"data_processing_options\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8536,
+      "offset": 8673,
       "length": 33,
       "value": "\"data_processing_options_country\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8587,
+      "offset": 8724,
       "length": 31,
       "value": "\"data_processing_options_state\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8491,
+      "offset": 8628,
       "length": 25,
       "value": "\"data_processing_options\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8536,
+      "offset": 8673,
       "length": 33,
       "value": "\"data_processing_options_country\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventConversionsAPITransformer.swift",
       "kind": "StringLiteral",
-      "offset": 8587,
+      "offset": 8724,
       "length": 31,
       "value": "\"data_processing_options_state\""
     },
@@ -63963,16 +64562,44 @@
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
       "kind": "StringLiteral",
-      "offset": 612,
+      "offset": 657,
       "length": 22,
       "value": "\"cloudbridge_settings\""
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
+      "kind": "StringLiteral",
+      "offset": 736,
+      "length": 20,
+      "value": "\"capi_gateway_queue\""
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 721,
+      "offset": 849,
       "length": 5,
       "value": "false"
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1029,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
+      "kind": "Array",
+      "offset": 1083,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKAppEventsCAPIManager.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1163,
+      "length": 5,
+      "value": "86400"
     },
     {
       "filePath": "\/Users\/kylinchang\/Workspace\/facebook-ios-sdk\/FBSDKCoreKit\/FBSDKCoreKit\/AppEvents\/CAPIGateway\/FBSDKTransformerGraphRequestFactory.swift",
