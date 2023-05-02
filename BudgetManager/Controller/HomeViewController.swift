@@ -106,9 +106,12 @@ class HomeViewController: UIViewController {
     
     
     @IBAction func logOutPressed(_ sender: Any) {
+        //try to signOut, and use the method on SceneDelegate to move to the login Controller (LoginWithAppsViewController)
         do {
             try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
+            }
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
             ProgressHUD.showError(signOutError as? String)

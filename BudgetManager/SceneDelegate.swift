@@ -8,6 +8,7 @@
 import UIKit
 import FBSDKCoreKit
 import FBSDKCoreKit_Basics
+import FirebaseAuth
 
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -19,7 +20,52 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        self.setupWindow(with: scene)
+        self.checkAuthentication()
+        
         guard let _ = (scene as? UIWindowScene) else { return }
+    }
+    
+    private func setupWindow(with scene: UIScene) {
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        let window = UIWindow(windowScene: windowScene)
+        self.window = window
+        self.window?.makeKeyAndVisible()
+    }
+    
+    //made public so as it can be used when the logout is pressed on HomeViewController
+    public func checkAuthentication() {
+        // if user is already signed in, go to tabBarController screens
+        Auth.auth().addStateDidChangeListener { auth, user  in
+            if user != nil {
+                // User is signed in.
+                self.goToController(with: HomeViewController())
+                print("user signed in \(user?.uid), \(user?.email)")
+            } else {
+                // No User is signed in.
+                self.goToController(with: LoginWithAppsViewController())
+                print("user not signed in")
+            }
+        }
+    }
+    
+    private func goToController(with viewController: UIViewController) {
+        //Fading animation (black and white)
+        DispatchQueue.main.async { [weak self] in
+            UIView.animate(withDuration: 0.25) {
+                self?.window?.layer.opacity = 0
+                
+            } completion: { [weak self] _ in
+                
+                let nav = UINavigationController(rootViewController: viewController)
+                nav.modalPresentationStyle = .fullScreen
+                self?.window?.rootViewController = nav
+                
+                UIView.animate(withDuration: 0.25) { [weak self] in
+                    self?.window?.layer.opacity = 1
+                }
+            }
+        }
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

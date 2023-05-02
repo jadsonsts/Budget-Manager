@@ -12,6 +12,8 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
 import ProgressHUD
+import GoogleSignIn
+import GoogleSignInSwift
 
 let REF_USER = "users"
 let STORAGE_PROFILE = "profilePicture"
@@ -33,8 +35,49 @@ class DataController {
     
     //MARK: - Signin Function
     
-    func signIn (withEmail email: String, password: String, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+    func signIn (withEmail email: String, password: String, onSucess: @escaping(_ result: AuthDataResult?) -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                onError(error.localizedDescription)
+                return
+            }
+            onSucess(authResult)
+        }
+    }
+    
+    //MARK: - SignIn with Google
+    
+    func signInWithGoogle(present vc: UIViewController, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+        //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        // Create Google Sign In configuration object.
+        //        let config = GIDConfiguration(clientID: clientID)
+        //        GIDSignIn.sharedInstance.configuration = config
+        
+        DispatchQueue.main.async {
+            // Start the sign in flow!
+            GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
+                guard error == nil else {
+                    return ProgressHUD.showError(error?.localizedDescription)
+                }
+                
+                guard let user = result?.user,
+                      let idToken = user.idToken?.tokenString
+                else { return }
+                
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                               accessToken: user.accessToken.tokenString)
+                credentialSignIn(with: credential) {
+                    onSucess()
+                } onError: { errorMessage in
+                    onError(errorMessage)
+                }
+
+            }
+        }
+    }
+    
+    func credentialSignIn (with credential: AuthCredential, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+        Auth.auth().signIn(with: credential) { result, error in
             if let error = error {
                 onError(error.localizedDescription)
                 return
@@ -43,7 +86,15 @@ class DataController {
         }
     }
     
-//MARK: - creates user as they SignUp
+    //MARK: - SignIn with Facebook
+    
+    //    func signInWithFacebook() -> Bool {
+    //
+    //    }
+    
+    
+    
+    //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
     func signUp(withEmail email: String, password: String, image: UIImage?, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
@@ -219,7 +270,7 @@ class DataController {
             onError(error.localizedDescription)
         }
     }
-   
+    
     //MARK: - CREATE THE TRANSACTION
     
     func createTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
@@ -300,27 +351,27 @@ class DataController {
     
     func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer/byid/\(userID)")
-            let task = session.dataTask(with: userURL) { data, response, error in
-                DispatchQueue.main.async  { [self] in
-                    if let error = error {
-                        onError(error.localizedDescription)
-                        ProgressHUD.showError(error.localizedDescription)
-                        print(String(describing: error))
-                        return
-                    }
-                    guard let safeData = data else {
-                        onError("Invalid Data")
-                        return
-                    }
-                    do {
-                        let customer = try jsonDecoder.decode(Customer.self, from: safeData)
-                        onSuccess(customer)
-                    } catch {
-                        onError(error.localizedDescription)
-                        ProgressHUD.showError(error.localizedDescription)
-                    }
+        let task = session.dataTask(with: userURL) { data, response, error in
+            DispatchQueue.main.async  { [self] in
+                if let error = error {
+                    onError(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
+                    print(String(describing: error))
+                    return
+                }
+                guard let safeData = data else {
+                    onError("Invalid Data")
+                    return
+                }
+                do {
+                    let customer = try jsonDecoder.decode(Customer.self, from: safeData)
+                    onSuccess(customer)
+                } catch {
+                    onError(error.localizedDescription)
+                    ProgressHUD.showError(error.localizedDescription)
                 }
             }
+        }
         task.resume()
     }
     

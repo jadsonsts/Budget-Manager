@@ -46,6 +46,7 @@
 		DFB571FE29A6136C00B92639 /* CustomerExample.json in Resources */ = {isa = PBXBuildFile; fileRef = DFB571FD29A6136C00B92639 /* CustomerExample.json */; };
 		DFF3484D29E3BFB90022C684 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF3484C29E3BFB90022C684 /* GoogleService-Info.plist */; };
 		DFF3485029ECA61B0022C684 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3484F29ECA61B0022C684 /* APIError.swift */; };
+		DFF348532A007F6E0022C684 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF348522A007F6E0022C684 /* credentials.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +133,7 @@
 		DFE5701D299B432400F7B2C4 /* FBSDKLoginKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKLoginKit.xcframework; path = Pods/FBSDKLoginKit/XCFrameworks/FBSDKLoginKit.xcframework; sourceTree = "<group>"; };
 		DFF3484C29E3BFB90022C684 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../.Trash/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DFF3484F29ECA61B0022C684 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		DFF348522A007F6E0022C684 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 				DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */,
 				DF21D2E129906A4400EA6FAB /* Info.plist */,
 				DFF3484C29E3BFB90022C684 /* GoogleService-Info.plist */,
+				DFF348522A007F6E0022C684 /* credentials.plist */,
 			);
 			path = BudgetManager;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				DF71A46A29B69D4400EF546D /* Categories.json in Resources */,
 				DF21D2DB29906A4200EA6FAB /* Main.storyboard in Resources */,
 				DFB571FE29A6136C00B92639 /* CustomerExample.json in Resources */,
+				DFF348532A007F6E0022C684 /* credentials.plist in Resources */,
 				DFF3484D29E3BFB90022C684 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -751,6 +755,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BudgetManager/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager need access to your camera to take the picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Budget Manager need access to yout library to pick the photo you chose";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -783,6 +789,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BudgetManager/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager need access to your camera to take the picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Budget Manager need access to yout library to pick the photo you chose";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

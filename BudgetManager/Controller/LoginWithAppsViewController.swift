@@ -9,6 +9,9 @@ import UIKit
 import GoogleSignIn
 import FBSDKLoginKit
 import FBSDKCoreKit
+import FirebaseAuth
+import FirebaseCore
+import ProgressHUD
 
 class LoginWithAppsViewController: UIViewController {
 
@@ -18,6 +21,7 @@ class LoginWithAppsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         
         if let fbToken = AccessToken.current,
@@ -56,21 +60,42 @@ class LoginWithAppsViewController: UIViewController {
     
     
     @IBAction func signInWithGoogle(sender: CustomButton) {
-        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
-            guard error == nil else { return }
+        
+
+        
+        
+        
+        
+//        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
+//            guard error == nil else { return }
+//
+//            guard let signInResult = signInResult else { return }
+//
+//            let user = signInResult.user
+//
+//           if let emailAddress = user.profile?.email,
+//              let givenName = user.profile?.givenName,
+//              let familyName = user.profile?.familyName ,
+//              let profilePicUrl = user.profile?.imageURL(withDimension: 320) {
+//
+//               print (emailAddress, givenName, familyName, profilePicUrl)
+//
+//           }
             
             // If sign in succeeded, display the app's main content View.
             //perfom request with token to retrieve user data (API)
             //send to home view controller
-        }
+        //}
     }
+    
+    
     
     @IBAction func signInWithFacebook(_ sender: CustomButton) {
         
     }
     
     @IBAction func signInWithApple(_ sender: CustomButton) {
-        
+        ProgressHUD.show("Not yet available, please try another signIn method")
     }
     
 
@@ -96,4 +121,3 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
     
     
 }
-

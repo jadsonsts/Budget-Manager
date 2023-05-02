@@ -1377,7 +1377,7 @@
         <!--Navigation Controller-->
         <scene sceneID="qA4-K3-Kzg">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zDN-YK-5GA" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="initialViewController" automaticallyAdjustsScrollViewInsets="NO" id="zDN-YK-5GA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7HK-Ki-gF4">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -1432,7 +1432,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ATs-Y2-diT"/>
+        <segue reference="K8m-mY-WWK"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="airplane" catalog="system" width="128" height="115"/>

@@ -46,8 +46,11 @@ class LoginWithEmailViewController: UIViewController {
         
         guard let fields = validateFields() else { return }
         ProgressHUD.show()
-        DataController.shared.signIn(withEmail: fields.email, password: fields.password) {
+        DataController.shared.signIn(withEmail: fields.email, password: fields.password) { result in
             ProgressHUD.showSuccess()
+            if let result = result {
+                result.user.uid
+            }
             print("success")
             //send to mainVC
             //call the fetch user + wallet + transaction functions
