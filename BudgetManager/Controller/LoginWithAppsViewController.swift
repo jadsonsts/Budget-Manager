@@ -18,31 +18,34 @@ class LoginWithAppsViewController: UIViewController {
     @IBOutlet weak var signInGoogleButton: CustomButton!
     @IBOutlet weak var signInFacebookButton: CustomButton! //FBLoginButton! // FBSDKLoginButton
     @IBOutlet weak var signInAppleButton: CustomButton!
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupButtonUI()
         
-        
-        if let fbToken = AccessToken.current,
-           !fbToken.isExpired {
-            // User is logged in, do work such as go to next view controller.
-        } else {
-            //signInFacebookButton.permissions = ["public_profile", "email"]
-           // signInFacebookButton.delegate = self
+        if Auth.auth().currentUser != nil {
+            performSegue(withIdentifier: K.userLoggedInHome, sender: self)
         }
         
-        setupButtonUI()
+        /*       if let fbToken = AccessToken.current,
+         !fbToken.isExpired {
+         // User is logged in, do work such as go to next view controller.
+         } else {
+         //signInFacebookButton.permissions = ["public_profile", "email"]
+         // signInFacebookButton.delegate = self
+         }*/
+ 
+        
     }
 
     // setting button title and image
     func setupButtonUI() {
-        
-        let fbColor = UIColor(red: 0.26, green: 0.40, blue: 0.70, alpha: 1.00)
-        
-        setupButton(signInGoogleButton, title: "Login with Google", imageName: "iconGoogle", background: .white)
-        setupButton(signInFacebookButton, title: "Login with Facebook", imageName: "iconFacebook", background: fbColor)
-        setupButton(signInAppleButton, title: "Login with Apple", imageName: "iconApple", background: .black)
+
+        setupButton(signInGoogleButton, title: "Sign in with Google", imageName: "iconGoogle", background: .white)
+        setupButton(signInFacebookButton, title: "Sign in with Facebook", imageName: "iconFacebook", background: CustomColors.fbColor)
+        setupButton(signInAppleButton, title: "Sign in with Apple", imageName: "iconApple", background: .black)
         
     }
     
@@ -60,12 +63,7 @@ class LoginWithAppsViewController: UIViewController {
     
     
     @IBAction func signInWithGoogle(sender: CustomButton) {
-        
 
-        
-        
-        
-        
 //        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
 //            guard error == nil else { return }
 //
@@ -91,11 +89,11 @@ class LoginWithAppsViewController: UIViewController {
     
     
     @IBAction func signInWithFacebook(_ sender: CustomButton) {
-        
+        ProgressHUD.show("Not yet available, please try another sign-in method", icon: .exclamation)
     }
     
     @IBAction func signInWithApple(_ sender: CustomButton) {
-        ProgressHUD.show("Not yet available, please try another signIn method")
+        ProgressHUD.show("Not yet available, please try another sign-in method", icon: .exclamation)
     }
     
 

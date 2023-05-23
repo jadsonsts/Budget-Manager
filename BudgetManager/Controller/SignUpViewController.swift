@@ -283,26 +283,31 @@ class SignUpViewController: UIViewController {
         guard let fields = validateFields() else { return }
         ProgressHUD.show()
         DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
-            ProgressHUD.showSuccess()
             guard let userID = Auth.auth().currentUser?.uid else { return }
             
             //create the customer object to pass in and input the data on the mySql database
-            let customer = Customer(id: nil,
+            let customer = Customer(
+                                    id: nil,
                                     firebaseID: userID,
                                     name: fields.firstName,
                                     familyName: fields.lastName,
                                     email: fields.email,
                                     phone: fields.phone,
-                                    profilePicture: nil,
+                                    profilePicture: "",
                                     isActive: true)
+            //Insert user on mySQL database
             DataController.shared.createCustomer(with: customer) { customer in
                 guard let customerID = customer.id else { return }
-                let wallet = Wallet(walletID: nil,
+                //create the userWallet object to register onto mySql Database
+                let wallet = Wallet(
+                                    walletID: nil,
                                     walletName: "Main",
                                     amount: 0.0,
                                     customerID: customerID)
-                
-                DataController.shared.createUserWallet(for: wallet) { wallet in
+            
+                DataController.shared.createUserWallet(for: wallet) { _ in
+                    ProgressHUD.showSuccess()
+                    ProgressHUD.dismiss()
                     self.performSegue(withIdentifier: K.registerSegue, sender: self)
                 } onError: { errorMessage in
                     ProgressHUD.showError(errorMessage)
@@ -312,13 +317,12 @@ class SignUpViewController: UIViewController {
                 ProgressHUD.showError(errorMessage)
             }
             
-            //create user[ok], create wallet functions [ok]
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
     }
     
-    //send the objects through 
+    //send the objects through
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? HomeViewController, let customer = sender as? Customer, let wallet = sender as? Wallet {
             destinationVC.customer = customer

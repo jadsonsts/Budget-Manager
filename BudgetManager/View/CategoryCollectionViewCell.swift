@@ -19,10 +19,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         categoryImage.contentMode = .scaleAspectFit
         categoryImage.layer.cornerRadius = categoryImage.bounds.width / 2
         categoryImage.layer.borderWidth = 0
-        categoryImage.backgroundColor = UIColor(hexaRGB: category.color, alpha: 0.1)
-        categoryImage.setImageColor(color: UIColor(hexaRGB: category.color, alpha: 1.0) ?? .cyan)
-        
-        print (category.color)
+        categoryImage.backgroundColor = UIColor(hexaRGB: category.color, alpha: 0.2)
+        categoryImage.setImageColor(color: UIColor(hexaRGB: category.color, alpha: 1.0) ?? .black)
+        categoryImage.clipsToBounds = true
     }
     
 }

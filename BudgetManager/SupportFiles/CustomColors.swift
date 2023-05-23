@@ -13,6 +13,7 @@ struct CustomColors {
     static let expenseLabelColor = UIColor(named: "expenseLabelColor")!
     static let labelColor = UIColor(named: "generalLabelColor")!
     static let greenColor = UIColor(named: "tabBarColor")!
+    static let fbColor = UIColor(red: 0.26, green: 0.40, blue: 0.70, alpha: 1.00)
     
 //static let borderColor = CGColor(red: 0.00, green: 0.72, blue: 0.67, alpha: 1.0) // Green
 //static let errorBorderColor = CGColor(red: 1.00, green: 0.31, blue: 0.31, alpha: 1.00) // LightRed

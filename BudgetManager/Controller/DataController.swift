@@ -33,8 +33,7 @@ class DataController {
     let jsonEnconder = JSONEncoder()
     let session = URLSession(configuration: .default)
     
-    //MARK: - Signin Function
-    
+    //MARK: - FIREBASE SIGNIN METHOD
     func signIn (withEmail email: String, password: String, onSucess: @escaping(_ result: AuthDataResult?) -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
             if let error = error {
@@ -45,8 +44,7 @@ class DataController {
         }
     }
     
-    //MARK: - SignIn with Google
-    
+    //MARK: - SIGNIN WITH GOOGLE
     func signInWithGoogle(present vc: UIViewController, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         // Create Google Sign In configuration object.
@@ -86,12 +84,10 @@ class DataController {
         }
     }
     
-    //MARK: - SignIn with Facebook
-    
+    //MARK: - SIGNIN WITH FACEBOOK
     //    func signInWithFacebook() -> Bool {
     //
     //    }
-    
     
     
     //MARK: - creates user as they SignUp
@@ -187,13 +183,12 @@ class DataController {
         }
         task.resume()
     }
-    //MARK: - create the user on the database (mysql)
     
+    //MARK: - INSERT THE USER ONTO DATABASE(MYSWL)
     func createCustomer(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer")
         var request = URLRequest(url: userURL)
         request.httpMethod = "POST"
-        
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
@@ -210,6 +205,8 @@ class DataController {
                         onError("Failed to get data from the server")
                         return
                     }
+                    //print(String(data: data, encoding: .utf8))
+                    //print (response.statusCode)
                     do {
                         if response.statusCode == 200 {
                             let customer = try self.jsonDecoder.decode(Customer.self, from: data)
@@ -229,8 +226,7 @@ class DataController {
         }
     }
     
-    //MARK: - Create the user's wallet
-    
+    //MARK: - CREATE USER'S WALLET
     func createUserWallet (for wallet: Wallet, onSucess: @escaping (Wallet) -> Void, onError: @escaping (String) -> Void) {
         let userWalletURL = baseURL.appendingPathComponent("/wallet")
         var request = URLRequest(url: userWalletURL)
@@ -271,8 +267,7 @@ class DataController {
         }
     }
     
-    //MARK: - CREATE THE TRANSACTION
-    
+    //MARK: - CREATE TRANSACTION
     func createTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
         let transactionURL = baseURL.appendingPathComponent("/transaction)")
         var request = URLRequest(url: transactionURL)
@@ -326,7 +321,7 @@ class DataController {
                 }
                 
                 guard let data = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid Data or response")
+                    onError("Invalid Data or Response")
                     return
                 }
                 
@@ -340,7 +335,6 @@ class DataController {
                     }
                 } catch {
                     onError (error.localizedDescription)
-                    print(String(describing: error))
                 }
             }
         }
@@ -348,7 +342,6 @@ class DataController {
     }
     
     //MARK: - FETCH CUSTOMER
-    
     func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer/byid/\(userID)")
         let task = session.dataTask(with: userURL) { data, response, error in
@@ -359,13 +352,18 @@ class DataController {
                     print(String(describing: error))
                     return
                 }
-                guard let safeData = data else {
-                    onError("Invalid Data")
+                guard let safeData = data, let response = response as? HTTPURLResponse else {
+                    onError("Invalid Data or Response")
                     return
                 }
                 do {
-                    let customer = try jsonDecoder.decode(Customer.self, from: safeData)
-                    onSuccess(customer)
+                    if response.statusCode == 200 {
+                        let customer = try jsonDecoder.decode(Customer.self, from: safeData)
+                        onSuccess(customer)
+                    } else {
+                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
+                        onError(error.message)
+                    }
                 } catch {
                     onError(error.localizedDescription)
                     ProgressHUD.showError(error.localizedDescription)
@@ -376,7 +374,6 @@ class DataController {
     }
     
     //MARK: - FETCH WALLET
-    
     func fetchUserWallet(for customerID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let walletURL = baseURL.appendingPathComponent("/wallet/\(customerID)")
         let task = session.dataTask(with: walletURL) { data, response, error in
@@ -386,22 +383,55 @@ class DataController {
                     ProgressHUD.showError(error.localizedDescription)
                     return
                 }
-                guard let safeData = data else {
-                    onError("Invalid Data")
+                guard let safeData = data, let response = response as? HTTPURLResponse else {
+                    onError("Invalid Data or Response")
                     return
                 }
                 do {
-                    let wallet = try jsonDecoder.decode(Wallet.self, from: safeData)
-                    onSuccess(wallet)
+                    if response.statusCode == 200 {
+                        let wallet = try jsonDecoder.decode(Wallet.self, from: safeData)
+                        onSuccess(wallet)
+                    } else {
+                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
+                        onError(error.message)
+                    }
+
                 } catch {
                     onError(error.localizedDescription)
-                    ProgressHUD.showError(error.localizedDescription)
                 }
             }
         }
         task.resume()
     }
     
+    //MARK: - FETCH CATEGORIES
+    func fetchCategories(onSucess: @escaping (Category) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        let categoryURL = baseURL.appendingPathComponent("/categories/")
+        let task = session.dataTask(with: categoryURL) { data, response, error in
+            DispatchQueue.main.async { [self] in
+                if let error = error {
+                    onError(error.localizedDescription)
+                    return
+                }
+                guard let safeData = data, let response = response as? HTTPURLResponse else {
+                    onError("Invalid Data or Response")
+                    return
+                }
+                do {
+                    if response.statusCode == 200 {
+                        let categories = try jsonDecoder.decode(Category.self, from: safeData)
+                        onSucess(categories)
+                    } else {
+                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
+                        onError(error.message)
+                    }
+                } catch {
+                    onError(error.localizedDescription)
+                }
+            }
+        }
+        task.resume()
+    }
     //MARK: - UPDATE USER
     
     func updateCustomer(_ customerID: String) {

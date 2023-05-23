@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 protocol SelectCategoryDelegate {
     func didSelect(category: CategoryElement)
@@ -20,48 +21,33 @@ class CategoriesCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchAllCategories()
+        fetchCategories()
         
     }
     
-    func fetchAllCategories() {
-        if let path = Bundle.main.path(forResource: "Categories", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let newResponse = try JSONDecoder().decode(Category.self, from: data)
-                
-                DispatchQueue.main.async { [self] in
-                    category = newResponse
-                    collectionView.reloadData()
-                }
-                
-            } catch let DecodingError.dataCorrupted(context) {
-                print(context)
-            } catch let DecodingError.keyNotFound(key, context) {
-                print("Key '\(key)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch let DecodingError.valueNotFound(value, context) {
-                print("Value '\(value)' not found:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch let DecodingError.typeMismatch(type, context)  {
-                print("Type '\(type)' mismatch:", context.debugDescription)
-                print("codingPath:", context.codingPath)
-            } catch {
-                print("error: ", error)
-            }
+    func fetchCategories() {
+        DataController.shared.fetchCategories { category in
+            ProgressHUD.show()
+            self.category = category
+            self.collectionView.reloadData()
+            ProgressHUD.dismiss()
+        } onError: { errorMessage in
+            ProgressHUD.showError(errorMessage)
         }
     }
-
+    
+    func configureSelectedCell(_ cell: CategoryCollectionViewCell) {
+        cell.layer.cornerRadius = cell.bounds.height / 3
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = CustomColors.greenColor.cgColor
+    }
 
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return category.count
     }
 
@@ -71,7 +57,9 @@ class CategoriesCollectionViewController: UICollectionViewController {
             cell.updateViews(category: category)
             
             if category == self.selectedCategory {
-                cell.layer.cornerRadius = 2
+                configureSelectedCell(cell)
+            } else {
+                cell.layer.borderWidth = 0
             }
             
             return cell
@@ -80,17 +68,18 @@ class CategoriesCollectionViewController: UICollectionViewController {
         }
     }
 
-    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-//        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCollectionViewCell {
-//            cell.layer.cornerRadius = 1
-//            cell.layer.borderWidth = 1
-//            cell.layer.borderColor = CustomColors.greenColor.cgColor
-//        }
         
+        let itemCategory = category[indexPath.row]
+        selectedCategory = itemCategory
+        collectionView.reloadData()
+        delegate?.didSelect(category: selectedCategory!)
+        dismiss(animated: true)
     }
+}
 
-
-
+extension CategoriesCollectionViewController: SelectCategoryDelegate {
+    func didSelect(category: CategoryElement) {
+    }
 }

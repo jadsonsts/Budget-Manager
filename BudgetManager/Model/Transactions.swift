@@ -8,7 +8,7 @@
 import Foundation
 
 struct Transaction: Codable {
-    let id: Int
+    let id: Int?
     let reference: String
     let amount: Double
     let date, comment, transactionType: String

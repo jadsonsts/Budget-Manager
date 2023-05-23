@@ -18,6 +18,8 @@ class LoginWithEmailViewController: UIViewController {
     @IBOutlet weak var emailMesageErrorLabel: UILabel!
     @IBOutlet weak var passwordMessageErrorLabel: UILabel!
     
+    var userID: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,29 +47,22 @@ class LoginWithEmailViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         
         guard let fields = validateFields() else { return }
+        
         ProgressHUD.show()
         DataController.shared.signIn(withEmail: fields.email, password: fields.password) { result in
             ProgressHUD.showSuccess()
             if let result = result {
-                result.user.uid
+                self.userID = result.user.uid //creck this 
+                self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
-            print("success")
-            //send to mainVC
-            //call the fetch user + wallet + transaction functions
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
-
-//        if let email = emailTxtField.text,
-//           let password = passwordTxtField.text {
-//            Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-//                if let e = error {
-//                    print (e.localizedDescription) //put alert for user
-//                } else {
-//                    self.performSegue(withIdentifier: K.loginSegue, sender: self)
-//                    //FUNC FOR RETRIEVE THE DATA FROM DB (USE ASYNC?)
-//                }
-//            }
-//        }
     }
+//MARK: - Prepare for segue if necessary - send the user firebase ID
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let destinationVC = segue.destination as? HomeViewController {
+//            destinationVC.userID = userID
+//        }
+//    }
 }

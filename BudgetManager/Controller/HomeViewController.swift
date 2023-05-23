@@ -12,11 +12,11 @@ import FirebaseStorage
 import FirebaseFirestore
 import ProgressHUD
 
-
 class HomeViewController: UIViewController {
     
-    var customer: Customer!
-    var wallet: Wallet!
+    var customer: Customer?
+    var wallet: Wallet?
+    var userID: String?
     var dataSource = [Section]()
     
     @IBOutlet weak var profilePictureUIImage: UIImageView!
@@ -31,60 +31,34 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.hidesSearchBarWhenScrolling = false
-        
-        DataController.shared.fetchCustomer(customer.firebaseID) { customer in
-            ProgressHUD.show("Fetching User Information")
-            self.customer = customer
-            
-            if let customerID = customer.id {
-                DataController.shared.fetchUserWallet(for: customerID) { wallet in
-                    ProgressHUD.show("Fetching Wallet Information")
-                    self.wallet = wallet
-                    self.loadLabels()
-                    if let walletID = wallet.walletID {
-                        self.fetchAllTransactions(walletID: walletID)
-                    }
-                    ProgressHUD.dismiss()
-                } onError: { errorMessage in
-                    ProgressHUD.showError(errorMessage)
-                }
-
-            }
-            
-        } onError: { errorMessage in
-            ProgressHUD.showError(errorMessage)
-        }
-
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationItem.hidesSearchBarWhenScrolling = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchTransaction.delegate = self
+        if customer == nil && wallet == nil {
+            loadDada()
+        }
+        loadPicture()
         
+        searchTransaction.delegate = self
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
         transactionsTableView.rowHeight = 60
         transactionsTableView.separatorColor = CustomColors.greenColor
         
         self.tabBarController?.navigationItem.hidesBackButton = true
-        
 
         self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
         transactionsSegmentedControl.hightlightSelectedSegment()
-        
-        loadPicture()
+
     }
     
     func loadLabels() {
-        userNameLabel.text = "Hello, \(customer.name)"
-        walletAmountLabel.text = String(format: "$%.2f", wallet.amount)
+        
+        guard let customerName = customer?.name, let walletAmount = wallet?.amount else { return }
+        userNameLabel.text = "Hello, \(customerName)"
+        walletAmountLabel.text = String(format: "$%.2f", walletAmount)
     }
     
     func loadPicture() {
@@ -100,6 +74,36 @@ class HomeViewController: UIViewController {
         }
     }
     
+    func loadDada() {
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        
+        DataController.shared.fetchCustomer(userID) { customer in
+            ProgressHUD.show("Fetching User Information")
+            self.customer = customer
+            UserVariables.customer = customer //trying a global Variable
+            
+            if let customerID = customer.id {
+                DataController.shared.fetchUserWallet(for: customerID) { wallet in
+                    ProgressHUD.show("Fetching Wallet Information")
+                    self.wallet = wallet
+                    UserVariables.wallet = wallet //trying a global Variable
+                    self.loadLabels()
+                    if let walletID = wallet.walletID {
+                        self.fetchAllTransactions(walletID: walletID)
+                    }
+                    ProgressHUD.dismiss()
+                } onError: { errorMessage in
+                    ProgressHUD.showError(errorMessage)
+                }
+            }
+            ProgressHUD.dismiss()
+            
+        } onError: { errorMessage in
+            ProgressHUD.showError(errorMessage)
+        }
+    }
+    
     @IBAction func hideValuesButton(_ sender: Any) {
         
     }
@@ -109,9 +113,9 @@ class HomeViewController: UIViewController {
         //try to signOut, and use the method on SceneDelegate to move to the login Controller (LoginWithAppsViewController)
         do {
             try Auth.auth().signOut()
-            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                sceneDelegate.checkAuthentication()
-            }
+//            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+//                sceneDelegate.checkAuthentication()
+//            }
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
             ProgressHUD.showError(signOutError as? String)
@@ -120,16 +124,18 @@ class HomeViewController: UIViewController {
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
         transactionsSegmentedControl.underlinePosition()
+        
+        guard let walletID = wallet?.walletID else { return }
        
         switch sender.selectedSegmentIndex {
             case 0:
-                fetchTransactions(type: 0)
+                fetchAllTransactions(walletID: walletID)
             case 1:
-                fetchTransactions(type: 1)
+                fetchAllTransactions(type: 1, walletID: walletID)
             case 2:
-                fetchTransactions(type: 2)
+                fetchAllTransactions(type: 2, walletID: walletID)
             default:
-                fetchTransactions(type: 0)
+                fetchAllTransactions(walletID: walletID)
         }
        
     }
@@ -155,38 +161,9 @@ class HomeViewController: UIViewController {
             print(error)
         }
     }
-    
-    func fetchTransactions(type: Int = 0) {
-        DataController.shared.fetchTransactions(type: type, walletID: 1) { transactions in //change wallet to be dinamic
-            ProgressHUD.show()
-            self.dataSource = self.createSections(transactions: transactions)
-            ProgressHUD.dismiss()
-        } onError: { error in
-            ProgressHUD.showError(error)
-        }
-    }
-    
-    //organizing the transactions by date:
-    func createSections(transactions: Transactions) -> [Section] {
-        var transactionsByDate: [String: [Transaction]] = [:]
-        for transaction in transactions {
-            if var transactionsForDate = transactionsByDate[transaction.date] {
-                transactionsForDate.append(transaction)
-                transactionsByDate[transaction.date] = transactionsForDate
-            } else {
-                transactionsByDate[transaction.date] = [transaction]
-            }
-        }
-        var sections: [Section] = []
-        for (date, transactions) in transactionsByDate {
-            sections.append(Section(date: date, transaction: transactions))
-        }
-        
-        sections.sort { $0.date > $1.date }
-        return sections
-    }
 }
-//MARK: - TableView
+
+//MARK: - TableView - Delegate and DataSource
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -203,14 +180,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
             let transaction = dataSource[indexPath.section].transaction[indexPath.row]
-           //print(transaction.amount)
             cell.updateViews(transaction: transaction)
             return cell
         } else {
             return TransactionsTableViewCell()
         }
     }
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transaction = dataSource[indexPath.section].transaction[indexPath.row]
