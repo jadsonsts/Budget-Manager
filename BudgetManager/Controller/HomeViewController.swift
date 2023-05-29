@@ -12,12 +12,25 @@ import FirebaseStorage
 import FirebaseFirestore
 import ProgressHUD
 
+protocol CustomerDelegate {
+    func didLoadCustomer(customer: Customer)
+}
+
+protocol WalletDelegate {
+    func didLoadWallet(wallet: Wallet)
+}
+
 class HomeViewController: UIViewController {
     
     var customer: Customer?
     var wallet: Wallet?
     var userID: String?
     var dataSource = [Section]()
+    
+    //delegate protocol to use the customer and wallet objects on other screens
+    var customerDelegate: CustomerDelegate?
+    var walletDelegate: WalletDelegate?
+    
     
     @IBOutlet weak var profilePictureUIImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -81,13 +94,16 @@ class HomeViewController: UIViewController {
         DataController.shared.fetchCustomer(userID) { customer in
             ProgressHUD.show("Fetching User Information")
             self.customer = customer
-            UserVariables.customer = customer //trying a global Variable
+            //self.customerDelegate?.didLoadCustomer(customer: customer)
+            UserVariables.customer = customer
             
             if let customerID = customer.id {
                 DataController.shared.fetchUserWallet(for: customerID) { wallet in
                     ProgressHUD.show("Fetching Wallet Information")
                     self.wallet = wallet
-                    UserVariables.wallet = wallet //trying a global Variable
+                    //self.walletDelegate?.didLoadWallet(wallet: wallet)
+                    UserVariables.wallet = wallet
+                    print(wallet)
                     self.loadLabels()
                     if let walletID = wallet.walletID {
                         self.fetchAllTransactions(walletID: walletID)
@@ -117,7 +133,7 @@ class HomeViewController: UIViewController {
 //                sceneDelegate.checkAuthentication()
 //            }
         } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
+            //print("Error signing out: %@", signOutError)
             ProgressHUD.showError(signOutError as? String)
         }
     }
@@ -158,7 +174,7 @@ class HomeViewController: UIViewController {
                 transactionsTableView.reloadData()
             }
         } onError: { error in
-            print(error)
+            ProgressHUD.showError(error)
         }
     }
 }
@@ -197,9 +213,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
             destinationVC.transaction = transaction
         }
-        
     }
-    
 }
 
 extension HomeViewController: UISearchBarDelegate {
@@ -221,5 +235,13 @@ extension HomeViewController: UISearchBarDelegate {
             }
         }
     }
-    
 }
+
+//extension HomeViewController: CustomerDelegate, WalletDelegate {
+//    func didLoadCustomer(customer: Customer) {
+//    }
+//
+//    func didLoadWallet(wallet: Wallet) {
+//        //self.wallet = wallet
+//    }
+//}

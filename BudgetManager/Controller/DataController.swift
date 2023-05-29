@@ -308,15 +308,13 @@ class DataController {
         }
     }
     
-    //MARK: - FETCH TRANSACTIONS
-    func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
-        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
-        let transactionURL = baseURL.appendingPathComponent("/transaction/\(type)/\(walletID)")
-        
-        let task = session.dataTask(with: transactionURL) { data, response, error in
-            DispatchQueue.main.async { [self] in
+    // MARK: - Network Request
+    
+    func performRequest<T: Decodable>(url: URL, onSuccess: @escaping (T) -> Void, onError: @escaping (String) -> Void) {
+        let task = session.dataTask(with: url) { data, response, error in
+            DispatchQueue.main.async  { [self] in
                 if let error = error {
-                    onError (error.localizedDescription)
+                    onError(error.localizedDescription)
                     return
                 }
                 
@@ -327,110 +325,44 @@ class DataController {
                 
                 do {
                     if response.statusCode == 200 {
-                        let transactions = try jsonDecoder.decode(Transactions.self, from: data)
-                        onSuccess(transactions)
+                        let decodedData = try jsonDecoder.decode(T.self, from: data)
+                        onSuccess(decodedData)
                     } else {
                         let error = try jsonDecoder.decode(APIError.self, from: data)
                         onError(error.message)
                     }
                 } catch {
-                    onError (error.localizedDescription)
+                    onError(error.localizedDescription)
                 }
             }
         }
         task.resume()
+    }
+    
+    //MARK: - FETCH TRANSACTIONS
+    func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
+        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
+        let transactionURL = baseURL.appendingPathComponent("/transaction/\(type)/\(walletID)")
+        
+        performRequest(url: transactionURL, onSuccess: onSuccess, onError: onError)
     }
     
     //MARK: - FETCH CUSTOMER
     func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer/byid/\(userID)")
-        let task = session.dataTask(with: userURL) { data, response, error in
-            DispatchQueue.main.async  { [self] in
-                if let error = error {
-                    onError(error.localizedDescription)
-                    ProgressHUD.showError(error.localizedDescription)
-                    print(String(describing: error))
-                    return
-                }
-                guard let safeData = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid Data or Response")
-                    return
-                }
-                do {
-                    if response.statusCode == 200 {
-                        let customer = try jsonDecoder.decode(Customer.self, from: safeData)
-                        onSuccess(customer)
-                    } else {
-                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
-                        onError(error.message)
-                    }
-                } catch {
-                    onError(error.localizedDescription)
-                    ProgressHUD.showError(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
+        performRequest(url: userURL, onSuccess: onSuccess, onError: onError)
     }
     
     //MARK: - FETCH WALLET
     func fetchUserWallet(for customerID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let walletURL = baseURL.appendingPathComponent("/wallet/\(customerID)")
-        let task = session.dataTask(with: walletURL) { data, response, error in
-            DispatchQueue.main.async  { [self] in
-                if let error = error {
-                    onError(error.localizedDescription)
-                    ProgressHUD.showError(error.localizedDescription)
-                    return
-                }
-                guard let safeData = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid Data or Response")
-                    return
-                }
-                do {
-                    if response.statusCode == 200 {
-                        let wallet = try jsonDecoder.decode(Wallet.self, from: safeData)
-                        onSuccess(wallet)
-                    } else {
-                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
-                        onError(error.message)
-                    }
-
-                } catch {
-                    onError(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
+        performRequest(url: walletURL, onSuccess: onSuccess, onError: onError)
     }
     
     //MARK: - FETCH CATEGORIES
-    func fetchCategories(onSucess: @escaping (Category) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+    func fetchCategories(onSuccess: @escaping (Category) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
         let categoryURL = baseURL.appendingPathComponent("/categories/")
-        let task = session.dataTask(with: categoryURL) { data, response, error in
-            DispatchQueue.main.async { [self] in
-                if let error = error {
-                    onError(error.localizedDescription)
-                    return
-                }
-                guard let safeData = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid Data or Response")
-                    return
-                }
-                do {
-                    if response.statusCode == 200 {
-                        let categories = try jsonDecoder.decode(Category.self, from: safeData)
-                        onSucess(categories)
-                    } else {
-                        let error = try jsonDecoder.decode(APIError.self, from: safeData)
-                        onError(error.message)
-                    }
-                } catch {
-                    onError(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
+        performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
     }
     //MARK: - UPDATE USER
     
@@ -447,6 +379,5 @@ class DataController {
     func deleteTransaction(_ transactionID: Int) {
         
     }
-    
     
 }

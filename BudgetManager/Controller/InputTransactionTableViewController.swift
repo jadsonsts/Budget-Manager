@@ -8,12 +8,7 @@
 import UIKit
 import ProgressHUD
 
-class InputTransactionTableViewController: UITableViewController, SelectCategoryDelegate {
-    
-    func didSelect(category: CategoryElement) {
-        self.category = category
-        updateCategoryLabel()
-    }
+class InputTransactionTableViewController: UITableViewController {
     
     @IBOutlet weak var transactionTypeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var transactionReferenceTxtField: UITextField!
@@ -24,11 +19,11 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
     @IBOutlet weak var transactionComments: UITextView!
     @IBOutlet weak var transactionDateLabel: UILabel!
     
-    
-    var wallet: Wallet?
+    //var wallet: Wallet?
     var category: CategoryElement?
     var transactionToEdit: Transaction?
     var transactionType = 1 //set as default (income)
+    var amount = 0
     let buttonSection = IndexPath(row: 0, section: 7)
     let transactionDateIndexPath = IndexPath(row: 1, section: 5)
 
@@ -41,10 +36,10 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         updateCategoryLabel()
-        transactionReferenceTxtField.delegate = self
+        updateWalletLabel()
         transactionAmountTxtField.delegate = self
+        transactionAmountTxtField.placeholder = updateAmount()
         transactionDateFormart()
         updateDateViews()
         tableView.separatorColor = CustomColors.greenColor
@@ -52,6 +47,7 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
         
     }
     
+
     func transactionDateFormart() {
         let midnightToday = Calendar.current.startOfDay(for: Date())
         transactionDatePicker.maximumDate = midnightToday
@@ -60,7 +56,7 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
     
     func updateDateViews() {
         let dateFormater = DateFormatter()
-        dateFormater.dateStyle = .medium
+        dateFormater.dateStyle = .short
         
         transactionDateLabel.text = dateFormater.string(from: transactionDatePicker.date)
     }
@@ -78,10 +74,21 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
     
     @IBAction func saveButtonPressed(_ sender: Any) {
         
-        guard let fields = checkFields(), let categoryID = category?.categoryID, let wallet = UserVariables.wallet  else { return }
+        guard let fields = checkFields() else {
+            print("deu ruim na validacao dos campos")
+            return }
+        guard let categoryID = category?.categoryID else {
+            ProgressHUD.showError("Please selecet one category")
+            return }
+        guard let wallet = UserVariables.wallet  else {
+            print("deu ruim na wallet")
+            return }
+        
+        print(categoryID)
         
         let transaction = Transaction(id: nil,
                                       reference: fields.transactionReference,
+                                      //amount: Double(fields.transactionAmount) ?? 0.0,
                                       amount: Double(fields.transactionAmount) ?? 0.0,
                                       date: fields.transactionDate,
                                       comment: transactionComments.text ?? "",
@@ -89,14 +96,14 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
                                       walletID: wallet.walletID!,
                                       categoryID: categoryID)
         
+        print (transaction)
+        
         ProgressHUD.show()
         DataController.shared.createTransaction(transaction: transaction) { _ in
             ProgressHUD.showSuccess()
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
-
-        
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -117,6 +124,14 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
             categoryImage.image = UIImage(systemName: "questionmark.circle")
         }
         tableView.reloadData()
+    }
+    
+    func updateWalletLabel() {
+        if let wallet = UserVariables.wallet {
+            transactionReferenceTxtField.text = ("\(wallet.walletName)" + "\(wallet.walletID!)")
+        } else {
+            transactionReferenceTxtField.text = "deu ruim"
+        }
     }
 
     //MARK: - Delegate Methods
@@ -147,6 +162,7 @@ class InputTransactionTableViewController: UITableViewController, SelectCategory
             default:
                 break
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Segue
@@ -170,22 +186,54 @@ extension InputTransactionTableViewController {
     @objc func doneButtonAction(){
         view.endEditing(true)
     }
+
 }
 
-//MARK: - Text Field Delegate
+//MARK: - TextField Delegate
 extension InputTransactionTableViewController: UITextFieldDelegate {
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        transactionReferenceTxtField.endEditing(true)
-        transactionAmountTxtField.endEditing(true)
-        
-        if textField == transactionReferenceTxtField {
-            textField.resignFirstResponder()
-            transactionAmountTxtField.becomeFirstResponder()
-        } else {
-            textField.resignFirstResponder()
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let digit = Int(string) {
+            amount = amount * 10 + digit
+            
+            if amount > 1_000_000_000_00 {
+                ProgressHUD.showError("Please enter amount less than 1 Billion")
+                transactionAmountTxtField.text = ""
+                amount = 0
+            } else {
+                transactionAmountTxtField.text = updateAmount()
+            }
         }
-        return true
+        
+        if string == "" {
+            amount = amount/10
+            transactionAmountTxtField.text = amount == 0 ? "" : updateAmount()
+        }
+        
+        return false
+    }
+    
+    func updateAmount() -> String? {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = NumberFormatter.Style.currency
+        let amount = Double(amount/100) + Double(amount%100)/100
+        return formatter.string(from: NSNumber(value: amount))
+    }
+}
+
+//MARK: - Protocols
+//extension InputTransactionTableViewController: WalletDelegate {
+//    func didLoadWallet(wallet: Wallet) {
+//        self.wallet = wallet
+//        print ("this is the wallet object: \(wallet)")
+//        tableView.reloadData()
+//        updateWalletLabel()
+//    }
+//}
+
+extension InputTransactionTableViewController: SelectCategoryDelegate {
+    func didSelect(category: CategoryElement) {
+        self.category = category
+        updateCategoryLabel()
     }
 }
