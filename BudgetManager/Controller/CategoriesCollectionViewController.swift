@@ -26,8 +26,8 @@ class CategoriesCollectionViewController: UICollectionViewController {
     }
     
     func fetchCategories() {
+        //ProgressHUD.show()
         DataController.shared.fetchCategories { category in
-            ProgressHUD.show()
             self.category = category
             self.collectionView.reloadData()
             ProgressHUD.dismiss()

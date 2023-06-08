@@ -36,8 +36,6 @@ class LoginWithAppsViewController: UIViewController {
          //signInFacebookButton.permissions = ["public_profile", "email"]
          // signInFacebookButton.delegate = self
          }*/
- 
-        
     }
 
     // setting button title and image
@@ -60,7 +58,6 @@ class LoginWithAppsViewController: UIViewController {
         button.imageEdgeInsets = UIEdgeInsets(top: 12, left: -20, bottom: 12, right: 220)
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -120, bottom: 0, right: 0)
     }
-    
     
     @IBAction func signInWithGoogle(sender: CustomButton) {
 
@@ -85,9 +82,7 @@ class LoginWithAppsViewController: UIViewController {
             //send to home view controller
         //}
     }
-    
-    
-    
+
     @IBAction func signInWithFacebook(_ sender: CustomButton) {
         ProgressHUD.show("Not yet available, please try another sign-in method", icon: .exclamation)
     }
@@ -95,8 +90,6 @@ class LoginWithAppsViewController: UIViewController {
     @IBAction func signInWithApple(_ sender: CustomButton) {
         ProgressHUD.show("Not yet available, please try another sign-in method", icon: .exclamation)
     }
-    
-
 }
 
 extension LoginWithAppsViewController: LoginButtonDelegate {
@@ -110,12 +103,10 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
         request.start(completion: { connection, result, error in
             print(":\(String(describing: result))")
         })
-        
     }
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
         print("logout")
     }
-    
     
 }

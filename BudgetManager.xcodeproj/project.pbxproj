@@ -36,6 +36,7 @@
 		DF3270C229E29458001D36C2 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */; };
 		DF3270C329E29458001D36C2 /* FBAEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF57CDB22A11ADF200958474 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */; };
+		DF57CDB42A289A2500958474 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57CDB32A289A2500958474 /* TabBarViewController.swift */; };
 		DF7BDE122993942D004696BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE112993942D004696BB /* Constants.swift */; };
 		DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */; };
 		DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86E76C29AC2B5700E912D9 /* DataController.swift */; };
@@ -117,6 +118,7 @@
 		DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionTableViewController.swift; sourceTree = "<group>"; };
 		DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBAEMKit.xcframework; path = Pods/FBAEMKit/XCFrameworks/FBAEMKit.xcframework; sourceTree = "<group>"; };
 		DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DF57CDB32A289A2500958474 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 				DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */,
 				DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */,
 				DF86E76C29AC2B5700E912D9 /* DataController.swift */,
+				DF57CDB32A289A2500958474 /* TabBarViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */,
 				DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
+				DF57CDB42A289A2500958474 /* TabBarViewController.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
 				DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */,
 				DFB0A2B12998B37600247D30 /* CategoriesCollectionViewController.swift in Sources */,

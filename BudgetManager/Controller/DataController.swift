@@ -269,7 +269,7 @@ class DataController {
     
     //MARK: - CREATE TRANSACTION
     func createTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
-        let transactionURL = baseURL.appendingPathComponent("/transaction)")
+        let transactionURL = baseURL.appendingPathComponent("/transaction")
         var request = URLRequest(url: transactionURL)
         request.httpMethod = "POST"
         
@@ -279,6 +279,7 @@ class DataController {
         do {
             let body = try jsonEnconder.encode(transaction)
             request.httpBody = body
+            
             let task = session.dataTask(with: request) { data, response, error in
                 DispatchQueue.main.async {
                     if let error = error {
@@ -289,6 +290,8 @@ class DataController {
                         onError("Failed to get data from the server")
                         return
                     }
+                    print(String(data: data, encoding: .utf8))                  
+                    print(response.statusCode)
                     do {
                         if response.statusCode == 200 {
                             let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
@@ -343,7 +346,6 @@ class DataController {
     func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
         //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
         let transactionURL = baseURL.appendingPathComponent("/transaction/\(type)/\(walletID)")
-        
         performRequest(url: transactionURL, onSuccess: onSuccess, onError: onError)
     }
     

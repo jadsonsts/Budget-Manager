@@ -22,7 +22,7 @@ class InputTransactionTableViewController: UITableViewController {
     //var wallet: Wallet?
     var category: CategoryElement?
     var transactionToEdit: Transaction?
-    var transactionType = 1 //set as default (income)
+    var transactionType = "income" //set as default (income)
     var amount = 0
     let buttonSection = IndexPath(row: 0, section: 7)
     let transactionDateIndexPath = IndexPath(row: 1, section: 5)
@@ -37,7 +37,6 @@ class InputTransactionTableViewController: UITableViewController {
         super.viewDidLoad()
         
         updateCategoryLabel()
-        updateWalletLabel()
         transactionAmountTxtField.delegate = self
         transactionAmountTxtField.placeholder = updateAmount()
         transactionDateFormart()
@@ -46,7 +45,6 @@ class InputTransactionTableViewController: UITableViewController {
         createKeyboardDoneButton()
         
     }
-    
 
     func transactionDateFormart() {
         let midnightToday = Calendar.current.startOfDay(for: Date())
@@ -64,46 +62,61 @@ class InputTransactionTableViewController: UITableViewController {
     func checkFields() -> (transactionReference: String, transactionAmount: String, transactionDate: String)? {
         
         guard let transactionReference = transactionReferenceTxtField.text, !transactionReference.isEmpty,
-              let transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
-              let transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
+              var transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
+              var transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
             ProgressHUD.showError(ErrorMessageType.emptyForm.message())
             return nil
         }
+        
+        // Remove the first character if it's a dollar sign
+        if transactionAmount.hasPrefix("$") {
+            transactionAmount = String(transactionAmount.dropFirst())
+        }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        
+        if let date = dateFormatter.date(from: transactionDate) {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let formattedDate = dateFormatter.string(from: date)
+            transactionDate = formattedDate
+        }
+        print(transactionDate, transactionAmount)
         return (transactionReference, transactionAmount, transactionDate)
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        
+        ProgressHUD.show()
         guard let fields = checkFields() else {
             print("deu ruim na validacao dos campos")
             return }
         guard let categoryID = category?.categoryID else {
-            ProgressHUD.showError("Please selecet one category")
+            ProgressHUD.showError("Please select one category")
             return }
         guard let wallet = UserVariables.wallet  else {
             print("deu ruim na wallet")
             return }
         
-        print(categoryID)
         
         let transaction = Transaction(id: nil,
                                       reference: fields.transactionReference,
-                                      //amount: Double(fields.transactionAmount) ?? 0.0,
                                       amount: Double(fields.transactionAmount) ?? 0.0,
                                       date: fields.transactionDate,
                                       comment: transactionComments.text ?? "",
-                                      transactionType: String(transactionType),
+                                      transactionType: transactionType,
                                       walletID: wallet.walletID!,
                                       categoryID: categoryID)
         
         print (transaction)
         
-        ProgressHUD.show()
+        
         DataController.shared.createTransaction(transaction: transaction) { _ in
             ProgressHUD.showSuccess()
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
+        
+        tabBarController?.selectedIndex = 0
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -111,7 +124,12 @@ class InputTransactionTableViewController: UITableViewController {
     }
     
     @IBAction func transactionTypeSegmentedChanged(_ sender: UISegmentedControl) {
-        transactionType = sender.selectedSegmentIndex + 1
+        if sender.selectedSegmentIndex == 0 {
+            transactionType = "income"
+        } else if sender.selectedSegmentIndex == 1 {
+            transactionType = "expense"
+        }
+    
     }
     
     func updateCategoryLabel(){
@@ -124,14 +142,6 @@ class InputTransactionTableViewController: UITableViewController {
             categoryImage.image = UIImage(systemName: "questionmark.circle")
         }
         tableView.reloadData()
-    }
-    
-    func updateWalletLabel() {
-        if let wallet = UserVariables.wallet {
-            transactionReferenceTxtField.text = ("\(wallet.walletName)" + "\(wallet.walletID!)")
-        } else {
-            transactionReferenceTxtField.text = "deu ruim"
-        }
     }
 
     //MARK: - Delegate Methods
@@ -171,6 +181,7 @@ class InputTransactionTableViewController: UITableViewController {
             let destinationVC = segue.destination as? CategoriesCollectionViewController
             destinationVC?.delegate = self
             destinationVC?.selectedCategory = category
+            ProgressHUD.show()
         }
     }
 }

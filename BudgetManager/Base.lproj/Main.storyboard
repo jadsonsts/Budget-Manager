@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -241,7 +241,7 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aR-V5-JBE">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aR-V5-JBE">
                                                 <rect key="frame" x="0.0" y="21.666666666666661" width="50.666666666666664" height="53.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="19"/>
                                                 <color key="textColor" name="generalLabelColor"/>
@@ -271,16 +271,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="Vvn-W2-CmR">
-                                                    <rect key="frame" x="30" y="21" width="314.66666666666669" height="24"/>
+                                                    <rect key="frame" x="25" y="12" width="319.66666666666669" height="42"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jgT-bJ-PRn">
-                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="24"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="42"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                                             <color key="textColor" name="generalLabelColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qhh-3Y-VPX">
-                                                            <rect key="frame" x="305" y="0.0" width="9.6666666666666856" height="24"/>
+                                                            <rect key="frame" x="310" y="0.0" width="9.6666666666666856" height="42"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
                                                             <color key="textColor" name="tabBarColor"/>
                                                             <nil key="highlightedColor"/>
@@ -291,9 +291,9 @@
                                             <color key="backgroundColor" name="backgroundColor"/>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Vvn-W2-CmR" secondAttribute="trailing" constant="10" id="27b-zf-RE3"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Vvn-W2-CmR" secondAttribute="bottom" constant="10" id="lkX-D6-Z7r"/>
-                                                <constraint firstItem="Vvn-W2-CmR" firstAttribute="leading" secondItem="Prk-gM-Vex" secondAttribute="leadingMargin" constant="10" id="pXH-Qm-fTA"/>
-                                                <constraint firstItem="Vvn-W2-CmR" firstAttribute="top" secondItem="Prk-gM-Vex" secondAttribute="topMargin" constant="10" id="rJA-Vw-8KM"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Vvn-W2-CmR" secondAttribute="bottom" constant="1" id="lkX-D6-Z7r"/>
+                                                <constraint firstItem="Vvn-W2-CmR" firstAttribute="leading" secondItem="Prk-gM-Vex" secondAttribute="leadingMargin" constant="5" id="pXH-Qm-fTA"/>
+                                                <constraint firstItem="Vvn-W2-CmR" firstAttribute="top" secondItem="Prk-gM-Vex" secondAttribute="topMargin" constant="1" id="rJA-Vw-8KM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="backgroundColor"/>
@@ -309,8 +309,8 @@
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <segments>
                                     <segment title="All"/>
-                                    <segment title="Expenses"/>
                                     <segment title="Incomes"/>
+                                    <segment title="Expenses"/>
                                 </segments>
                                 <color key="tintColor" name="backgroundColor"/>
                                 <color key="selectedSegmentTintColor" name="tabBarColor"/>
@@ -318,7 +318,7 @@
                                     <action selector="transactionSegmentedControlDidChange:" destination="aLj-OD-jqA" eventType="valueChanged" id="v6c-Sh-dX0"/>
                                 </connections>
                             </segmentedControl>
-                            <searchBar contentMode="redraw" placeholder="Search by name, category, amount" translatesAutoresizingMaskIntoConstraints="NO" id="K9l-Ue-qP7">
+                            <searchBar contentMode="redraw" placeholder="Search by reference or amount" translatesAutoresizingMaskIntoConstraints="NO" id="K9l-Ue-qP7">
                                 <rect key="frame" x="0.0" y="296" width="393" height="56"/>
                                 <color key="backgroundColor" name="backgroundColor"/>
                                 <color key="barTintColor" name="backgroundColor"/>
@@ -350,7 +350,6 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="htY-Cd-hDD"/>
-                    <navigationItem key="navigationItem" id="jSd-sv-ha7"/>
                     <connections>
                         <outlet property="hideValuesButton" destination="2YC-Zc-OHt" id="pmY-EL-HR2"/>
                         <outlet property="profilePictureUIImage" destination="uvi-y8-bLh" id="HVs-tu-tvT"/>
@@ -369,7 +368,7 @@
         <!--Settings-->
         <scene sceneID="B9R-dl-cMu">
             <objects>
-                <viewController id="Xmx-18-Vxe" customClass="UserSettingsViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserSettingsViewController" id="Xmx-18-Vxe" customClass="UserSettingsViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5d6-qa-ODn">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -491,12 +490,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mc-7c-zaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="224" y="-373"/>
+            <point key="canvasLocation" x="140" y="-373"/>
         </scene>
         <!--New Transaction-->
         <scene sceneID="6HC-Tf-CMd">
             <objects>
-                <tableViewController id="dnN-nl-8Yv" customClass="InputTransactionTableViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="InputTransactionTableViewController" id="dnN-nl-8Yv" customClass="InputTransactionTableViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="lOq-Jp-nf5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -767,7 +766,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="82"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-kV-joZ" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qgh-kV-joZ" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
                                                     <rect key="frame" x="20" y="0.0" width="353" height="82"/>
                                                     <color key="backgroundColor" name="tabBarColor"/>
                                                     <constraints>
@@ -1394,10 +1393,10 @@
             </objects>
             <point key="canvasLocation" x="-1640.4580152671756" y="-1925.3521126760563"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="Q5e-OF-ikr">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7bA-fs-kJ1" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="7bA-fs-kJ1" customClass="TabBarViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="a8w-zB-QSA"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DA8-VA-QCG">
