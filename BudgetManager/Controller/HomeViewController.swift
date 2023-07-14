@@ -34,10 +34,13 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         ProgressHUD.show()
         loadDada()
+        navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        hideValuesButton.isHidden = true
 
         loadPicture()
         
@@ -49,8 +52,14 @@ class HomeViewController: UIViewController {
         
         self.tabBarController?.navigationItem.hidesBackButton = true
         
-        self.transactionsSegmentedControl.frame = CGRect(x: self.transactionsSegmentedControl.frame.minX, y: self.transactionsSegmentedControl.frame.minY, width: transactionsSegmentedControl.frame.width, height: 50)
+        self.transactionsSegmentedControl.frame = CGRect(
+            x: self.transactionsSegmentedControl.frame.minX,
+            y: self.transactionsSegmentedControl.frame.minY,
+            width: transactionsSegmentedControl.frame.width,
+            height: 0.5)
         transactionsSegmentedControl.hightlightSelectedSegment()
+        self.transactionsSegmentedControl.clipsToBounds = true
+        searchTransaction.clipsToBounds = true
         
     }
     
@@ -104,19 +113,15 @@ class HomeViewController: UIViewController {
         
     }
     
-    @IBAction func hideValuesButton(_ sender: Any) {
-        
-    }
+//    @IBAction func hideValuesButton(_ sender: Any) {
+//
+//    }
     
     @IBAction func logOutPressed(_ sender: Any) {
-        //try to signOut, and use the method on SceneDelegate to move to the login Controller (LoginWithAppsViewController)
         do {
             try Auth.auth().signOut()
-            //            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-            //                sceneDelegate.checkAuthentication()
-            //            }
+            navigationController?.popToRootViewController(animated: true)
         } catch let signOutError as NSError {
-            //print("Error signing out: %@", signOutError)
             ProgressHUD.showError(signOutError as? String)
         }
     }
@@ -153,10 +158,16 @@ class HomeViewController: UIViewController {
 //MARK: - fetching data and creating sections by date
     func fetchTransactions(type: Int = 0, walletID: Int) {
         ProgressHUD.show()
-        //reset the object responsible for organising the transactions
-        transactionDataSource = []
+
         DataController.shared.fetchTransactions(type: type, walletID: walletID) { transactions in
-            for transaction in transactions {
+            
+            //reset the object responsible for organising the transactions
+            self.transactionDataSource = []
+            
+            //sort the transactions by date in descending order
+            let sortedTransactions = transactions.sorted { $0.date > $1.date }
+            
+            for transaction in sortedTransactions {
                 if !self.transactionDataSource.contains(where: {$0.date == transaction.date}) {
                     self.transactionDataSource.append(Section(date: transaction.date, transaction: [transaction]))
                     
@@ -189,7 +200,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionData = isSearching ? filteredDataSource[section] : transactionDataSource[section]
         
-        //return transactionDataSource[section].transaction.count
         return sectionData.transaction.count
     }
     
@@ -211,10 +221,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let transactionNotFiltered = transactionDataSource[indexPath.section].transaction[indexPath.row]
-//        let transactionFiltered = filteredDataSource[indexPath.section].transaction[indexPath.row]
-//
-//        let transaction = isSearching ? transactionFiltered : transactionNotFiltered
         
         let selectedTransaction: Transaction
         
@@ -241,9 +247,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             
             selectedTransaction = section.transaction[indexPath.row]
         }
-        
+
         performSegue(withIdentifier: K.detailSegue, sender: selectedTransaction)
         tableView.deselectRow(at: indexPath, animated: true)
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -258,7 +265,6 @@ extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchBarText = searchBar.text else { return }
         
-        //todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         if searchBarText.isEmpty {
             // Clear the filteredDataSource when search text is empty
             filteredDataSource = []
@@ -292,13 +298,5 @@ extension HomeViewController: UISearchBarDelegate {
                 searchBar.resignFirstResponder()
             }
         }
-        
-//        if searchBar.text?.count == 0 {
-//            //func to fetch all transactions (check the segmented selected all, income, expense)
-//
-//            DispatchQueue.main.async {
-//                searchBar.resignFirstResponder()
-//            }
-//        }
     }
 }

@@ -30,7 +30,7 @@ class DataController {
     
     let baseURL = URL(string: "http://localhost:5105")!
     let jsonDecoder = JSONDecoder()
-    let jsonEnconder = JSONEncoder()
+    let jsonEncoder = JSONEncoder()
     let session = URLSession(configuration: .default)
     
     //MARK: - FIREBASE SIGNIN METHOD
@@ -69,7 +69,7 @@ class DataController {
                 } onError: { errorMessage in
                     onError(errorMessage)
                 }
-
+                
             }
         }
     }
@@ -193,7 +193,7 @@ class DataController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         do {
-            let body = try jsonEnconder.encode(customer)
+            let body = try jsonEncoder.encode(customer)
             request.httpBody = body
             let task = session.dataTask(with: request) { data, response, error in
                 DispatchQueue.main.async {
@@ -205,8 +205,6 @@ class DataController {
                         onError("Failed to get data from the server")
                         return
                     }
-                    //print(String(data: data, encoding: .utf8))
-                    //print (response.statusCode)
                     do {
                         if response.statusCode == 200 {
                             let customer = try self.jsonDecoder.decode(Customer.self, from: data)
@@ -236,7 +234,7 @@ class DataController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         do {
-            let body = try jsonEnconder.encode(wallet)
+            let body = try jsonEncoder.encode(wallet)
             request.httpBody = body
             let task = session.dataTask(with: request) { data, response, error in
                 DispatchQueue.main.async { [self] in
@@ -277,7 +275,7 @@ class DataController {
         request.addValue("application/json", forHTTPHeaderField: "Accept")
         
         do {
-            let body = try jsonEnconder.encode(transaction)
+            let body = try jsonEncoder.encode(transaction)
             request.httpBody = body
             
             let task = session.dataTask(with: request) { data, response, error in
@@ -290,7 +288,7 @@ class DataController {
                         onError("Failed to get data from the server")
                         return
                     }
-                    print(String(data: data, encoding: .utf8))                  
+                    print(String(data: data, encoding: .utf8))
                     print(response.statusCode)
                     do {
                         if response.statusCode == 200 {
@@ -366,6 +364,15 @@ class DataController {
         let categoryURL = baseURL.appendingPathComponent("/categories/")
         performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
     }
+    
+    func fetchCategory(categoryID: Int, onSuccess: @escaping (CategoryElement) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        let categoryURL = baseURL.appendingPathComponent("/categories/byid/\(categoryID)")
+        performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
+    }
+    
+    //MARK: - PERFORM REQUEST ()
+    
+    
     //MARK: - UPDATE USER
     
     func updateCustomer(_ customerID: String) {
@@ -373,8 +380,48 @@ class DataController {
     }
     //MARK: - UPDATE TRANSACTION
     
-    func updateTransaction(_ transactionID: Int) {
+    func updateTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
+        let transactionURL = baseURL.appendingPathComponent("/transaction")
+        var request = URLRequest(url: transactionURL)
+        request.httpMethod = "PUT"
         
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        do {
+            let body = try jsonEncoder.encode(transaction)
+            request.httpBody = body
+            
+            let task = session.dataTask(with: request) { data, response, error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        onError(error.localizedDescription)
+                        return
+                    }
+                    guard let data = data, let response = response as? HTTPURLResponse else {
+                        onError("Failed to get data from the server")
+                        return
+                    }
+                    
+                    print(String(data: data, encoding: .utf8))
+                    print(response.statusCode)
+                    do {
+                        if response.statusCode == 200 {
+                            let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
+                            onSucess(transaction)
+                        } else {
+                            let apiError = try self.jsonDecoder.decode(APIError.self, from: data)
+                            onError(apiError.message)
+                        }
+                    } catch {
+                        onError(error.localizedDescription)
+                    }
+                }
+            }
+            task.resume()
+        } catch {
+            onError(error.localizedDescription)
+        }
     }
     //MARK: - DELETE TRANSACTION
     

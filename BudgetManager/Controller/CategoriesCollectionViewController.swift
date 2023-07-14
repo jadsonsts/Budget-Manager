@@ -17,16 +17,14 @@ class CategoriesCollectionViewController: UICollectionViewController {
     var category = [CategoryElement]()
     var selectedCategory: CategoryElement?
     var delegate: SelectCategoryDelegate?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchCategories()
-        
     }
     
     func fetchCategories() {
-        //ProgressHUD.show()
         DataController.shared.fetchCategories { category in
             self.category = category
             self.collectionView.reloadData()
@@ -41,16 +39,16 @@ class CategoriesCollectionViewController: UICollectionViewController {
         cell.layer.borderWidth = 1
         cell.layer.borderColor = CustomColors.greenColor.cgColor
     }
-
+    
     // MARK: UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.categoryCell, for: indexPath) as? CategoryCollectionViewCell {
             let category = category[indexPath.row]
@@ -67,7 +65,7 @@ class CategoriesCollectionViewController: UICollectionViewController {
             return CategoryCollectionViewCell()
         }
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
         

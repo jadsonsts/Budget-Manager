@@ -3,7 +3,7 @@
 //  BudgetManager
 //
 //  Created by Jadson on 7/02/23.
-//
+// TO BE USED IN A FUTURE VERSION
 
 import UIKit
 
@@ -19,13 +19,11 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTextField: CustomTxtField!
     
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createKeyboardDoneButton()
 
-        // Do any additional setup after loading the view.
     }
     
     

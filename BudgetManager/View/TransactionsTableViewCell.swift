@@ -11,7 +11,7 @@ class TransactionsTableViewCell: UITableViewCell {
     
     let INCOME_FORMAT = "+$%.2f"
     let EXPENSE_FORMAT = "-$%.2f"
-
+    
     @IBOutlet weak var referenceCell : UILabel!
     @IBOutlet weak var amountCell : UILabel!
     
@@ -26,7 +26,5 @@ class TransactionsTableViewCell: UITableViewCell {
             amountCell.text = String(format: EXPENSE_FORMAT, transaction.amount)
             amountCell.textColor = CustomColors.expenseLabelColor
         }
-        
     }
-
 }

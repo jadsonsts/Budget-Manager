@@ -15,7 +15,7 @@ struct K {
     static let categoryCell = "CategoryCell"
     static let categorySelection = "GoToSelectCategory"
     static let userLoggedInHome = "LoginWithAppsToHome"
-    //static let detailCell = "DetailTransactionCell"
+    static let editTransaction = "editTransaction"
 }
 
 struct UserVariables {

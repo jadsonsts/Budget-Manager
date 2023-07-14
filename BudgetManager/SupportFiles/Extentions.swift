@@ -8,8 +8,12 @@
 import Foundation
 import UIKit
 
+enum TransactionType: String {
+    case income
+    case expense
+}
+
 enum Field: String {
-    //case username
     case password
 }
 
@@ -30,23 +34,23 @@ enum ValidationType {
     
     func fulfills(string: String) -> Bool {
         switch self {
-        case .isNotEmpty:
-            return !string.isEmpty
-        case .minCharacters(min: let min):
-            return string.count >= min
-        case .hasSymbols:
-            return string.containsCharacter()
-        case .hasUppercasedLetters:
-            return string.isUpperCase()
-        case .hasLowercasedLetters:
-            return string.isLowerCase()
-        case .hasNumbers:
-            return string.containsDigit()
+            case .isNotEmpty:
+                return !string.isEmpty
+            case .minCharacters(min: let min):
+                return string.count >= min
+            case .hasSymbols:
+                return string.containsCharacter()
+            case .hasUppercasedLetters:
+                return string.isUpperCase()
+            case .hasLowercasedLetters:
+                return string.isLowerCase()
+            case .hasNumbers:
+                return string.containsDigit()
         }
     }
     
     func message(fieldName: String) -> String {
-            switch self {
+        switch self {
             case .isNotEmpty:
                 return "\(fieldName) must not be empty"
             case .minCharacters(min: let min):
@@ -59,8 +63,8 @@ enum ValidationType {
                 return "\(fieldName) must cointain at least one lower case character"
             case .hasNumbers:
                 return "\(fieldName) must cointain at least one number"
-            }
         }
+    }
 }
 
 //MARK: - VALIDATIONS

@@ -19,33 +19,58 @@ class InputTransactionTableViewController: UITableViewController {
     @IBOutlet weak var transactionComments: UITextView!
     @IBOutlet weak var transactionDateLabel: UILabel!
     
-    //var wallet: Wallet?
+    
     var category: CategoryElement?
     var transactionToEdit: Transaction?
     var transactionType = "income" //set as default (income)
     var amount = 0
     let buttonSection = IndexPath(row: 0, section: 7)
     let transactionDateIndexPath = IndexPath(row: 1, section: 5)
-
+    
     var isTransactionDatePickerShown: Bool = false {
         didSet {
             transactionDatePicker.isHidden = !isTransactionDatePickerShown
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if transactionToEdit != nil {
+            loadExistingTransaction()
+        } else {
+            updateDateViews()
+        }
         
         updateCategoryLabel()
         transactionAmountTxtField.delegate = self
         transactionAmountTxtField.placeholder = updateAmount()
         transactionDateFormart()
-        updateDateViews()
+        
         tableView.separatorColor = CustomColors.greenColor
         createKeyboardDoneButton()
         
     }
-
+    
+    func loadExistingTransaction() {
+        guard let transaction = transactionToEdit else { return }
+        
+        transactionReferenceTxtField.text = transaction.reference
+        transactionAmountTxtField.text = String("$\(transaction.amount)")
+        transactionDateLabel.text = formatDateString(dateString: transaction.date)
+        transactionComments.text = transaction.comment
+        if let type = TransactionType(rawValue: transaction.transactionType) {
+            if type == .income {
+                transactionTypeSegmentedControl.selectedSegmentIndex = 0
+                transactionType = "income"
+            } else if type == .expense {
+                transactionTypeSegmentedControl.selectedSegmentIndex = 1
+                transactionType = "expense"
+            }
+        }
+        updateCategoryLabel()
+    }
+    
     func transactionDateFormart() {
         let midnightToday = Calendar.current.startOfDay(for: Date())
         transactionDatePicker.maximumDate = midnightToday
@@ -57,6 +82,19 @@ class InputTransactionTableViewController: UITableViewController {
         dateFormater.dateStyle = .short
         
         transactionDateLabel.text = dateFormater.string(from: transactionDatePicker.date)
+    }
+    
+    //take the date and format to show on the screen
+    func formatDateString(dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            dateFormatter.dateFormat = "dd/MM/yy"
+            let formattedDate = dateFormatter.string(from: date)
+            return formattedDate
+        }
+        return nil
     }
     
     func checkFields() -> (transactionReference: String, transactionAmount: String, transactionDate: String)? {
@@ -73,6 +111,7 @@ class InputTransactionTableViewController: UITableViewController {
             transactionAmount = String(transactionAmount.dropFirst())
         }
         
+        //convert the data to send through the API
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy"
         
@@ -93,30 +132,59 @@ class InputTransactionTableViewController: UITableViewController {
         guard let categoryID = category?.categoryID else {
             ProgressHUD.showError("Please select one category")
             return }
-        guard let wallet = UserVariables.wallet  else {
-            print("deu ruim na wallet")
-            return }
+        guard let wallet = UserVariables.wallet  else { return }
         
-        
-        let transaction = Transaction(id: nil,
-                                      reference: fields.transactionReference,
-                                      amount: Double(fields.transactionAmount) ?? 0.0,
-                                      date: fields.transactionDate,
-                                      comment: transactionComments.text ?? "",
-                                      transactionType: transactionType,
-                                      walletID: wallet.walletID!,
-                                      categoryID: categoryID)
-        
-        print (transaction)
-        
-        
+        if transactionToEdit != nil {
+            guard let transactionToEditID = transactionToEdit?.id else { return }
+            
+            let transactionToUpdate = Transaction(id: transactionToEditID,
+                                                  reference: fields.transactionReference,
+                                                  amount: Double(fields.transactionAmount) ?? 0.0,
+                                                  date: fields.transactionDate,
+                                                  comment: transactionComments.text ?? "",
+                                                  transactionType: transactionType,
+                                                  walletID: transactionToEdit!.walletID,
+                                                  categoryID: categoryID)
+            
+            updateTransaction(transaction: transactionToUpdate)
+            
+            print(transactionToUpdate)
+        } else {
+            let transactionToCreate = Transaction(id: nil,
+                                                  reference: fields.transactionReference,
+                                                  amount: Double(fields.transactionAmount) ?? 0.0,
+                                                  date: fields.transactionDate,
+                                                  comment: transactionComments.text ?? "",
+                                                  transactionType: transactionType,
+                                                  walletID: wallet.walletID!,
+                                                  categoryID: categoryID)
+            print(transactionToCreate)
+            createTransaction(transaction: transactionToCreate)
+            
+        }
+    }
+    
+    func createTransaction(transaction: Transaction) {
         DataController.shared.createTransaction(transaction: transaction) { _ in
-            ProgressHUD.showSuccess()
+            ProgressHUD.showSuccess("Transaction created")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.tabBarController?.selectedIndex = 0
+            }
+            
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
-        
-        tabBarController?.selectedIndex = 0
+    }
+    
+    func updateTransaction(transaction: Transaction) {
+        DataController.shared.updateTransaction(transaction: transaction) { _ in
+            ProgressHUD.showSuccess("Transaction updated")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                self.tabBarController?.selectedIndex = 0
+            }
+        } onError: { errorMessage in
+            ProgressHUD.showError("deu ruim: \(errorMessage)")
+        }
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -129,7 +197,6 @@ class InputTransactionTableViewController: UITableViewController {
         } else if sender.selectedSegmentIndex == 1 {
             transactionType = "expense"
         }
-    
     }
     
     func updateCategoryLabel(){
@@ -143,7 +210,7 @@ class InputTransactionTableViewController: UITableViewController {
         }
         tableView.reloadData()
     }
-
+    
     //MARK: - Delegate Methods
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -174,7 +241,7 @@ class InputTransactionTableViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-
+    
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.categorySelection {
@@ -197,7 +264,7 @@ extension InputTransactionTableViewController {
     @objc func doneButtonAction(){
         view.endEditing(true)
     }
-
+    
 }
 
 //MARK: - TextField Delegate
@@ -233,14 +300,6 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
 }
 
 //MARK: - Protocols
-//extension InputTransactionTableViewController: WalletDelegate {
-//    func didLoadWallet(wallet: Wallet) {
-//        self.wallet = wallet
-//        print ("this is the wallet object: \(wallet)")
-//        tableView.reloadData()
-//        updateWalletLabel()
-//    }
-//}
 
 extension InputTransactionTableViewController: SelectCategoryDelegate {
     func didSelect(category: CategoryElement) {

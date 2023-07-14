@@ -37,7 +37,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window?.makeKeyAndVisible()
     }
     
-    
     //made public so as it can be used when the logout is pressed on HomeViewController
     public func checkAuthentication() {
         // if user is already signed in, go to tabBarController screens
@@ -45,11 +44,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             if user != nil {
                 // User is signed in.
                 self.goToController(with: HomeViewController())
-                print("user signed in \(user?.uid), \(user?.email)")
+                //print("user signed in \(user?.uid), \(user?.email)")
             } else {
                 // No User is signed in.
                 self.goToController(with: LoginWithAppsViewController())
-                print("user not signed in")
+                //print("user not signed in")
             }
         }
     }

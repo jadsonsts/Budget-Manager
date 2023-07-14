@@ -60,6 +60,8 @@ class LoginWithAppsViewController: UIViewController {
     }
     
     @IBAction func signInWithGoogle(sender: CustomButton) {
+        
+        ProgressHUD.show("Not yet available, please try another sign-in method", icon: .exclamation)
 
 //        GIDSignIn.sharedInstance.signIn(withPresenting: self) { signInResult, error in
 //            guard error == nil else { return }
@@ -92,7 +94,7 @@ class LoginWithAppsViewController: UIViewController {
     }
 }
 
-extension LoginWithAppsViewController: LoginButtonDelegate {
+/*extension LoginWithAppsViewController: LoginButtonDelegate {
     func loginButton(_ loginButton: FBSDKLoginKit.FBLoginButton, didCompleteWith result: FBSDKLoginKit.LoginManagerLoginResult?, error: Error?) {
         let token = result?.token?.tokenString
         let request = FBSDKLoginKit.GraphRequest(graphPath: "me",
@@ -109,4 +111,4 @@ extension LoginWithAppsViewController: LoginButtonDelegate {
         print("logout")
     }
     
-}
+}*/

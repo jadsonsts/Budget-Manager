@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomButton: UIButton {
-
+    
     override func awakeFromNib() {
         //MARK: Corner radius
         self.layer.cornerRadius = self.frame.height / 5
@@ -24,6 +24,5 @@ class CustomButton: UIButton {
         
         self.clipsToBounds = true
     }
-
 }
 

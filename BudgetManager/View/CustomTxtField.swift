@@ -8,7 +8,7 @@
 import UIKit
 
 class CustomTxtField: UITextField {
-
+    
     override func awakeFromNib() {
         self.layer.cornerRadius = self.frame.height / 4
         self.layer.borderColor = CustomColors.greenColor.cgColor
