@@ -177,13 +177,13 @@ class InputTransactionTableViewController: UITableViewController {
     }
     
     func updateTransaction(transaction: Transaction) {
-        DataController.shared.updateTransaction(transaction: transaction) { _ in
+        DataController.shared.updateTransaction(transaction: transaction) {
             ProgressHUD.showSuccess("Transaction updated")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.tabBarController?.selectedIndex = 0
+                self.performSegue(withIdentifier: K.unwindToHome, sender: self)
             }
         } onError: { errorMessage in
-            ProgressHUD.showError("deu ruim: \(errorMessage)")
+            ProgressHUD.showError("whoops: \(errorMessage)")
         }
     }
     

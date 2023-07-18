@@ -80,5 +80,4 @@ class TransactionDetailedViewController: UIViewController {
         }
         return nil
     }
-    
 }

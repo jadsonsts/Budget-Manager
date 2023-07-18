@@ -155,6 +155,11 @@ class HomeViewController: UIViewController {
         return nil
     }
     
+    //unwind when editing transaction
+    @IBAction func unwindToPreviousPage(_ segue: UIStoryboardSegue) {
+        // Perform any additional actions you need when going back
+    }
+    
 //MARK: - fetching data and creating sections by date
     func fetchTransactions(type: Int = 0, walletID: Int) {
         ProgressHUD.show()

@@ -818,9 +818,11 @@
                         <outlet property="transactionDatePicker" destination="S3v-qz-tWe" id="agu-RM-a8W"/>
                         <outlet property="transactionReferenceTxtField" destination="mlg-XI-2wn" id="fML-Kh-noX"/>
                         <outlet property="transactionTypeSegmentedControl" destination="ooi-WK-6VR" id="KGo-Wu-3Hv"/>
+                        <segue destination="cNW-5w-ke8" kind="unwind" identifier="unwindToHome" unwindAction="unwindToPreviousPage:" id="OoQ-wY-OXr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gpR-yc-5f4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="cNW-5w-ke8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-753" y="-373"/>
         </scene>
@@ -1442,7 +1444,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="KXJ-1d-Qt8"/>
-        <segue reference="UqQ-Dx-nBT"/>
+        <segue reference="LcY-Np-VRt"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="eye.fill" catalog="system" width="128" height="80"/>

@@ -373,14 +373,9 @@ class DataController {
     //MARK: - PERFORM REQUEST ()
     
     
-    //MARK: - UPDATE USER
-    
-    func updateCustomer(_ customerID: String) {
-        
-    }
     //MARK: - UPDATE TRANSACTION
     
-    func updateTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
+    func updateTransaction(transaction: Transaction, onSucess: @escaping () -> Void, onError: @escaping (String) -> Void) {
         let transactionURL = baseURL.appendingPathComponent("/transaction")
         var request = URLRequest(url: transactionURL)
         request.httpMethod = "PUT"
@@ -398,23 +393,15 @@ class DataController {
                         onError(error.localizedDescription)
                         return
                     }
-                    guard let data = data, let response = response as? HTTPURLResponse else {
+                    guard let response = response as? HTTPURLResponse else {
                         onError("Failed to get data from the server")
                         return
                     }
                     
-                    print(String(data: data, encoding: .utf8))
-                    print(response.statusCode)
-                    do {
-                        if response.statusCode == 200 {
-                            let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
-                            onSucess(transaction)
-                        } else {
-                            let apiError = try self.jsonDecoder.decode(APIError.self, from: data)
-                            onError(apiError.message)
-                        }
-                    } catch {
-                        onError(error.localizedDescription)
+                    if response.statusCode == 200 {
+                        onSucess()
+                    } else {
+                        onError("Update failed with status code: \(response.statusCode)")
                     }
                 }
             }
@@ -422,6 +409,12 @@ class DataController {
         } catch {
             onError(error.localizedDescription)
         }
+    }
+    
+    //MARK: - UPDATE USER
+    
+    func updateCustomer(_ customerID: String) {
+        
     }
     //MARK: - DELETE TRANSACTION
     
