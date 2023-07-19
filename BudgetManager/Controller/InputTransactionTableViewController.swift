@@ -106,6 +106,10 @@ class InputTransactionTableViewController: UITableViewController {
             return nil
         }
         
+        if transactionAmount.contains(",") {
+            transactionAmount = transactionAmount.replacingOccurrences(of: ",", with: "")
+        }
+        
         // Remove the first character if it's a dollar sign
         if transactionAmount.hasPrefix("$") {
             transactionAmount = String(transactionAmount.dropFirst())
@@ -120,7 +124,6 @@ class InputTransactionTableViewController: UITableViewController {
             let formattedDate = dateFormatter.string(from: date)
             transactionDate = formattedDate
         }
-        print(transactionDate, transactionAmount)
         return (transactionReference, transactionAmount, transactionDate)
     }
     
@@ -170,6 +173,7 @@ class InputTransactionTableViewController: UITableViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                 self.tabBarController?.selectedIndex = 0
             }
+            self.resetFields()
             
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
@@ -185,6 +189,20 @@ class InputTransactionTableViewController: UITableViewController {
         } onError: { errorMessage in
             ProgressHUD.showError("whoops: \(errorMessage)")
         }
+    }
+    
+    //reser the fields after a transaction is created
+    func resetFields() {
+        transactionAmountTxtField.text = ""
+        transactionReferenceTxtField.text = ""
+        transactionComments.text = ""
+        categoryName.text = "Not Set"
+        categoryImage.image = UIImage(systemName: "questionmark.circle")
+        transactionTypeSegmentedControl.selectedSegmentIndex = 0
+        transactionType = "income"
+        transactionDateFormart()
+        updateDateViews()
+        
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {

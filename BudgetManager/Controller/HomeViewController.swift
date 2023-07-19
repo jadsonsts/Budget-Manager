@@ -43,7 +43,7 @@ class HomeViewController: UIViewController {
         hideValuesButton.isHidden = true
 
         loadPicture()
-        
+        configureSegmentedController()
         searchTransaction.delegate = self
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
@@ -51,7 +51,10 @@ class HomeViewController: UIViewController {
         transactionsTableView.separatorColor = CustomColors.greenColor
         
         self.tabBarController?.navigationItem.hidesBackButton = true
-        
+        searchTransaction.clipsToBounds = true
+    }
+    
+    func configureSegmentedController() {
         self.transactionsSegmentedControl.frame = CGRect(
             x: self.transactionsSegmentedControl.frame.minX,
             y: self.transactionsSegmentedControl.frame.minY,
@@ -59,15 +62,19 @@ class HomeViewController: UIViewController {
             height: 0.5)
         transactionsSegmentedControl.hightlightSelectedSegment()
         self.transactionsSegmentedControl.clipsToBounds = true
-        searchTransaction.clipsToBounds = true
-        
     }
     
     func loadLabels() {
         
         guard let customerName = customer?.name, let walletAmount = wallet?.amount else { return }
         userNameLabel.text = "Hello, \(customerName)"
-        walletAmountLabel.text = String(format: "$%.2f", walletAmount)
+        
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        
+        walletAmountLabel.text = formatter.string(for: walletAmount)
     }
     
     func loadPicture() {
@@ -110,7 +117,6 @@ class HomeViewController: UIViewController {
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
-        
     }
     
 //    @IBAction func hideValuesButton(_ sender: Any) {
@@ -157,7 +163,7 @@ class HomeViewController: UIViewController {
     
     //unwind when editing transaction
     @IBAction func unwindToPreviousPage(_ segue: UIStoryboardSegue) {
-        // Perform any additional actions you need when going back
+        
     }
     
 //MARK: - fetching data and creating sections by date

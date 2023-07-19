@@ -8,9 +8,7 @@
 import UIKit
 
 class TransactionsTableViewCell: UITableViewCell {
-    
-    let INCOME_FORMAT = "+$%.2f"
-    let EXPENSE_FORMAT = "-$%.2f"
+
     
     @IBOutlet weak var referenceCell : UILabel!
     @IBOutlet weak var amountCell : UILabel!
@@ -18,13 +16,16 @@ class TransactionsTableViewCell: UITableViewCell {
     func updateViews(transaction: Transaction) {
         referenceCell.text = transaction.reference
         
-        if transaction.transactionType == "income" { //change to enum if possible
-            amountCell.text = String(format: INCOME_FORMAT, transaction.amount)
-            amountCell.textColor = CustomColors.greenColor
-            
-        } else {
-            amountCell.text = String(format: EXPENSE_FORMAT, transaction.amount)
-            amountCell.textColor = CustomColors.expenseLabelColor
-        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        formatter.positivePrefix = formatter.negativePrefix.replacingOccurrences(of: formatter.minusSign, with: formatter.plusSign)
+
+        let positiveSign = formatter.string(for: transaction.amount)
+        let negativeSign = formatter.string(for: -transaction.amount)
+        
+        amountCell.text = (transaction.transactionType == "income") ? positiveSign : negativeSign
+        amountCell.textColor = (transaction.transactionType == "income") ? CustomColors.greenColor : CustomColors.expenseLabelColor
     }
 }
