@@ -222,6 +222,7 @@
 				DF21D3042991CC1900EA6FAB /* View */,
 				DF21D3052991CC2300EA6FAB /* Controller */,
 				DF7BDE1029939412004696BB /* SupportFiles */,
+				DF3B31282AB5BFB9004F3AFF /* Old */,
 				DF21D2D929906A4200EA6FAB /* Main.storyboard */,
 				DF21D2DC29906A4400EA6FAB /* Assets.xcassets */,
 				DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */,
@@ -276,18 +277,25 @@
 		DF21D3052991CC2300EA6FAB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */,
 				DF21D310299243FE00EA6FAB /* LoginWithEmailViewController.swift */,
 				DF21D3122992441D00EA6FAB /* SignUpViewController.swift */,
 				DF21D3142992442E00EA6FAB /* HomeViewController.swift */,
 				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
-				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
 				DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */,
 				DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */,
 				DF86E76C29AC2B5700E912D9 /* DataController.swift */,
 				DF57CDB32A289A2500958474 /* TabBarViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		DF3B31282AB5BFB9004F3AFF /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */,
+				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
+			);
+			path = Old;
 			sourceTree = "<group>";
 		};
 		DF7BDE1029939412004696BB /* SupportFiles */ = {
