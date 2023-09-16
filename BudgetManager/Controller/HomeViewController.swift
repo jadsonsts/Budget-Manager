@@ -32,6 +32,8 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        transactionsSegmentedControl.selectedSegmentIndex = 0
+        transactionsSegmentedControl.underlinePosition()
         ProgressHUD.show()
         loadDada()
         navigationController?.navigationBar.isHidden = true
@@ -119,14 +121,11 @@ class HomeViewController: UIViewController {
         }
     }
     
-//    @IBAction func hideValuesButton(_ sender: Any) {
-//
-//    }
-    
     @IBAction func logOutPressed(_ sender: Any) {
         do {
             try Auth.auth().signOut()
             navigationController?.popToRootViewController(animated: true)
+            navigationController?.navigationBar.isHidden = false
         } catch let signOutError as NSError {
             ProgressHUD.showError(signOutError as? String)
         }

@@ -22,6 +22,10 @@ class LoginWithEmailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if Auth.auth().currentUser != nil {
+            performSegue(withIdentifier: K.userLoggedInHome, sender: self)
+        }
 
         emailMesageErrorLabel.isHidden = true
         passwordMessageErrorLabel.isHidden = true
@@ -52,7 +56,7 @@ class LoginWithEmailViewController: UIViewController {
         DataController.shared.signIn(withEmail: fields.email, password: fields.password) { result in
             ProgressHUD.showSuccess()
             if let result = result {
-                self.userID = result.user.uid //creck this 
+                self.userID = result.user.uid
                 self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         } onError: { errorMessage in

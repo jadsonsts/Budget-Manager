@@ -12,8 +12,7 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
 import ProgressHUD
-import GoogleSignIn
-import GoogleSignInSwift
+
 
 let REF_USER = "users"
 let STORAGE_PROFILE = "profilePicture"
@@ -44,35 +43,7 @@ class DataController {
         }
     }
     
-    //MARK: - SIGNIN WITH GOOGLE
-    func signInWithGoogle(present vc: UIViewController, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
-        //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-        // Create Google Sign In configuration object.
-        //        let config = GIDConfiguration(clientID: clientID)
-        //        GIDSignIn.sharedInstance.configuration = config
-        
-        DispatchQueue.main.async {
-            // Start the sign in flow!
-            GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
-                guard error == nil else {
-                    return ProgressHUD.showError(error?.localizedDescription)
-                }
-                
-                guard let user = result?.user,
-                      let idToken = user.idToken?.tokenString
-                else { return }
-                
-                let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                               accessToken: user.accessToken.tokenString)
-                credentialSignIn(with: credential) {
-                    onSucess()
-                } onError: { errorMessage in
-                    onError(errorMessage)
-                }
-                
-            }
-        }
-    }
+
     
     func credentialSignIn (with credential: AuthCredential, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().signIn(with: credential) { result, error in
@@ -83,12 +54,6 @@ class DataController {
             onSucess()
         }
     }
-    
-    //MARK: - SIGNIN WITH FACEBOOK
-    //    func signInWithFacebook() -> Bool {
-    //
-    //    }
-    
     
     //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
@@ -411,15 +376,48 @@ class DataController {
         }
     }
     
-    //MARK: - UPDATE USER
+/*
+ //MARK: - UPDATE USER -
+ 
+ func updateCustomer(_ customerID: String) {
+ 
+ }
+ //MARK: - DELETE TRANSACTION
+ 
+ func deleteTransaction(_ transactionID: Int) {
+ 
+ }
+ */
     
-    func updateCustomer(_ customerID: String) {
-        
-    }
-    //MARK: - DELETE TRANSACTION
+/*   //MARK: - SIGNIN WITH GOOGLE
+    func signInWithGoogle(present vc: UIViewController, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+    //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+    // Create Google Sign In configuration object.
+    //        let config = GIDConfiguration(clientID: clientID)
+    //        GIDSignIn.sharedInstance.configuration = config
     
-    func deleteTransaction(_ transactionID: Int) {
-        
+    DispatchQueue.main.async {
+    // Start the sign in flow!
+    GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
+    guard error == nil else {
+    return ProgressHUD.showError(error?.localizedDescription)
     }
+    
+    guard let user = result?.user,
+    let idToken = user.idToken?.tokenString
+    else { return }
+    
+    let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+    accessToken: user.accessToken.tokenString)
+    credentialSignIn(with: credential) {
+    onSucess()
+    } onError: { errorMessage in
+    onError(errorMessage)
+    }
+    
+    }
+    }
+    }
+    */
     
 }
