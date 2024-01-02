@@ -32,19 +32,17 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        transactionsSegmentedControl.selectedSegmentIndex = 0
-        transactionsSegmentedControl.underlinePosition()
-        ProgressHUD.show()
-        loadDada()
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ProgressHUD.show()
+        ProgressHUD.colorAnimation = CustomColors.greenColor
         hideValuesButton.isHidden = true
-
+        
         loadPicture()
+        loadData()
         configureSegmentedController()
         searchTransaction.delegate = self
         transactionsTableView.delegate = self
@@ -82,38 +80,37 @@ class HomeViewController: UIViewController {
     func loadPicture() {
         profilePictureUIImage.layer.cornerRadius = 25
         profilePictureUIImage.clipsToBounds = true
-        DataController.shared.loadPhoto { customerImage in
+        DataController.shared.loadPhoto { [weak self] customerImage in
             if let safeImage = customerImage {
-                self.profilePictureUIImage.image = safeImage
+                self?.profilePictureUIImage.image = safeImage
             } else {
-                self.profilePictureUIImage.image = UIImage(systemName: "person.fill")
+                self?.profilePictureUIImage.image = UIImage(systemName: "person.fill")
             }
         }
     }
     
-    func loadDada() {
+    func loadData() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
         
-        DataController.shared.fetchCustomer(userID) { customer in
-            self.customer = customer
-            UserVariables.customer = customer
-            self.fetchWallet()
+        DataController.shared.fetchCustomer(userID) { [weak self] customer in
+            self?.customer = customer
+            self?.fetchWallet()
             
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
         }
+
     }
     
     func fetchWallet() {
         guard let customerId = customer?.id else { return }
         
-        DataController.shared.fetchUserWallet(for: customerId) { wallet in
-            self.wallet = wallet
-            UserVariables.wallet = wallet
-            self.loadLabels()
+        DataController.shared.fetchUserWallet(for: customerId) { [weak self] wallet in
+            self?.wallet = wallet
+            self?.loadLabels()
             
             if let walletID = wallet.walletID {
-                self.fetchTransactions(walletID: walletID)
+                self?.fetchTransactions(walletID: walletID)
             }
             
         } onError: { errorMessage in
@@ -121,14 +118,8 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBAction func logOutPressed(_ sender: Any) {
-        do {
-            try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
-            navigationController?.navigationBar.isHidden = false
-        } catch let signOutError as NSError {
-            ProgressHUD.showError(signOutError as? String)
-        }
+    @IBAction func newTransactionPressed(_ sender: Any) {
+       // performSegue(withIdentifier: K.newTransaction, sender: self)
     }
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
@@ -169,15 +160,16 @@ class HomeViewController: UIViewController {
     func fetchTransactions(type: Int = 0, walletID: Int) {
         ProgressHUD.show()
 
-        DataController.shared.fetchTransactions(type: type, walletID: walletID) { transactions in
+        DataController.shared.fetchTransactions(type: type, walletID: walletID) { [weak self] transactions in
             
             //reset the object responsible for organising the transactions
-            self.transactionDataSource = []
+            self?.transactionDataSource = []
             
             //sort the transactions by date in descending order
             let sortedTransactions = transactions.sorted { $0.date > $1.date }
             
             for transaction in sortedTransactions {
+                guard let self = self else { return }
                 if !self.transactionDataSource.contains(where: {$0.date == transaction.date}) {
                     self.transactionDataSource.append(Section(date: transaction.date, transaction: [transaction]))
                     
@@ -186,8 +178,8 @@ class HomeViewController: UIViewController {
                     self.transactionDataSource[index].transaction.append(transaction)
                 }
             }
-            DispatchQueue.main.async { [self] in
-                transactionsTableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.transactionsTableView.reloadData()
             }
             ProgressHUD.dismiss()
         } onError: { error in
@@ -260,12 +252,15 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 
         performSegue(withIdentifier: K.detailSegue, sender: selectedTransaction)
         tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.navigationBar.isHidden = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
             destinationVC.transaction = transaction
+            destinationVC.wallet = wallet
+        } else if let transactionInputVC = segue.destination as? InputTransactionTableViewController {
+            transactionInputVC.inputTransactionDelegate = self
+            transactionInputVC.wallet = wallet
         }
     }
 }
@@ -308,5 +303,12 @@ extension HomeViewController: UISearchBarDelegate {
                 searchBar.resignFirstResponder()
             }
         }
+    }
+}
+
+//MARK: - UPDATE VIEW DELEGATE METHOD
+extension HomeViewController: InputTransactionDelegate {
+    func didUpdateHomeView() {
+        loadData()
     }
 }

@@ -23,7 +23,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTxtField: CustomTxtField!
     @IBOutlet weak var signUpButton: CustomButton!
     
-    //Validation Supporters
+  //MARK: - Validation Supporters
     @IBOutlet weak var emailValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var passwordImageViewValidation: UIImageView!
@@ -35,10 +35,11 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var imageValidationLabel: UILabel!
     
     let passwordValidation = PasswordValidationObj()
-    var image: UIImage? = nil
+    var image: UIImage?
     
     override func viewWillAppear(_ animated: Bool) {
         hidePasswordCheckStackView()
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     
@@ -282,7 +283,7 @@ class SignUpViewController: UIViewController {
         //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase and the server
         guard let fields = validateFields() else { return }
         ProgressHUD.show()
-        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
+        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) { 
             guard let userID = Auth.auth().currentUser?.uid else { return }
             
             //create the customer object to pass in and input the data on the mySql database

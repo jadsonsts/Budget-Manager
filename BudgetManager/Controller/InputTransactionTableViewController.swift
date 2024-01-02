@@ -8,6 +8,14 @@
 import UIKit
 import ProgressHUD
 
+//typeAlias
+let income = "income"
+let expense = "expense"
+
+protocol InputTransactionDelegate {
+    func didUpdateHomeView()
+}
+
 class InputTransactionTableViewController: UITableViewController {
     
     @IBOutlet weak var transactionTypeSegmentedControl: UISegmentedControl!
@@ -19,10 +27,11 @@ class InputTransactionTableViewController: UITableViewController {
     @IBOutlet weak var transactionComments: UITextView!
     @IBOutlet weak var transactionDateLabel: UILabel!
     
-    
+    var inputTransactionDelegate: InputTransactionDelegate?
     var category: CategoryElement?
+    var wallet: Wallet?
     var transactionToEdit: Transaction?
-    var transactionType = "income" //set as default (income)
+    var transactionType = income //set as default (income)
     var amount = 0
     let buttonSection = IndexPath(row: 0, section: 7)
     let transactionDateIndexPath = IndexPath(row: 1, section: 5)
@@ -31,6 +40,11 @@ class InputTransactionTableViewController: UITableViewController {
         didSet {
             transactionDatePicker.isHidden = !isTransactionDatePickerShown
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidLoad() {
@@ -46,10 +60,8 @@ class InputTransactionTableViewController: UITableViewController {
         transactionAmountTxtField.delegate = self
         transactionAmountTxtField.placeholder = updateAmount()
         transactionDateFormart()
-        
-        tableView.separatorColor = CustomColors.greenColor
         createKeyboardDoneButton()
-        
+        tableView.separatorColor = CustomColors.greenColor
     }
     
     func loadExistingTransaction() {
@@ -62,10 +74,10 @@ class InputTransactionTableViewController: UITableViewController {
         if let type = TransactionType(rawValue: transaction.transactionType) {
             if type == .income {
                 transactionTypeSegmentedControl.selectedSegmentIndex = 0
-                transactionType = "income"
+                transactionType = income
             } else if type == .expense {
                 transactionTypeSegmentedControl.selectedSegmentIndex = 1
-                transactionType = "expense"
+                transactionType = expense
             }
         }
         updateCategoryLabel()
@@ -128,17 +140,20 @@ class InputTransactionTableViewController: UITableViewController {
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        ProgressHUD.show()
-        guard let fields = checkFields() else {
-            print("deu ruim na validacao dos campos")
-            return }
+        
+        guard let fields = checkFields() else { return }
         guard let categoryID = category?.categoryID else {
             ProgressHUD.showError("Please select one category")
             return }
-        guard let wallet = UserVariables.wallet  else { return }
+        guard let wallet = wallet  else { 
+            print ("erro na wallet")
+            return }
         
         if transactionToEdit != nil {
-            guard let transactionToEditID = transactionToEdit?.id else { return }
+            guard let transactionToEditID = transactionToEdit?.id else { 
+                print ("erro transacao ID")
+                return }
+            ProgressHUD.show()
             
             let transactionToUpdate = Transaction(id: transactionToEditID,
                                                   reference: fields.transactionReference,
@@ -151,7 +166,6 @@ class InputTransactionTableViewController: UITableViewController {
             
             updateTransaction(transaction: transactionToUpdate)
             
-            print(transactionToUpdate)
         } else {
             let transactionToCreate = Transaction(id: nil,
                                                   reference: fields.transactionReference,
@@ -161,19 +175,18 @@ class InputTransactionTableViewController: UITableViewController {
                                                   transactionType: transactionType,
                                                   walletID: wallet.walletID!,
                                                   categoryID: categoryID)
-            print(transactionToCreate)
             createTransaction(transaction: transactionToCreate)
-            
         }
     }
     
     func createTransaction(transaction: Transaction) {
-        DataController.shared.createTransaction(transaction: transaction) { _ in
+        DataController.shared.createTransaction(transaction: transaction) { [weak self] _ in
             ProgressHUD.showSuccess("Transaction created")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.tabBarController?.selectedIndex = 0
+                self?.navigationController?.popToRootViewController(animated: true)
+                self?.inputTransactionDelegate?.didUpdateHomeView()
             }
-            self.resetFields()
+            self?.resetFields()
             
         } onError: { errorMessage in
             ProgressHUD.showError(errorMessage)
@@ -183,8 +196,9 @@ class InputTransactionTableViewController: UITableViewController {
     func updateTransaction(transaction: Transaction) {
         DataController.shared.updateTransaction(transaction: transaction) {
             ProgressHUD.showSuccess("Transaction updated")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.performSegue(withIdentifier: K.unwindToHome, sender: self)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+                self?.navigationController?.popToRootViewController(animated: true)
+                self?.inputTransactionDelegate?.didUpdateHomeView()
             }
         } onError: { errorMessage in
             ProgressHUD.showError("whoops: \(errorMessage)")
@@ -199,7 +213,7 @@ class InputTransactionTableViewController: UITableViewController {
         categoryName.text = "Not Set"
         categoryImage.image = UIImage(systemName: "questionmark.circle")
         transactionTypeSegmentedControl.selectedSegmentIndex = 0
-        transactionType = "income"
+        transactionType = income
         transactionDateFormart()
         updateDateViews()
         
@@ -211,9 +225,9 @@ class InputTransactionTableViewController: UITableViewController {
     
     @IBAction func transactionTypeSegmentedChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            transactionType = "income"
+            transactionType = income
         } else if sender.selectedSegmentIndex == 1 {
-            transactionType = "expense"
+            transactionType = expense
         }
     }
     
@@ -263,7 +277,7 @@ class InputTransactionTableViewController: UITableViewController {
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.categorySelection {
-            let destinationVC = segue.destination as? CategoriesCollectionViewController
+            let destinationVC = segue.destination as? SelectCategoryViewController
             destinationVC?.delegate = self
             destinationVC?.selectedCategory = category
             ProgressHUD.show()
@@ -282,7 +296,6 @@ extension InputTransactionTableViewController {
     @objc func doneButtonAction(){
         view.endEditing(true)
     }
-    
 }
 
 //MARK: - TextField Delegate
@@ -318,8 +331,7 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
 }
 
 //MARK: - Protocols
-
-extension InputTransactionTableViewController: SelectCategoryDelegate {
+extension InputTransactionTableViewController: SelectCategoryDelegate {   
     func didSelect(category: CategoryElement) {
         self.category = category
         updateCategoryLabel()

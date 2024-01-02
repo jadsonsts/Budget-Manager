@@ -17,9 +17,10 @@ struct K {
     static let userLoggedInHome = "AlreadyLoggedIn"
     static let editTransaction = "editTransaction"
     static let unwindToHome = "unwindToHome"
+    static let newTransaction = "SendToTransaction"
 }
 
-struct UserVariables {
-    static var customer: Customer?
-    static var wallet: Wallet?
-}
+//struct UserVariables {
+//    static var customer: Customer?
+//    static var wallet: Wallet?
+//}

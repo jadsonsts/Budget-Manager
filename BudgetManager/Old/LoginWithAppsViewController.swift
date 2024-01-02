@@ -25,9 +25,9 @@ class LoginWithAppsViewController: UIViewController {
         
         setupButtonUI()
         
-        if Auth.auth().currentUser != nil {
-            performSegue(withIdentifier: K.userLoggedInHome, sender: self)
-        }
+//        if Auth.auth().currentUser != nil {
+//            performSegue(withIdentifier: K.userLoggedInHome, sender: self)
+//        }
         
         /*       if let fbToken = AccessToken.current,
          !fbToken.isExpired {

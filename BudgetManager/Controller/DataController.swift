@@ -44,7 +44,6 @@ class DataController {
     }
     
 
-    
     func credentialSignIn (with credential: AuthCredential, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().signIn(with: credential) { result, error in
             if let error = error {
@@ -61,7 +60,7 @@ class DataController {
         
         guard let imageData = image?.jpegData(compressionQuality: 0.4) else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             if let e = error {
                 ProgressHUD.showError(e.localizedDescription)
                 return
@@ -79,7 +78,7 @@ class DataController {
                 let metadata = StorageMetadata()
                 metadata.contentType = CONTENT_TYPE
                 
-                self.savePhoto(uid: authData.user.uid, imageData: imageData, metadata: metadata, storageProfileRef: storageProfileRef, dict: dict) {
+                self?.savePhoto(uid: authData.user.uid, imageData: imageData, metadata: metadata, storageProfileRef: storageProfileRef, dict: dict) {
                     onSucess()
                 } onError: { errorMessage in
                     onError(errorMessage)
@@ -97,7 +96,7 @@ class DataController {
                 return
             }
             
-            //download the image to save on the dictionary
+            //download the image to save in the dictionary
             storageProfileRef.downloadURL { url, error in
                 if let metaImageUrl = url?.absoluteString {
                     

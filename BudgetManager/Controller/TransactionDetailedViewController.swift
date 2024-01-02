@@ -22,11 +22,16 @@ class TransactionDetailedViewController: UIViewController {
     var transaction: Transaction!
     var categoryName: String?
     var category: CategoryElement?
+    var wallet: Wallet?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchCategory()
-        
     }
     
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
@@ -38,10 +43,10 @@ class TransactionDetailedViewController: UIViewController {
     func fetchCategory() {
         ProgressHUD.show()
         let categoryID = transaction.categoryID
-        DataController.shared.fetchCategory(categoryID: categoryID) { category in
-            self.category = category
-            self.categoryName = category.categoryName
-            self.loadData()
+        DataController.shared.fetchCategory(categoryID: categoryID) { [weak self] category in
+            self?.category = category
+            self?.categoryName = category.categoryName
+            self?.loadData()
             ProgressHUD.dismiss()
         } onError: { errorMessage in
             ProgressHUD.showError("Unable to fetch category Name")
@@ -53,6 +58,7 @@ class TransactionDetailedViewController: UIViewController {
             if let transaction = sender as? Transaction {
                 destination.transactionToEdit = transaction
                 destination.category = category
+                destination.wallet = wallet
             }
         }
     }
