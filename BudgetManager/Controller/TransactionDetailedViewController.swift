@@ -59,6 +59,7 @@ class TransactionDetailedViewController: UIViewController {
                 destination.transactionToEdit = transaction
                 destination.category = category
                 destination.wallet = wallet
+                destination.inputTransactionDelegate = self
             }
         }
     }
@@ -85,5 +86,11 @@ class TransactionDetailedViewController: UIViewController {
             return formattedDate
         }
         return nil
+    }
+}
+
+extension TransactionDetailedViewController: InputTransactionDelegate {
+    func didUpdateHomeView() {
+        
     }
 }

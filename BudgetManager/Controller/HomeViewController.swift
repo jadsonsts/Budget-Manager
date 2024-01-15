@@ -81,10 +81,13 @@ class HomeViewController: UIViewController {
         profilePictureUIImage.layer.cornerRadius = 25
         profilePictureUIImage.clipsToBounds = true
         DataController.shared.loadPhoto { [weak self] customerImage in
+            //safeImage is the check from userDefaults, if there's no image, the app will check on firebase
             if let safeImage = customerImage {
                 self?.profilePictureUIImage.image = safeImage
             } else {
-                self?.profilePictureUIImage.image = UIImage(systemName: "person.fill")
+                DataController.shared.downloadPhotoFromFirebase { [weak self] userProfilePicture in
+                    self?.profilePictureUIImage.image = userProfilePicture
+                }
             }
         }
     }

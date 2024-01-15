@@ -183,8 +183,8 @@ class InputTransactionTableViewController: UITableViewController {
         DataController.shared.createTransaction(transaction: transaction) { [weak self] _ in
             ProgressHUD.showSuccess("Transaction created")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.navigationController?.popToRootViewController(animated: true)
                 self?.inputTransactionDelegate?.didUpdateHomeView()
+                self?.navigationController?.popToRootViewController(animated: true)
             }
             self?.resetFields()
             
@@ -197,8 +197,8 @@ class InputTransactionTableViewController: UITableViewController {
         DataController.shared.updateTransaction(transaction: transaction) {
             ProgressHUD.showSuccess("Transaction updated")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-                self?.navigationController?.popToRootViewController(animated: true)
                 self?.inputTransactionDelegate?.didUpdateHomeView()
+                self?.navigationController?.popToRootViewController(animated: true)
             }
         } onError: { errorMessage in
             ProgressHUD.showError("whoops: \(errorMessage)")

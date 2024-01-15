@@ -88,6 +88,45 @@ class DataController {
     }
     
     //MARK: - FIREBASE STORAGE SERVICE
+    
+    // method to download the user's profile picture from Firebase Storage
+    func downloadPhotoFromFirebase(completion: @escaping (UIImage?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(nil)
+            return
+        }
+        
+        // Reference to the storage on Firebase
+        let storageRef = Storage.storage().reference(forURL: URL_STORAGE_ROOT)
+        let storageProfileRef = storageRef.child(STORAGE_PROFILE).child(uid)
+        
+        storageProfileRef.downloadURL { url, error in
+            guard let imageUrl = url, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            //add the image to the user defaults
+            let metaImageUrl = imageUrl.absoluteString
+            UserDefaults.standard.set(metaImageUrl, forKey: USER_DEFAULTS_IMG_URL)
+
+            //get the image data to pass in
+            let task = URLSession.shared.dataTask(with: imageUrl) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(nil)
+                    return
+                }
+                
+                let profilePicture = UIImage(data: data)
+                DispatchQueue.main.async {
+                    completion(profilePicture)
+                }
+            }
+            task.resume()
+        }
+        
+    }
+    
     func savePhoto(uid: String, imageData: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
         storageProfileRef.putData(imageData, metadata: metadata) { storageMetadata, error in
@@ -148,7 +187,9 @@ class DataController {
         task.resume()
     }
     
-    //MARK: - INSERT THE USER ONTO DATABASE(MYSWL)
+
+    
+    //MARK: - INSERT THE USER ONTO DATABASE(MYSQL)
     func createCustomer(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer")
         var request = URLRequest(url: userURL)
@@ -333,10 +374,7 @@ class DataController {
         let categoryURL = baseURL.appendingPathComponent("/categories/byid/\(categoryID)")
         performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
     }
-    
-    //MARK: - PERFORM REQUEST ()
-    
-    
+
     //MARK: - UPDATE TRANSACTION
     
     func updateTransaction(transaction: Transaction, onSucess: @escaping () -> Void, onError: @escaping (String) -> Void) {

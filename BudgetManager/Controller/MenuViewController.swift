@@ -50,9 +50,24 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func logoutPressed(_ sender: Any) {
+        confirmationScreen()
+    }
+    
+    func confirmationScreen() {
+        let alertController = UIAlertController(title: "Logout?", message: "Are you sure you want to logout?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let logoutAction = UIAlertAction(title: "Logout", style: .destructive) { action  in
+            self.logout()
+        }
+        alertController.addAction(logoutAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    func logout(){
         do {
             try Auth.auth().signOut()
-            navigationController?.popViewController(animated: true)
+            navigationController?.popToRootViewController(animated: true)
         } catch let logoutError as NSError {
             ProgressHUD.showError(logoutError as? String)
         }

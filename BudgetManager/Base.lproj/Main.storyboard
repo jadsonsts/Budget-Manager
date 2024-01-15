@@ -157,7 +157,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="185"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uvi-y8-bLh">
-                                        <rect key="frame" x="10" y="60" width="50" height="50"/>
+                                        <rect key="frame" x="10" y="65" width="50" height="50"/>
                                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                                         <color key="tintColor" systemColor="systemBrownColor"/>
                                         <constraints>
@@ -166,13 +166,13 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oSu-TX-tf4">
-                                        <rect key="frame" x="10" y="138.66666666666666" width="0.0" height="0.0"/>
+                                        <rect key="frame" x="10" y="140" width="0.0" height="0.0"/>
                                         <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="19"/>
                                         <color key="textColor" name="generalLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="IhR-Gi-9AO">
-                                        <rect key="frame" x="266.33333333333331" y="75" width="116.66666666666669" height="34.333333333333343"/>
+                                        <rect key="frame" x="266.33333333333331" y="65" width="116.66666666666669" height="34.333333333333343"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2YC-Zc-OHt">
                                                 <rect key="frame" x="0.0" y="0.0" width="58.333333333333336" height="34.333333333333336"/>
@@ -200,9 +200,9 @@
                                         </subviews>
                                     </stackView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transaction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5mc-Zf-ka1">
-                                        <rect key="frame" x="321" y="110.33333333333333" width="67" height="17.999999999999986"/>
+                                        <rect key="frame" x="321" y="100.33333333333333" width="67" height="18"/>
                                         <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="13"/>
-                                        <color key="textColor" name="backgroundColor"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -212,10 +212,10 @@
                                     <constraint firstItem="oSu-TX-tf4" firstAttribute="leading" secondItem="FQm-hc-YWp" secondAttribute="leading" constant="10" id="Qvx-jn-cV0"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oSu-TX-tf4" secondAttribute="trailing" constant="20" symbolic="YES" id="Wq2-W9-Ytn"/>
                                     <constraint firstItem="5mc-Zf-ka1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="FQm-hc-YWp" secondAttribute="leading" constant="20" symbolic="YES" id="XSv-Nh-VA6"/>
-                                    <constraint firstItem="oSu-TX-tf4" firstAttribute="top" secondItem="uvi-y8-bLh" secondAttribute="bottom" constant="28.666666666666671" id="Xbz-9e-Vam"/>
-                                    <constraint firstItem="uvi-y8-bLh" firstAttribute="top" secondItem="FQm-hc-YWp" secondAttribute="top" constant="60" id="eac-Tz-JIi"/>
+                                    <constraint firstItem="oSu-TX-tf4" firstAttribute="top" secondItem="uvi-y8-bLh" secondAttribute="bottom" constant="25" id="Xbz-9e-Vam"/>
+                                    <constraint firstItem="uvi-y8-bLh" firstAttribute="top" secondItem="FQm-hc-YWp" secondAttribute="top" constant="65" id="eac-Tz-JIi"/>
                                     <constraint firstAttribute="trailing" secondItem="IhR-Gi-9AO" secondAttribute="trailing" constant="10" id="o9X-uv-K6K"/>
-                                    <constraint firstItem="IhR-Gi-9AO" firstAttribute="top" secondItem="FQm-hc-YWp" secondAttribute="top" constant="75" id="re3-Hh-hoh"/>
+                                    <constraint firstItem="IhR-Gi-9AO" firstAttribute="top" secondItem="FQm-hc-YWp" secondAttribute="top" constant="65" id="re3-Hh-hoh"/>
                                     <constraint firstAttribute="height" constant="185" id="sXP-EZ-Nzo"/>
                                     <constraint firstAttribute="trailing" secondItem="5mc-Zf-ka1" secondAttribute="trailing" constant="5" id="w4b-xf-4jb"/>
                                     <constraint firstItem="uvi-y8-bLh" firstAttribute="leading" secondItem="FQm-hc-YWp" secondAttribute="leading" constant="10" id="xlo-ml-jcU"/>
@@ -609,7 +609,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="InputTransactionTableViewController" id="dnN-nl-8Yv" customClass="InputTransactionTableViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="lOq-Jp-nf5">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" name="generalLabelColor"/>
@@ -1727,7 +1727,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="E6f-iK-OEb"/>
-        <segue reference="LcY-Np-VRt"/>
+        <segue reference="fCq-M1-jo8"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="eye.fill" catalog="system" width="128" height="80"/>
