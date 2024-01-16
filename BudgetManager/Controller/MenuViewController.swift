@@ -67,7 +67,13 @@ class MenuViewController: UIViewController {
     func logout(){
         do {
             try Auth.auth().signOut()
-            navigationController?.popToRootViewController(animated: true)
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil) 
+            if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginWithEmailViewController") as? LoginWithEmailViewController,
+               let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+                sceneDelegate.window?.rootViewController = loginViewController
+            }
+            //navigationController?.popToRootViewController(animated: true)
         } catch let logoutError as NSError {
             ProgressHUD.showError(logoutError as? String)
         }

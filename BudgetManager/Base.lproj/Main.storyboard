@@ -380,7 +380,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mJN-qb-zmm">
-                                <rect key="frame" x="156.66666666666666" y="79" width="80" height="80"/>
+                                <rect key="frame" x="156.66666666666666" y="123" width="80" height="80"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <color key="tintColor" name="TabBarColor"/>
                                 <constraints>
@@ -389,7 +389,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Wi7-2c-R3X">
-                                <rect key="frame" x="10" y="179" width="373" height="375"/>
+                                <rect key="frame" x="10" y="223" width="373" height="375"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oRT-A0-p5g" customClass="CustomTxtField" customModule="BudgetManager" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
@@ -454,7 +454,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-hn-RMR" customClass="CustomButton" customModule="BudgetManager" customModuleProvider="target">
-                                <rect key="frame" x="10" y="574" width="373" height="60"/>
+                                <rect key="frame" x="10" y="618" width="373" height="60"/>
                                 <color key="backgroundColor" name="tabBarColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="7R1-ma-GoO"/>
@@ -496,7 +496,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mc-7c-zaB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="97" y="510"/>
+            <point key="canvasLocation" x="1118" y="-44"/>
         </scene>
         <!--Select Category View Controller-->
         <scene sceneID="OPF-3Q-0b2">
@@ -1035,11 +1035,43 @@
                         <outlet property="logoutButton" destination="qYU-Fy-xj9" id="Aoa-BJ-n1a"/>
                         <outlet property="userSettingsButton" destination="Gh8-if-k8t" id="0hk-UD-fG2"/>
                         <outlet property="walletsButton" destination="eLp-In-IR8" id="38P-MP-XU9"/>
+                        <segue destination="JfV-J3-EmY" kind="show" identifier="AboutSegue" id="t6V-9J-AY6"/>
+                        <segue destination="Xmx-18-Vxe" kind="show" identifier="UserDetailsSegue" id="TMO-Cy-DBV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pDM-Dj-7U5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="97" y="-373"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="rIs-ti-Uor">
+            <objects>
+                <viewController id="JfV-J3-EmY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="F9V-ul-Hym">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HD2-5x-cf4">
+                                <rect key="frame" x="10" y="153" width="373" height="30.333333333333343"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <color key="textColor" name="generalLabelColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Grr-Yd-Rvs"/>
+                        <color key="backgroundColor" name="backgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="HD2-5x-cf4" firstAttribute="top" secondItem="Grr-Yd-Rvs" secondAttribute="top" constant="50" id="5Ae-Sw-eZh"/>
+                            <constraint firstItem="Grr-Yd-Rvs" firstAttribute="trailing" secondItem="HD2-5x-cf4" secondAttribute="trailing" constant="10" id="JuN-j5-Sqy"/>
+                            <constraint firstItem="HD2-5x-cf4" firstAttribute="centerX" secondItem="F9V-ul-Hym" secondAttribute="centerX" id="QIm-3A-o2E"/>
+                            <constraint firstItem="HD2-5x-cf4" firstAttribute="leading" secondItem="Grr-Yd-Rvs" secondAttribute="leading" constant="10" id="WUg-ub-Kz0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="F3i-Lu-BY3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yxG-fU-ZW5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1118" y="-798"/>
         </scene>
         <!--Transaction Details-->
         <scene sceneID="7dy-FE-vip">
@@ -1288,7 +1320,7 @@
         <!--Login With Email View Controller-->
         <scene sceneID="nyB-3b-MBK">
             <objects>
-                <viewController id="2uy-cR-rgp" customClass="LoginWithEmailViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginWithEmailViewController" id="2uy-cR-rgp" customClass="LoginWithEmailViewController" customModule="BudgetManager" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MI5-7C-lia">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1722,11 +1754,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMw-cO-9ME" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-715" y="-2698"/>
+            <point key="canvasLocation" x="-677" y="-2799"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="E6f-iK-OEb"/>
+        <segue reference="92y-69-KeH"/>
         <segue reference="fCq-M1-jo8"/>
     </inferredMetricsTieBreakers>
     <resources>
@@ -1764,13 +1796,13 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
