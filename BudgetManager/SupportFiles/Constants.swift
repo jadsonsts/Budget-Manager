@@ -16,6 +16,8 @@ struct K {
     static let categorySelection = "GoToSelectCategory"
     static let editTransaction = "editTransaction"
     static let unwindToHome = "unwindToHome"
+    static let goToAbout = "AboutSegue"
+    static let goToUserSettings = "UserSettings"
     //static let userLoggedInHome = "AlreadyLoggedIn"
     //static let newTransaction = "SendToTransaction"
 }

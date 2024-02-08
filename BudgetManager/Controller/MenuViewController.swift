@@ -78,5 +78,13 @@ class MenuViewController: UIViewController {
             ProgressHUD.showError(logoutError as? String)
         }
     }
+    
+    @IBAction func aboutPressed(_ sender: Any) {
+        performSegue(withIdentifier: K.goToAbout, sender: self)
+    }
+    
+    @IBAction func userSettingsPressed(_ sender: Any) {
+        performSegue(withIdentifier: K.goToUserSettings, sender: self)
+    }
 
 }

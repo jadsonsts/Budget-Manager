@@ -3,9 +3,11 @@
 //  BudgetManager
 //
 //  Created by Jadson on 7/02/23.
-// TO BE USED IN A FUTURE VERSION
+
 
 import UIKit
+import ProgressHUD
+import FirebaseAuth
 
 class UserSettingsViewController: UIViewController {
     
@@ -17,12 +19,20 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var phoneNumberTextField: CustomTxtField!
     @IBOutlet weak var passwordTextField: CustomTxtField!
     @IBOutlet weak var confirmPasswordTextField: CustomTxtField!
+    @IBOutlet weak var updateProfileButton: CustomButton!
+    @IBOutlet weak var disclaimerLabel: UILabel!
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        updateProfileButton.isHidden = true
         createKeyboardDoneButton()
+        disclaimerLabel.text = "⚠️ User profile will be available for editing in the next update ⚠️"
 
     }
     
