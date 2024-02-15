@@ -144,39 +144,38 @@ class InputTransactionTableViewController: UITableViewController {
         guard let fields = checkFields() else { return }
         guard let categoryID = category?.categoryID else {
             ProgressHUD.showError("Please select one category")
-            return }
-        guard let wallet = wallet  else { 
-            print ("erro na wallet")
-            return }
-        
-        if transactionToEdit != nil {
-            guard let transactionToEditID = transactionToEdit?.id else { 
-                print ("erro transacao ID")
-                return }
-            ProgressHUD.show()
-            
-            let transactionToUpdate = Transaction(id: transactionToEditID,
-                                                  reference: fields.transactionReference,
-                                                  amount: Double(fields.transactionAmount) ?? 0.0,
-                                                  date: fields.transactionDate,
-                                                  comment: transactionComments.text ?? "",
-                                                  transactionType: transactionType,
-                                                  walletID: transactionToEdit!.walletID,
-                                                  categoryID: categoryID)
-            
-            updateTransaction(transaction: transactionToUpdate)
-            
-        } else {
-            let transactionToCreate = Transaction(id: nil,
-                                                  reference: fields.transactionReference,
-                                                  amount: Double(fields.transactionAmount) ?? 0.0,
-                                                  date: fields.transactionDate,
-                                                  comment: transactionComments.text ?? "",
-                                                  transactionType: transactionType,
-                                                  walletID: wallet.walletID!,
-                                                  categoryID: categoryID)
-            createTransaction(transaction: transactionToCreate)
+            return
         }
+        guard let wallet = wallet else {
+            print("Error: Wallet is nil")
+            return
+        }
+        
+        if let transaction = createTransactionToSave(fields: fields, categoryID: categoryID, wallet: wallet) {
+            if transactionToEdit != nil {
+                updateTransaction(transaction: transaction)
+            } else {
+                createTransaction(transaction: transaction)
+            }
+        }
+    }
+    
+    private func createTransactionToSave(fields: (transactionReference: String, transactionAmount: String, transactionDate: String)? , categoryID: Int, wallet: Wallet) -> Transaction? {
+        
+        guard let fields = fields else { return nil }
+        guard let transactionAmount = Double(fields.transactionAmount) else {
+            print("Error: Invalid transaction amount")
+            return nil
+        }
+        
+        return Transaction(id: transactionToEdit?.id,
+                           reference: fields.transactionReference,
+                           amount: transactionAmount,
+                           date: fields.transactionDate,
+                           comment: transactionComments.text ?? "",
+                           transactionType: transactionType,
+                           walletID: wallet.walletID!,
+                           categoryID: categoryID)
     }
     
     func createTransaction(transaction: Transaction) {
@@ -195,6 +194,7 @@ class InputTransactionTableViewController: UITableViewController {
     
     func updateTransaction(transaction: Transaction) {
         DataController.shared.updateTransaction(transaction: transaction) {
+            print(transaction)
             ProgressHUD.showSuccess("Transaction updated")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
                 self?.inputTransactionDelegate?.didUpdateHomeView()
@@ -205,7 +205,7 @@ class InputTransactionTableViewController: UITableViewController {
         }
     }
     
-    //reser the fields after a transaction is created
+    //reset the fields after a transaction is created
     func resetFields() {
         transactionAmountTxtField.text = ""
         transactionReferenceTxtField.text = ""

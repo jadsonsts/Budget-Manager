@@ -258,9 +258,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
-            destinationVC.transaction = transaction
-            destinationVC.wallet = wallet
+        if let transacionDetailsVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
+            transacionDetailsVC.transaction = transaction
+            transacionDetailsVC.wallet = wallet
+            transacionDetailsVC.updateTransactionDelegate = self
         } else if let transactionInputVC = segue.destination as? InputTransactionTableViewController {
             transactionInputVC.inputTransactionDelegate = self
             transactionInputVC.wallet = wallet

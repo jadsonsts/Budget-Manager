@@ -35,6 +35,8 @@ class UserSettingsViewController: UIViewController {
         loadUserData()
         loadProfilePicture()
         updateProfileButton.isHidden = true
+        passwordTextField.isHidden = true
+        confirmPasswordTextField.isHidden = true
         createKeyboardDoneButton()
         disclaimerLabel.text = "⚠️ User profile will be available for editing in the future updates ⚠️"
         userProfilePicture.layer.cornerRadius = 40

@@ -18,7 +18,7 @@ class TransactionDetailedViewController: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
     
-    
+    var updateTransactionDelegate: InputTransactionDelegate?
     var transaction: Transaction!
     var categoryName: String?
     var category: CategoryElement?
@@ -59,7 +59,7 @@ class TransactionDetailedViewController: UIViewController {
                 destination.transactionToEdit = transaction
                 destination.category = category
                 destination.wallet = wallet
-                destination.inputTransactionDelegate = self
+                destination.inputTransactionDelegate = self.updateTransactionDelegate
             }
         }
     }
