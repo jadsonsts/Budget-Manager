@@ -21,6 +21,7 @@ class LoginWithEmailViewController: UIViewController {
     var userID: String?
     
     override func viewDidLoad() {
+       UserDefaults.standard.removeObject(forKey: "imageURL")
         super.viewDidLoad()
         ProgressHUD.colorAnimation = CustomColors.greenColor
         if Auth.auth().currentUser != nil {

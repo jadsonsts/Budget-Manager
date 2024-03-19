@@ -30,40 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    
-    
-    private func setupWindow(with scene: UIScene) {
-        guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        
-        self.window = window
-        self.window?.makeKeyAndVisible()
-    }
-    
-
-
-    private func goToController(with viewController: UIViewController) {
-        //Fading animation (black and white)
-        print("goToController called with viewController:", viewController)
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.25) {
-                self?.window?.layer.opacity = 0
-                
-            } completion: { [weak self] _ in
-                
-                let nav = UINavigationController(rootViewController: viewController)
-                nav.modalPresentationStyle = .fullScreen
-                self?.window?.rootViewController = nav
-                print("New rootViewController set to:", nav)
-                
-                UIView.animate(withDuration: 0.25) { [weak self] in
-                    self?.window?.layer.opacity = 1
-                }
-            }
-        }
-    }
-     
-    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

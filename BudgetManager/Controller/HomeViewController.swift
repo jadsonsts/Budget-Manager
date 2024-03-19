@@ -124,6 +124,8 @@ class HomeViewController: UIViewController {
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
         transactionsSegmentedControl.underlinePosition()
+        searchTransaction.text = ""
+        isSearching = false
         
         guard let walletID = wallet?.walletID else { return }
         
@@ -202,7 +204,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionData = isSearching ? filteredDataSource[section] : transactionDataSource[section]
-        
         return sectionData.transaction.count
     }
     
@@ -212,7 +213,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
-            //let transaction = transactionDataSource[indexPath.section].transaction[indexPath.row]
             let sectionData = isSearching ? filteredDataSource[indexPath.section] : transactionDataSource[indexPath.section]
             let transaction = sectionData.transaction[indexPath.row]
             

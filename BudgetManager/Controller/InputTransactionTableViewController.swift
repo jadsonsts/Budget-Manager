@@ -114,30 +114,12 @@ class InputTransactionTableViewController: UITableViewController {
     func checkFields() -> (transactionReference: String, transactionAmount: String, transactionDate: String)? {
         
         guard let transactionReference = transactionReferenceTxtField.text, !transactionReference.isEmpty,
-              var transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
-              var transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
+              let transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
+              let transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
             ProgressHUD.failed(ErrorMessageType.emptyForm.message())
             return nil
         }
         
-        if transactionAmount.contains(",") {
-            transactionAmount = transactionAmount.replacingOccurrences(of: ",", with: "")
-        }
-        
-        // Remove the first character if it's a dollar sign
-        if transactionAmount.hasPrefix("$") {
-            transactionAmount = String(transactionAmount.dropFirst())
-        }
-        
-        //convert the data to send through the API
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
-        
-        if let date = dateFormatter.date(from: transactionDate) {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let formattedDate = dateFormatter.string(from: date)
-            transactionDate = formattedDate
-        }
         return (transactionReference, transactionAmount, transactionDate)
     }
     
@@ -153,7 +135,7 @@ class InputTransactionTableViewController: UITableViewController {
             return
         }
         
-        if let transaction = createTransactionToSave(fields: fields, categoryID: categoryID, wallet: wallet) {
+        if let transaction = createTransactionToSave(transactionReference: fields.transactionReference, transactionAmount: fields.transactionAmount, transactionDate: fields.transactionDate, categoryID: categoryID, wallet: wallet) {
             if transactionToEdit != nil {
                 updateTransaction(transaction: transaction)
             } else {
@@ -162,18 +144,25 @@ class InputTransactionTableViewController: UITableViewController {
         }
     }
     
-    private func createTransactionToSave(fields: (transactionReference: String, transactionAmount: String, transactionDate: String)? , categoryID: Int, wallet: Wallet) -> Transaction? {
+    private func createTransactionToSave(transactionReference: String, transactionAmount: String, transactionDate: String, categoryID: Int, wallet: Wallet) -> Transaction? {
         
-        guard let fields = fields else { return nil }
-        guard let transactionAmount = Double(fields.transactionAmount) else {
-            print("Error: Invalid transaction amount")
-            return nil
+        let formattedNumber = transactionAmount.components(separatedBy: .decimalDigits.inverted).joined()
+        let amount = (Double(formattedNumber) ?? 0) / Double(100)
+        
+        //convert the data to send through the API
+        var formattedDate = String()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yy"
+        
+        if let date = dateFormatter.date(from: transactionDate) {
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            formattedDate = dateFormatter.string(from: date)
         }
         
         return Transaction(id: transactionToEdit?.id,
-                           reference: fields.transactionReference,
-                           amount: transactionAmount,
-                           date: fields.transactionDate,
+                           reference: transactionReference,
+                           amount: amount,
+                           date: formattedDate,
                            comment: transactionComments.text ?? "",
                            transactionType: transactionType,
                            walletID: wallet.walletID!,
@@ -327,7 +316,7 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
     
     func updateAmount() -> String? {
         let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.currency
+        formatter.numberStyle = .currency
         let amount = Double(amount/100) + Double(amount%100)/100
         return formatter.string(from: NSNumber(value: amount))
     }

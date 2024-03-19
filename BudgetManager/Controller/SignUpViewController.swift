@@ -325,9 +325,7 @@ class SignUpViewController: UIViewController {
     
     //send the objects through
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? HomeViewController, let customer = sender as? Customer, let wallet = sender as? Wallet {
-            destinationVC.customer = customer
-            destinationVC.wallet = wallet
+        if let destinationVC = segue.destination as? HomeViewController {
             destinationVC.modalPresentationStyle = .currentContext
         }
     }

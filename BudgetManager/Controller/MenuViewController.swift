@@ -70,7 +70,7 @@ class MenuViewController: UIViewController {
             try Auth.auth().signOut()
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil) 
-            if let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginWithEmailViewController") as? LoginWithEmailViewController,
+            if let loginViewController = storyboard.instantiateInitialViewController(),
                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
                 sceneDelegate.window?.rootViewController = loginViewController
             }
