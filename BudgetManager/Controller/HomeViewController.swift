@@ -44,8 +44,8 @@ class HomeViewController: UIViewController {
         searchTransaction.delegate = self
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
-        transactionsTableView.rowHeight = 60
         transactionsTableView.separatorColor = CustomColors.greenColor
+        transactionsTableView.isHidden = true //hide the tableview at the beggining
         
         self.tabBarController?.navigationItem.hidesBackButton = true
         searchTransaction.clipsToBounds = true
@@ -183,6 +183,7 @@ class HomeViewController: UIViewController {
             }
             DispatchQueue.main.async { [weak self] in
                 self?.transactionsTableView.reloadData()
+                self?.transactionsTableView.isHidden = false
             }
             ProgressHUD.dismiss()
         } onError: { error in
@@ -195,32 +196,60 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return isSearching ? filteredDataSource.count : transactionDataSource.count
+        if transactionDataSource.isEmpty {
+            return 1
+        } else {
+            return isSearching ? filteredDataSource.count : transactionDataSource.count
+        }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionDate = isSearching ? filteredDataSource[section].date : transactionDataSource[section].date
-        return formatDateString(dateString: sectionDate)
+        
+        if transactionDataSource.isEmpty {
+            return ""
+        } else {
+            let sectionDate = isSearching ? filteredDataSource[section].date : transactionDataSource[section].date
+            return formatDateString(dateString: sectionDate)
+        }
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionData = isSearching ? filteredDataSource[section] : transactionDataSource[section]
-        return sectionData.transaction.count
+        if transactionDataSource.isEmpty {
+            return 1
+        } else {
+            let sectionData = isSearching ? filteredDataSource[section] : transactionDataSource[section]
+            return sectionData.transaction.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        if transactionDataSource.isEmpty {
+            return transactionsTableView.bounds.height
+        } else {
+            return 55
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
-            let sectionData = isSearching ? filteredDataSource[indexPath.section] : transactionDataSource[indexPath.section]
-            let transaction = sectionData.transaction[indexPath.row]
-            
-            cell.updateViews(transaction: transaction)
-            return cell
+        if !transactionDataSource.isEmpty {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
+                let sectionData = isSearching ? filteredDataSource[indexPath.section] : transactionDataSource[indexPath.section]
+                let transaction = sectionData.transaction[indexPath.row]
+                cell.updateViews(transaction: transaction)
+                return cell
+            }
         } else {
-            return TransactionsTableViewCell()
+            let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+            cell.textLabel?.textColor = .systemGray
+            cell.textLabel?.font = UIFont(name: "Avenir Book", size: 20)
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.text = "No Transactions Yet\nInput your first transaction"
+            cell.textLabel?.textAlignment = .center
+            
+            return cell
         }
+        return UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

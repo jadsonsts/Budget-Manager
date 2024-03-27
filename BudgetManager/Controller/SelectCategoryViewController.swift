@@ -26,14 +26,14 @@ class SelectCategoryViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         fetchCategories()
-
+        
     }
     
     func fetchCategories() {
@@ -53,11 +53,24 @@ class SelectCategoryViewController: UIViewController {
     }
     
     func configureSelectedCell(_ cell: CategoryCollectionViewCell) {
-        cell.layer.cornerRadius = cell.bounds.height / 3
-        cell.layer.borderWidth = 1
-        cell.layer.borderColor = CustomColors.greenColor.cgColor
+        // Create a container view for the image
+        let imageContainerView = UIView(frame: cell.categoryImage.frame)
+        imageContainerView.layer.cornerRadius = cell.categoryImage.bounds.width / 2
+        imageContainerView.layer.borderWidth = 2
+        imageContainerView.layer.borderColor = CustomColors.greenColor.cgColor
+        cell.contentView.addSubview(imageContainerView)
+        
+        // Create a check mark image view
+        let checkmarkImageView = UIImageView(image: UIImage(systemName: "checkmark.circle.fill"))
+        checkmarkImageView.contentMode = .scaleAspectFit
+        checkmarkImageView.tintColor = CustomColors.greenColor
+        checkmarkImageView.backgroundColor = CustomColors.backGroundColor
+        checkmarkImageView.frame = CGRect(x: imageContainerView.bounds.width - 10, y: 2, width: 25, height: 25)
+        checkmarkImageView.layer.cornerRadius = checkmarkImageView.bounds.width / 2
+        checkmarkImageView.layer.borderWidth = 3
+        checkmarkImageView.layer.borderColor = CustomColors.backGroundColor.cgColor
+        cell.contentView.addSubview(checkmarkImageView)
     }
-    
 }
 
 // MARK: UICollectionViewDataSource
