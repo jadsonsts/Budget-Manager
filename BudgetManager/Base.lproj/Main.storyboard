@@ -975,19 +975,8 @@
                                     <action selector="userSettingsPressed:" destination="hJ6-Y5-aBP" eventType="touchUpInside" id="dIY-rx-DTN"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLp-In-IR8">
-                                <rect key="frame" x="10" y="369" width="373" height="55"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="1oK-aO-1HX"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Wallets">
-                                    <color key="titleColor" name="tabBarColor"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TLj-FG-vr0">
-                                <rect key="frame" x="10" y="434" width="373" height="55"/>
+                                <rect key="frame" x="10" y="367" width="373" height="55"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="55" id="Ja8-Wn-nfx"/>
                                 </constraints>
@@ -1021,6 +1010,17 @@
                                 <color key="textColor" name="generalLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eLp-In-IR8">
+                                <rect key="frame" x="10" y="430" width="373" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="55" id="1oK-aO-1HX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="18"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Wallets">
+                                    <color key="titleColor" name="tabBarColor"/>
+                                </state>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Umd-O6-dNp"/>
                         <color key="backgroundColor" name="backgroundColor"/>
@@ -1036,7 +1036,7 @@
                             <constraint firstItem="qYU-Fy-xj9" firstAttribute="leading" secondItem="Umd-O6-dNp" secondAttribute="leading" constant="10" id="Xmz-b4-XqT"/>
                             <constraint firstItem="qYU-Fy-xj9" firstAttribute="centerX" secondItem="EAl-3O-ETf" secondAttribute="centerX" id="Y3a-Hk-ROv"/>
                             <constraint firstItem="eLp-In-IR8" firstAttribute="centerX" secondItem="EAl-3O-ETf" secondAttribute="centerX" id="YOT-hf-0Cv"/>
-                            <constraint firstItem="eLp-In-IR8" firstAttribute="top" secondItem="Gh8-if-k8t" secondAttribute="bottom" constant="10" id="cO0-1f-sth"/>
+                            <constraint firstItem="eLp-In-IR8" firstAttribute="top" secondItem="Gh8-if-k8t" secondAttribute="bottom" constant="71" id="cO0-1f-sth"/>
                             <constraint firstItem="Gh8-if-k8t" firstAttribute="centerX" secondItem="EAl-3O-ETf" secondAttribute="centerX" id="dZ9-7u-raF"/>
                             <constraint firstItem="eag-dy-ji0" firstAttribute="leading" secondItem="Umd-O6-dNp" secondAttribute="leading" id="jv3-js-0XO"/>
                             <constraint firstItem="L4Y-1R-Bdh" firstAttribute="centerX" secondItem="EAl-3O-ETf" secondAttribute="centerX" id="meM-74-4I6"/>
@@ -1044,7 +1044,7 @@
                             <constraint firstItem="eag-dy-ji0" firstAttribute="top" secondItem="Umd-O6-dNp" secondAttribute="top" constant="20" id="nJY-Dg-xgO"/>
                             <constraint firstItem="Umd-O6-dNp" firstAttribute="trailing" secondItem="L4Y-1R-Bdh" secondAttribute="trailing" constant="10" id="ows-b2-tWi"/>
                             <constraint firstItem="Gh8-if-k8t" firstAttribute="top" secondItem="eag-dy-ji0" secondAttribute="bottom" constant="140" id="q7W-RF-73L"/>
-                            <constraint firstItem="TLj-FG-vr0" firstAttribute="top" secondItem="eLp-In-IR8" secondAttribute="bottom" constant="10" id="yUc-MN-UBa"/>
+                            <constraint firstItem="TLj-FG-vr0" firstAttribute="top" secondItem="eLp-In-IR8" secondAttribute="bottom" constant="-118" id="yUc-MN-UBa"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Menu" image="square.grid.2x2" catalog="system" id="vwl-k3-MhS"/>

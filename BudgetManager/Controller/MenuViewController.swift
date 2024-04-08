@@ -22,6 +22,7 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
 
         setupButtonUI()
+        walletsButton.isHidden = true
     }
     
 
