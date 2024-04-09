@@ -17,6 +17,7 @@
 #import "create_channel.h"
 #import "create_channel_binder.h"
 #import "create_channel_posix.h"
+#import "ext/call_metric_recorder.h"
 #import "ext/health_check_service_server_builder_option.h"
 #import "generic/async_generic_service.h"
 #import "generic/generic_stub.h"

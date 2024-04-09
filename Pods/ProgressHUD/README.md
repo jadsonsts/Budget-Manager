@@ -1,61 +1,116 @@
-<img src="https://related.chat/hud/001.gif" width="80"> <img src="https://related.chat/hud/002.gif" width="80"> <img src="https://related.chat/hud/003.gif" width="80"> <img src="https://related.chat/hud/004.gif" width="80"> <img src="https://related.chat/hud/005.gif" width="80"> <img src="https://related.chat/hud/006.gif" width="80"> <img src="https://related.chat/hud/007.gif" width="80"> <img src="https://related.chat/hud/008.gif" width="80"> <img src="https://related.chat/hud/009.gif" width="80"> <img src="https://related.chat/hud/010.gif" width="80"> <img src="https://related.chat/hud/011.gif" width="80"> <img src="https://related.chat/hud/011.png" width="80"> <img src="https://related.chat/hud/012.gif" width="80"> <img src="https://related.chat/hud/012.png" width="80"> <img src="https://related.chat/hud/013.gif" width="80"> <img src="https://related.chat/hud/013.png" width="80"> <img src="https://related.chat/hud/014.gif" width="80"> <img src="https://related.chat/hud/014.png" width="80"> <img src="https://related.chat/hud/015.gif" width="80"> <img src="https://related.chat/hud/015.png" width="80">
+<img src="https://rel.codes/hud/101.gif" width="80"> <img src="https://rel.codes/hud/001.gif" width="80"> <img src="https://rel.codes/hud/002.gif" width="80"> <img src="https://rel.codes/hud/003.gif" width="80"> <img src="https://rel.codes/hud/004.gif" width="80"> <img src="https://rel.codes/hud/005.gif" width="80"> <img src="https://rel.codes/hud/006.gif" width="80"> <img src="https://rel.codes/hud/007.gif" width="80"> <img src="https://rel.codes/hud/008.gif" width="80"> <img src="https://rel.codes/hud/009.gif" width="80"> <img src="https://rel.codes/hud/010.gif" width="80"> <img src="https://rel.codes/hud/011.gif" width="80"> <img src="https://rel.codes/hud/012.gif" width="80"> <img src="https://rel.codes/hud/013.gif" width="80"> <img src="https://rel.codes/hud/014.gif" width="80"> <img src="https://rel.codes/hud/015.gif" width="80"> <img src="https://rel.codes/hud/016.gif" width="80"> <img src="https://rel.codes/hud/017.gif" width="80"> <img src="https://rel.codes/hud/018.gif" width="80"> <img src="https://rel.codes/hud/019.gif" width="80"> <img src="https://rel.codes/hud/020.gif" width="80"> <img src="https://rel.codes/hud/021.gif" width="80"> <img src="https://rel.codes/hud/102.gif" width="80"> <img src="https://rel.codes/hud/103.gif" width="80"> <img src="https://rel.codes/hud/104.gif" width="80"> <img src="https://rel.codes/hud/202.gif" width="80"> <img src="https://rel.codes/hud/203.gif" width="80"> <img src="https://rel.codes/hud/204.gif" width="80"> <img src="https://rel.codes/hud/205.gif" width="80"> <img src="https://rel.codes/hud/206.gif" width="80"> <img src="https://rel.codes/hud/207.gif" width="80"> <img src="https://rel.codes/hud/208.gif" width="80"> <img src="https://rel.codes/hud/209.gif" width="80"> <img src="https://rel.codes/hud/210.gif" width="80"> <img src="https://rel.codes/hud/211.gif" width="80"> 
 
-## WHAT'S NEW IN 13.5 and 13.6
+## WHAT'S NEW
 
-- Bugfix related to iPad split screen.
-- Bugfix related to showProgress.
+For detailed changes, please refer to the [Change log](CHANGELOG.md).
 
 ## OVERVIEW
 
-ProgressHUD is a lightweight and easy-to-use HUD for iOS.
+**ProgressHUD** is a convenient and intuitive HUD tool designed specifically for iOS. It enables seamless presentation of concise alerts or notifications to users of your app in a simple and non-disruptive way.
 
 ## INSTALLATION
 
-### CocoaPods:
+‼️ In case you're using Xcode 14.3.1 or an earlier version, stick with [13.8.6](https://github.com/relatedcode/ProgressHUD/releases/tag/13.8.6) ‼️
 
-[CocoaPods](https://cocoapods.org) is a dependency manager for Cocoa projects. For usage and installation instructions, visit their website. To integrate the `ProgressHUD` into your Xcode project using CocoaPods, specify it in your `Podfile`:
+### CocoaPods
+
+[CocoaPods](https://cocoapods.org) is a dependency manager for Swift and Objective-C Cocoa projects.
+
+To incorporate the **ProgressHUD** library into your Xcode project utilizing CocoaPods, please reference it within your `Podfile` as shown below:
 
 ```ruby
 pod 'ProgressHUD'
 ```
 
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager) is a tool for managing the distribution of Swift code.
+
+To add **ProgressHUD** as a dependency to your project, follow these steps:
+
+1. Open your Swift project in Xcode.
+2. Navigate to `File` -> `Add Package Dependencies...`.
+3. Paste `https://github.com/relatedcode/ProgressHUD.git` into the search bar.
+4. Choose the version you want to use and click `Add Package`.
+
 ### Manually
 
-If you prefer not to use any of the dependency managers, you can integrate `ProgressHUD` into your project manually. Just copy the `ProgressHUD.swift` file in your Xcode project.
+If you prefer not to use any of the dependency managers above, you can integrate **ProgressHUD** into your project manually. Just copy all the `*.swift` files from the `ProgressHUD/Sources` folder into your Xcode project.
 
 ## QUICK START
 
 ```swift
-ProgressHUD.show("Some text...")
+ProgressHUD.banner("Banner title", "Banner message to display.")
 ```
 
 ```swift
-ProgressHUD.showSucceed()
+ProgressHUD.banner("Banner title", "Message to display.", delay: 2.0)
 ```
 
 ```swift
-ProgressHUD.showFailed()
+ProgressHUD.bannerHide()
 ```
 
 ```swift
-ProgressHUD.showProgress(0.42)
+ProgressHUD.animate("Some text...")
 ```
 
 ```swift
-ProgressHUD.show(icon: .heart)
+ProgressHUD.animate("Some text...", interaction: false)
+```
+
+```swift
+ProgressHUD.animate("Please wait...", .ballVerticalBounce)
+```
+
+```swift
+ProgressHUD.succeed()
+```
+
+```swift
+ProgressHUD.succeed("Some text...", delay: 1.5)
+```
+
+```swift
+ProgressHUD.failed()
+```
+
+```swift
+ProgressHUD.failed("Some text...")
+```
+
+```swift
+ProgressHUD.progress(0.15)
+```
+
+```swift
+ProgressHUD.progress("Loading...", 0.42)
+```
+
+```swift
+ProgressHUD.symbol(name: "box.truck")
+```
+
+```swift
+ProgressHUD.symbol("Some text...", name: "sun.max")
 ```
 
 ```swift
 ProgressHUD.dismiss()
 ```
 
+```swift
+ProgressHUD.remove()
+```
+
 ## REQUIREMENTS
 
 - iOS 13.0+
+- Xcode 15.0+
 
 ## CUSTOMIZATION
 
-You can customize the color, font, image, animation type, and other some options using the following methods:
+You can customize attributes like color, font, image, animation type, size, and more by using these methods:
 
 ```swift
 ProgressHUD.animationType = .circleStrokeSpin
@@ -82,64 +137,53 @@ ProgressHUD.colorStatus = .label
 ```
 
 ```swift
+ProgressHUD.mediaSize = 100
+ProgressHUD.marginSize = 50
+```
+
+```swift
 ProgressHUD.fontStatus = .boldSystemFont(ofSize: 24)
 ```
 
 ```swift
 ProgressHUD.imageSuccess = UIImage(named: "success.png")
-```
-
-```swift
 ProgressHUD.imageError = UIImage(named: "error.png")
 ```
 
-The list of predefined animation and icon types are as follows:
+A comprehensive list of the predefined enums:
 
 ```swift
-public enum AnimationType {
-	case systemActivityIndicator
-	case horizontalCirclesPulse
-	case lineScaling
-	case singleCirclePulse
-	case multipleCirclePulse
-	case singleCircleScaleRipple
-	case multipleCircleScaleRipple
-	case circleSpinFade
-	case lineSpinFade
+public enum AnimationType: CaseIterable {
+	case none
+	case activityIndicator
+	case ballVerticalBounce
+	case barSweepToggle
+	case circleArcDotSpin
+	case circleBarSpinFade
+	case circleDotSpinFade
+	case circlePulseMultiple
+	case circlePulseSingle
+	case circleRippleMultiple
+	case circleRippleSingle
 	case circleRotateChase
 	case circleStrokeSpin
+	case dualDotSidestep
+	case horizontalBarScaling
+	case horizontalDotScaling
+	case pacmanProgress
+	case quintupleDotDance
+	case semiRingRotation
+	case sfSymbolBounce
+	case squareCircuitSnake
+	case triangleDotShift
 }
 ```
 
 ```swift
-public enum AnimatedIcon {
+public enum LiveIcon {
 	case succeed
 	case failed
 	case added
-}
-```
-
-```swift
-public enum AlertIcon {
-	case heart
-	case doc
-	case bookmark
-	case moon
-	case star
-	case exclamation
-	case flag
-	case message
-	case question
-	case bolt
-	case shuffle
-	case eject
-	case card
-	case rotate
-	case like
-	case dislike
-	case privacy
-	case cart
-	case search
 }
 ```
 
@@ -147,7 +191,7 @@ public enum AlertIcon {
 
 MIT License
 
-Copyright (c) 2022 Related Code
+Copyright (c) 2024 Related Code
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

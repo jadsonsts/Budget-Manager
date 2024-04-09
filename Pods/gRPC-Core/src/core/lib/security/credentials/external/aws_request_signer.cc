@@ -17,6 +17,20 @@
 
 #include "src/core/lib/security/credentials/external/aws_request_signer.h"
 
+#include <algorithm>
+#include <utility>
+#include <vector>
+
+#if COCOAPODS==1
+  #include <openssl_grpc/crypto.h>
+#else
+  #include <openssl/crypto.h>
+#endif
+#if COCOAPODS==1
+  #include <openssl_grpc/evp.h>
+#else
+  #include <openssl/evp.h>
+#endif
 #if COCOAPODS==1
   #include <openssl_grpc/hmac.h>
 #else
@@ -28,11 +42,14 @@
   #include <openssl/sha.h>
 #endif
 
+#include "absl/status/statusor.h"
 #include "absl/strings/ascii.h"
 #include "absl/strings/escaping.h"
+#include "absl/strings/str_cat.h"
 #include "absl/strings/str_format.h"
 #include "absl/strings/str_join.h"
 #include "absl/strings/str_split.h"
+#include "absl/strings/string_view.h"
 #include "absl/time/clock.h"
 #include "absl/time/time.h"
 

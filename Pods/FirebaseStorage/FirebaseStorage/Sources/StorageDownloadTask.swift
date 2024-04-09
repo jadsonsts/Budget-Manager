@@ -28,7 +28,6 @@ import Foundation
  * Downloads can currently be returned as `Data` in memory, or as a `URL` to a file on disk.
  * Downloads are performed on a background queue, and callbacks are raised on the developer
  * specified `callbackQueue` in Storage, or the main queue if left unspecified.
- * Currently all downloads must be initiated and managed on the main queue.
  */
 @objc(FIRStorageDownloadTask)
 open class StorageDownloadTask: StorageObservableTask, StorageTaskManagement {
@@ -84,17 +83,17 @@ open class StorageDownloadTask: StorageObservableTask, StorageTaskManagement {
 
   private var fetcher: GTMSessionFetcher?
   private var fetcherCompletion: ((Data?, NSError?) -> Void)?
-  internal var downloadData: Data?
+  var downloadData: Data?
   // Hold completion in object to force it to be retained until completion block is called.
-  internal var completionData: ((Data?, Error?) -> Void)?
-  internal var completionURL: ((URL?, Error?) -> Void)?
+  var completionData: ((Data?, Error?) -> Void)?
+  var completionURL: ((URL?, Error?) -> Void)?
 
   // MARK: - Internal Implementations
 
-  override internal init(reference: StorageReference,
-                         service: GTMSessionFetcherService,
-                         queue: DispatchQueue,
-                         file: URL?) {
+  override init(reference: StorageReference,
+                service: GTMSessionFetcherService,
+                queue: DispatchQueue,
+                file: URL?) {
     super.init(reference: reference, service: service, queue: queue, file: file)
   }
 
@@ -102,7 +101,7 @@ open class StorageDownloadTask: StorageObservableTask, StorageTaskManagement {
     self.fetcher?.stopFetching()
   }
 
-  internal func enqueueImplementation(resumeWith resumeData: Data? = nil) {
+  func enqueueImplementation(resumeWith resumeData: Data? = nil) {
     dispatchQueue.async { [weak self] in
       guard let self = self else { return }
       self.state = .queueing
@@ -181,7 +180,7 @@ open class StorageDownloadTask: StorageObservableTask, StorageTaskManagement {
     }
   }
 
-  internal func cancel(withError error: NSError) {
+  func cancel(withError error: NSError) {
     dispatchQueue.async { [weak self] in
       guard let self = self else { return }
       self.state = .cancelled

@@ -14,12 +14,15 @@ struct K {
     static let transactionCell = "TransactionCell"
     static let categoryCell = "CategoryCell"
     static let categorySelection = "GoToSelectCategory"
-    static let userLoggedInHome = "AlreadyLoggedIn"
     static let editTransaction = "editTransaction"
     static let unwindToHome = "unwindToHome"
+    static let goToAbout = "AboutSegue"
+    static let goToUserSettings = "UserSettings"
+    //static let userLoggedInHome = "AlreadyLoggedIn"
+    //static let newTransaction = "SendToTransaction"
 }
 
-struct UserVariables {
-    static var customer: Customer?
-    static var wallet: Wallet?
-}
+//struct UserVariables {
+//    static var customer: Customer?
+//    static var wallet: Wallet?
+//}

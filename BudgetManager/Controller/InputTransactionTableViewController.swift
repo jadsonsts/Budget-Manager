@@ -8,6 +8,14 @@
 import UIKit
 import ProgressHUD
 
+//typeAlias
+let income = "income"
+let expense = "expense"
+
+protocol InputTransactionDelegate {
+    func didUpdateHomeView()
+}
+
 class InputTransactionTableViewController: UITableViewController {
     
     @IBOutlet weak var transactionTypeSegmentedControl: UISegmentedControl!
@@ -19,10 +27,11 @@ class InputTransactionTableViewController: UITableViewController {
     @IBOutlet weak var transactionComments: UITextView!
     @IBOutlet weak var transactionDateLabel: UILabel!
     
-    
+    var inputTransactionDelegate: InputTransactionDelegate?
     var category: CategoryElement?
+    var wallet: Wallet?
     var transactionToEdit: Transaction?
-    var transactionType = "income" //set as default (income)
+    var transactionType = income //set as default (income)
     var amount = 0
     let buttonSection = IndexPath(row: 0, section: 7)
     let transactionDateIndexPath = IndexPath(row: 1, section: 5)
@@ -31,6 +40,11 @@ class InputTransactionTableViewController: UITableViewController {
         didSet {
             transactionDatePicker.isHidden = !isTransactionDatePickerShown
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     override func viewDidLoad() {
@@ -46,13 +60,12 @@ class InputTransactionTableViewController: UITableViewController {
         transactionAmountTxtField.delegate = self
         transactionAmountTxtField.placeholder = updateAmount()
         transactionDateFormart()
-        
-        tableView.separatorColor = CustomColors.greenColor
         createKeyboardDoneButton()
-        
+        tableView.separatorColor = CustomColors.greenColor
     }
     
     func loadExistingTransaction() {
+        ProgressHUD.animate("Loading Transaction", .barSweepToggle)
         guard let transaction = transactionToEdit else { return }
         
         transactionReferenceTxtField.text = transaction.reference
@@ -62,13 +75,14 @@ class InputTransactionTableViewController: UITableViewController {
         if let type = TransactionType(rawValue: transaction.transactionType) {
             if type == .income {
                 transactionTypeSegmentedControl.selectedSegmentIndex = 0
-                transactionType = "income"
+                transactionType = income
             } else if type == .expense {
                 transactionTypeSegmentedControl.selectedSegmentIndex = 1
-                transactionType = "expense"
+                transactionType = expense
             }
         }
         updateCategoryLabel()
+        ProgressHUD.dismiss()
     }
     
     func transactionDateFormart() {
@@ -100,98 +114,90 @@ class InputTransactionTableViewController: UITableViewController {
     func checkFields() -> (transactionReference: String, transactionAmount: String, transactionDate: String)? {
         
         guard let transactionReference = transactionReferenceTxtField.text, !transactionReference.isEmpty,
-              var transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
-              var transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
-            ProgressHUD.showError(ErrorMessageType.emptyForm.message())
+              let transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
+              let transactionDate = transactionDateLabel.text, !transactionDate.isEmpty else {
+            ProgressHUD.failed(ErrorMessageType.emptyForm.message())
             return nil
         }
         
-        if transactionAmount.contains(",") {
-            transactionAmount = transactionAmount.replacingOccurrences(of: ",", with: "")
+        return (transactionReference, transactionAmount, transactionDate)
+    }
+    
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        
+        guard let fields = checkFields() else { return }
+        guard let categoryID = category?.categoryID else {
+            ProgressHUD.failed("Please select one category")
+            return
+        }
+        guard let wallet = wallet else {
+            print("Error: Wallet is nil")
+            return
         }
         
-        // Remove the first character if it's a dollar sign
-        if transactionAmount.hasPrefix("$") {
-            transactionAmount = String(transactionAmount.dropFirst())
+        if let transaction = createTransactionToSave(transactionReference: fields.transactionReference, transactionAmount: fields.transactionAmount, transactionDate: fields.transactionDate, categoryID: categoryID, wallet: wallet) {
+            if transactionToEdit != nil {
+                updateTransaction(transaction: transaction)
+            } else {
+                createTransaction(transaction: transaction)
+            }
         }
+    }
+    
+    private func createTransactionToSave(transactionReference: String, transactionAmount: String, transactionDate: String, categoryID: Int, wallet: Wallet) -> Transaction? {
+        
+        let formattedNumber = transactionAmount.components(separatedBy: .decimalDigits.inverted).joined()
+        let amount = (Double(formattedNumber) ?? 0) / Double(100)
         
         //convert the data to send through the API
+        var formattedDate = String()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yy"
         
         if let date = dateFormatter.date(from: transactionDate) {
             dateFormatter.dateFormat = "yyyy-MM-dd"
-            let formattedDate = dateFormatter.string(from: date)
-            transactionDate = formattedDate
+            formattedDate = dateFormatter.string(from: date)
         }
-        return (transactionReference, transactionAmount, transactionDate)
-    }
-    
-    @IBAction func saveButtonPressed(_ sender: Any) {
-        ProgressHUD.show()
-        guard let fields = checkFields() else {
-            print("deu ruim na validacao dos campos")
-            return }
-        guard let categoryID = category?.categoryID else {
-            ProgressHUD.showError("Please select one category")
-            return }
-        guard let wallet = UserVariables.wallet  else { return }
         
-        if transactionToEdit != nil {
-            guard let transactionToEditID = transactionToEdit?.id else { return }
-            
-            let transactionToUpdate = Transaction(id: transactionToEditID,
-                                                  reference: fields.transactionReference,
-                                                  amount: Double(fields.transactionAmount) ?? 0.0,
-                                                  date: fields.transactionDate,
-                                                  comment: transactionComments.text ?? "",
-                                                  transactionType: transactionType,
-                                                  walletID: transactionToEdit!.walletID,
-                                                  categoryID: categoryID)
-            
-            updateTransaction(transaction: transactionToUpdate)
-            
-            print(transactionToUpdate)
-        } else {
-            let transactionToCreate = Transaction(id: nil,
-                                                  reference: fields.transactionReference,
-                                                  amount: Double(fields.transactionAmount) ?? 0.0,
-                                                  date: fields.transactionDate,
-                                                  comment: transactionComments.text ?? "",
-                                                  transactionType: transactionType,
-                                                  walletID: wallet.walletID!,
-                                                  categoryID: categoryID)
-            print(transactionToCreate)
-            createTransaction(transaction: transactionToCreate)
-            
-        }
+        return Transaction(id: transactionToEdit?.id,
+                           reference: transactionReference,
+                           amount: amount,
+                           date: formattedDate,
+                           comment: transactionComments.text ?? "",
+                           transactionType: transactionType,
+                           walletID: wallet.walletID!,
+                           categoryID: categoryID)
     }
     
     func createTransaction(transaction: Transaction) {
-        DataController.shared.createTransaction(transaction: transaction) { _ in
-            ProgressHUD.showSuccess("Transaction created")
+        ProgressHUD.animate("Creating Transaction", .barSweepToggle)
+        DataController.shared.createTransaction(transaction: transaction) { [weak self] _ in
+            ProgressHUD.succeed("Transaction created")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.tabBarController?.selectedIndex = 0
+                self?.inputTransactionDelegate?.didUpdateHomeView()
+                self?.navigationController?.popToRootViewController(animated: true)
             }
-            self.resetFields()
+            self?.resetFields()
             
         } onError: { errorMessage in
-            ProgressHUD.showError(errorMessage)
+            ProgressHUD.failed(errorMessage)
         }
     }
     
     func updateTransaction(transaction: Transaction) {
-        DataController.shared.updateTransaction(transaction: transaction) {
-            ProgressHUD.showSuccess("Transaction updated")
+        ProgressHUD.animate("Updating Transaction", .barSweepToggle)
+        DataController.shared.updateTransaction(transaction: transaction) { [weak self] in
+            ProgressHUD.succeed("Transaction updated")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self.performSegue(withIdentifier: K.unwindToHome, sender: self)
+                self?.inputTransactionDelegate?.didUpdateHomeView()
+                self?.navigationController?.popToRootViewController(animated: true)
             }
         } onError: { errorMessage in
-            ProgressHUD.showError("whoops: \(errorMessage)")
+            ProgressHUD.failed("whoops: \(errorMessage)")
         }
     }
     
-    //reser the fields after a transaction is created
+    //reset the fields after a transaction is created
     func resetFields() {
         transactionAmountTxtField.text = ""
         transactionReferenceTxtField.text = ""
@@ -199,7 +205,7 @@ class InputTransactionTableViewController: UITableViewController {
         categoryName.text = "Not Set"
         categoryImage.image = UIImage(systemName: "questionmark.circle")
         transactionTypeSegmentedControl.selectedSegmentIndex = 0
-        transactionType = "income"
+        transactionType = income
         transactionDateFormart()
         updateDateViews()
         
@@ -211,9 +217,9 @@ class InputTransactionTableViewController: UITableViewController {
     
     @IBAction func transactionTypeSegmentedChanged(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
-            transactionType = "income"
+            transactionType = income
         } else if sender.selectedSegmentIndex == 1 {
-            transactionType = "expense"
+            transactionType = expense
         }
     }
     
@@ -263,10 +269,10 @@ class InputTransactionTableViewController: UITableViewController {
     // MARK: - Segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.categorySelection {
-            let destinationVC = segue.destination as? CategoriesCollectionViewController
+            let destinationVC = segue.destination as? SelectCategoryViewController
             destinationVC?.delegate = self
             destinationVC?.selectedCategory = category
-            ProgressHUD.show()
+            //ProgressHUD.show()
         }
     }
 }
@@ -282,7 +288,6 @@ extension InputTransactionTableViewController {
     @objc func doneButtonAction(){
         view.endEditing(true)
     }
-    
 }
 
 //MARK: - TextField Delegate
@@ -293,7 +298,7 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
             amount = amount * 10 + digit
             
             if amount > 1_000_000_000_00 {
-                ProgressHUD.showError("Please enter amount less than 1 Billion")
+                ProgressHUD.failed("Please enter amount less than 1 Billion")
                 transactionAmountTxtField.text = ""
                 amount = 0
             } else {
@@ -311,15 +316,14 @@ extension InputTransactionTableViewController: UITextFieldDelegate {
     
     func updateAmount() -> String? {
         let formatter = NumberFormatter()
-        formatter.numberStyle = NumberFormatter.Style.currency
+        formatter.numberStyle = .currency
         let amount = Double(amount/100) + Double(amount%100)/100
         return formatter.string(from: NSNumber(value: amount))
     }
 }
 
 //MARK: - Protocols
-
-extension InputTransactionTableViewController: SelectCategoryDelegate {
+extension InputTransactionTableViewController: SelectCategoryDelegate {   
     func didSelect(category: CategoryElement) {
         self.category = category
         updateCategoryLabel()

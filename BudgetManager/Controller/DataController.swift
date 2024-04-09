@@ -44,7 +44,6 @@ class DataController {
     }
     
 
-    
     func credentialSignIn (with credential: AuthCredential, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         Auth.auth().signIn(with: credential) { result, error in
             if let error = error {
@@ -61,9 +60,9 @@ class DataController {
         
         guard let imageData = image?.jpegData(compressionQuality: 0.4) else { return }
         
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             if let e = error {
-                ProgressHUD.showError(e.localizedDescription)
+                ProgressHUD.failed(e.localizedDescription)
                 return
             }
             if let authData = authResult {
@@ -79,7 +78,7 @@ class DataController {
                 let metadata = StorageMetadata()
                 metadata.contentType = CONTENT_TYPE
                 
-                self.savePhoto(uid: authData.user.uid, imageData: imageData, metadata: metadata, storageProfileRef: storageProfileRef, dict: dict) {
+                self?.savePhoto(uid: authData.user.uid, imageData: imageData, metadata: metadata, storageProfileRef: storageProfileRef, dict: dict) {
                     onSucess()
                 } onError: { errorMessage in
                     onError(errorMessage)
@@ -89,6 +88,45 @@ class DataController {
     }
     
     //MARK: - FIREBASE STORAGE SERVICE
+    
+    // method to download the user's profile picture from Firebase Storage
+    func downloadPhotoFromFirebase(completion: @escaping (UIImage?) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            completion(nil)
+            return
+        }
+        
+        // Reference to the storage on Firebase
+        let storageRef = Storage.storage().reference(forURL: URL_STORAGE_ROOT)
+        let storageProfileRef = storageRef.child(STORAGE_PROFILE).child(uid)
+        
+        storageProfileRef.downloadURL { url, error in
+            guard let imageUrl = url, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            //add the image to the user defaults
+            let metaImageUrl = imageUrl.absoluteString
+            UserDefaults.standard.set(metaImageUrl, forKey: USER_DEFAULTS_IMG_URL)
+
+            //get the image data to pass in
+            let task = URLSession.shared.dataTask(with: imageUrl) { data, _, error in
+                guard let data = data, error == nil else {
+                    completion(nil)
+                    return
+                }
+                
+                let profilePicture = UIImage(data: data)
+                DispatchQueue.main.async {
+                    completion(profilePicture)
+                }
+            }
+            task.resume()
+        }
+        
+    }
+    
     func savePhoto(uid: String, imageData: Data, metadata: StorageMetadata, storageProfileRef: StorageReference, dict: Dictionary<String, Any>, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
         storageProfileRef.putData(imageData, metadata: metadata) { storageMetadata, error in
@@ -97,7 +135,7 @@ class DataController {
                 return
             }
             
-            //download the image to save on the dictionary
+            //download the image to save in the dictionary
             storageProfileRef.downloadURL { url, error in
                 if let metaImageUrl = url?.absoluteString {
                     
@@ -149,7 +187,9 @@ class DataController {
         task.resume()
     }
     
-    //MARK: - INSERT THE USER ONTO DATABASE(MYSWL)
+
+    
+    //MARK: - INSERT THE USER ONTO DATABASE(MYSQL)
     func createCustomer(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
         let userURL = baseURL.appendingPathComponent("/customer")
         var request = URLRequest(url: userURL)
@@ -253,8 +293,6 @@ class DataController {
                         onError("Failed to get data from the server")
                         return
                     }
-                    print(String(data: data, encoding: .utf8))
-                    print(response.statusCode)
                     do {
                         if response.statusCode == 200 {
                             let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
@@ -334,10 +372,7 @@ class DataController {
         let categoryURL = baseURL.appendingPathComponent("/categories/byid/\(categoryID)")
         performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
     }
-    
-    //MARK: - PERFORM REQUEST ()
-    
-    
+
     //MARK: - UPDATE TRANSACTION
     
     func updateTransaction(transaction: Transaction, onSucess: @escaping () -> Void, onError: @escaping (String) -> Void) {

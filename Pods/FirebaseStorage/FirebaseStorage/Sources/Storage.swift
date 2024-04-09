@@ -14,9 +14,9 @@
 
 import Foundation
 
-import FirebaseCore
 import FirebaseAppCheckInterop
 import FirebaseAuthInterop
+import FirebaseCore
 #if COCOAPODS
   import GTMSessionFetcher
 #else
@@ -29,7 +29,7 @@ import FirebaseAuthInterop
 /**
  * Firebase Storage is a service that supports uploading and downloading binary objects,
  * such as images, videos, and other files to Google Cloud Storage. Instances of `Storage`
- * are not thread-safe.
+ * are not thread-safe, but can be accessed from any thread.
  *
  * If you call `Storage.storage()`, the instance will initialize with the default `FirebaseApp`,
  * `FirebaseApp.app()`, and the storage location will come from the provided
@@ -277,16 +277,16 @@ import FirebaseAuthInterop
 
   private var fetcherService: GTMSessionFetcherService?
 
-  internal var fetcherServiceForApp: GTMSessionFetcherService {
+  var fetcherServiceForApp: GTMSessionFetcherService {
     guard let value = fetcherService else {
       fatalError("Internal error: fetcherServiceForApp not yet configured.")
     }
     return value
   }
 
-  internal let dispatchQueue: DispatchQueue
+  let dispatchQueue: DispatchQueue
 
-  internal init(app: FirebaseApp, bucket: String) {
+  init(app: FirebaseApp, bucket: String) {
     self.app = app
     auth = ComponentType<AuthInterop>.instance(for: AuthInterop.self,
                                                in: app.container)
@@ -314,13 +314,13 @@ import FirebaseAuthInterop
     (suggestedWillRetry: Bool,
      error: Error?,
      response: @escaping GTMSessionFetcherRetryResponse) in
-      var shouldRetry = suggestedWillRetry
-      // GTMSessionFetcher does not consider being offline a retryable error, but we do, so we
-      // special-case it here.
-      if !shouldRetry, error != nil {
-        shouldRetry = (error as? NSError)?.code == URLError.notConnectedToInternet.rawValue
-      }
-      response(shouldRetry)
+    var shouldRetry = suggestedWillRetry
+    // GTMSessionFetcher does not consider being offline a retryable error, but we do, so we
+    // special-case it here.
+    if !shouldRetry, error != nil {
+      shouldRetry = (error as? NSError)?.code == URLError.notConnectedToInternet.rawValue
+    }
+    response(shouldRetry)
   }
 
   private static func initFetcherServiceForApp(_ app: FirebaseApp,
@@ -357,12 +357,12 @@ import FirebaseAuthInterop
   private let appCheck: AppCheckInterop
   private let storageBucket: String
   private var usesEmulator: Bool = false
-  internal var host: String
-  internal var scheme: String
-  internal var port: Int
-  internal var maxDownloadRetryInterval: TimeInterval
-  internal var maxOperationRetryInterval: TimeInterval
-  internal var maxUploadRetryInterval: TimeInterval
+  var host: String
+  var scheme: String
+  var port: Int
+  var maxDownloadRetryInterval: TimeInterval
+  var maxOperationRetryInterval: TimeInterval
+  var maxUploadRetryInterval: TimeInterval
 
   /**
    * Performs a crude translation of the user provided timeouts to the retry intervals that
@@ -372,7 +372,7 @@ import FirebaseAuthInterop
    * @param retryTime A timeout that caps the sum of all retry attempts
    * @return A timeout that caps the timeout of the last retry attempt
    */
-  internal static func computeRetryInterval(fromRetryTime retryTime: TimeInterval) -> TimeInterval {
+  static func computeRetryInterval(fromRetryTime retryTime: TimeInterval) -> TimeInterval {
     // GTMSessionFetcher's retry starts at 1 second and then doubles every time. We use this
     // information to compute a best-effort estimate of what to translate the user provided retry
     // time into.

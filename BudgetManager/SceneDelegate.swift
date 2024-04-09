@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import FBSDKCoreKit
-import FBSDKCoreKit_Basics
 import FirebaseAuth
 
 
@@ -20,60 +18,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         //self.setupWindow(with: scene)
-        
-        guard let _ = (scene as? UIWindowScene) else { return }
-    }
-    
-    
-    private func setupWindow(with scene: UIScene) {
+                
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
         
-        self.window = window
-        
-        // Call checkAuthentication() to set the root view controller.
-        self.checkAuthentication()
-        
-        self.window?.makeKeyAndVisible()
-    }
-    
-    //made public so as it can be used when the logout is pressed on HomeViewController
-    public func checkAuthentication() {
-        // if user is already signed in, go to tabBarController screens
-        Auth.auth().addStateDidChangeListener { auth, user  in
-            if user != nil {
-                // User is signed in.
-                self.goToController(with: HomeViewController())
-                //print("user signed in \(user?.uid), \(user?.email)")
-            } else {
-                // No User is signed in.
-                self.goToController(with: LoginWithAppsViewController())
-                //print("user not signed in")
-            }
+        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your actual storyboard name
+        if let initialViewController = storyboard.instantiateInitialViewController() {
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = initialViewController
+            self.window = window
+            window.makeKeyAndVisible()
         }
     }
-
-    private func goToController(with viewController: UIViewController) {
-        //Fading animation (black and white)
-        print("goToController called with viewController:", viewController)
-        DispatchQueue.main.async { [weak self] in
-            UIView.animate(withDuration: 0.25) {
-                self?.window?.layer.opacity = 0
-                
-            } completion: { [weak self] _ in
-                
-                let nav = UINavigationController(rootViewController: viewController)
-                nav.modalPresentationStyle = .fullScreen
-                self?.window?.rootViewController = nav
-                print("New rootViewController set to:", nav)
-                
-                UIView.animate(withDuration: 0.25) { [weak self] in
-                    self?.window?.layer.opacity = 1
-                }
-            }
-        }
-    }
-     
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -107,13 +62,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let url = URLContexts.first?.url else {
             return
         }
-        
-        ApplicationDelegate.shared.application(
-            UIApplication.shared,
-            open: url,
-            sourceApplication: nil,
-            annotation: [UIApplication.OpenURLOptionsKey.annotation]
-        )
     }
     
 }

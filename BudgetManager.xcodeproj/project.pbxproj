@@ -16,7 +16,6 @@
 		DF15E0B2299A0DE50020340A /* CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0B1299A0DE50020340A /* CustomColors.swift */; };
 		DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D329906A4200EA6FAB /* AppDelegate.swift */; };
 		DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */; };
-		DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */; };
 		DF21D2DB29906A4200EA6FAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2D929906A4200EA6FAB /* Main.storyboard */; };
 		DF21D2DD29906A4400EA6FAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2DC29906A4400EA6FAB /* Assets.xcassets */; };
 		DF21D2E029906A4400EA6FAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */; };
@@ -33,17 +32,16 @@
 		DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */; };
 		DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */; };
 		DF233D4F29986FE80038DE52 /* InputTransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */; };
-		DF3270C229E29458001D36C2 /* FBAEMKit.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */; };
-		DF3270C329E29458001D36C2 /* FBAEMKit.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DF57CDB22A11ADF200958474 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */; };
-		DF57CDB42A289A2500958474 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF57CDB32A289A2500958474 /* TabBarViewController.swift */; };
 		DF7BDE122993942D004696BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE112993942D004696BB /* Constants.swift */; };
 		DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */; };
 		DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86E76C29AC2B5700E912D9 /* DataController.swift */; };
 		DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F529D41CCE00291940 /* Extentions.swift */; };
 		DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */; };
-		DFB0A2B12998B37600247D30 /* CategoriesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */; };
 		DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */; };
+		DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE90B72B737E29007A9DDC /* AboutViewController.swift */; };
+		DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */; };
+		DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */; };
 		DFF3485029ECA61B0022C684 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3484F29ECA61B0022C684 /* APIError.swift */; };
 		DFF348532A007F6E0022C684 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF348522A007F6E0022C684 /* credentials.plist */; };
 /* End PBXBuildFile section */
@@ -65,20 +63,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		DF3270C429E29458001D36C2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				DF3270C329E29458001D36C2 /* FBAEMKit.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager.debug.xcconfig"; path = "Target Support Files/Pods-BudgetManager/Pods-BudgetManager.debug.xcconfig"; sourceTree = "<group>"; };
 		266FF94B476A24CA16F3C643 /* Pods-BudgetManager-BudgetManagerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager-BudgetManagerUITests.debug.xcconfig"; path = "Target Support Files/Pods-BudgetManager-BudgetManagerUITests/Pods-BudgetManager-BudgetManagerUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -96,7 +80,6 @@
 		DF21D2D029906A4200EA6FAB /* BudgetManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF21D2D329906A4200EA6FAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginWithAppsViewController.swift; sourceTree = "<group>"; };
 		DF21D2DA29906A4200EA6FAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DF21D2DC29906A4400EA6FAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DF21D2DF29906A4400EA6FAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -116,20 +99,17 @@
 		DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailedViewController.swift; sourceTree = "<group>"; };
 		DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionTableViewController.swift; sourceTree = "<group>"; };
-		DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBAEMKit.xcframework; path = Pods/FBAEMKit/XCFrameworks/FBAEMKit.xcframework; sourceTree = "<group>"; };
 		DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		DF57CDB32A289A2500958474 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		DF9A38F529D41CCE00291940 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatonObj.swift; sourceTree = "<group>"; };
-		DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCollectionViewController.swift; sourceTree = "<group>"; };
 		DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
+		DFCE90B72B737E29007A9DDC /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		DFE57017299B401E00F7B2C4 /* BudgetManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudgetManager.entitlements; sourceTree = "<group>"; };
-		DFE57018299B431000F7B2C4 /* FBSDKCoreKit_Basics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit_Basics.xcframework; path = Pods/FBSDKCoreKit_Basics/XCFrameworks/FBSDKCoreKit_Basics.xcframework; sourceTree = "<group>"; };
-		DFE5701C299B432400F7B2C4 /* FBSDKCoreKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKCoreKit.xcframework; path = Pods/FBSDKCoreKit/XCFrameworks/FBSDKCoreKit.xcframework; sourceTree = "<group>"; };
-		DFE5701D299B432400F7B2C4 /* FBSDKLoginKit.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = FBSDKLoginKit.xcframework; path = Pods/FBSDKLoginKit/XCFrameworks/FBSDKLoginKit.xcframework; sourceTree = "<group>"; };
 		DFF3484F29ECA61B0022C684 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		DFF348522A007F6E0022C684 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,7 +119,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF3270C229E29458001D36C2 /* FBAEMKit.xcframework in Frameworks */,
 				6504984412462B3D1A91097B /* Pods_BudgetManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,10 +158,6 @@
 		CD18F18C047DF1053F69C2C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF3270C129E29458001D36C2 /* FBAEMKit.xcframework */,
-				DFE5701C299B432400F7B2C4 /* FBSDKCoreKit.xcframework */,
-				DFE5701D299B432400F7B2C4 /* FBSDKLoginKit.xcframework */,
-				DFE57018299B431000F7B2C4 /* FBSDKCoreKit_Basics.xcframework */,
 				9C8BDCE315E2C94ACDF4360C /* Pods_BudgetManager.framework */,
 				838CE86F6CB284C49814F3D6 /* Pods_BudgetManager_BudgetManagerUITests.framework */,
 				3B0F98707390C76D904BD0C7 /* Pods_BudgetManagerTests.framework */,
@@ -222,7 +197,6 @@
 				DF21D3042991CC1900EA6FAB /* View */,
 				DF21D3052991CC2300EA6FAB /* Controller */,
 				DF7BDE1029939412004696BB /* SupportFiles */,
-				DF3B31282AB5BFB9004F3AFF /* Old */,
 				DF21D2D929906A4200EA6FAB /* Main.storyboard */,
 				DF21D2DC29906A4400EA6FAB /* Assets.xcassets */,
 				DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */,
@@ -282,20 +256,13 @@
 				DF21D3142992442E00EA6FAB /* HomeViewController.swift */,
 				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
 				DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */,
-				DFB0A2B02998B37600247D30 /* CategoriesCollectionViewController.swift */,
+				DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */,
 				DF86E76C29AC2B5700E912D9 /* DataController.swift */,
-				DF57CDB32A289A2500958474 /* TabBarViewController.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		DF3B31282AB5BFB9004F3AFF /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				DF21D2D729906A4200EA6FAB /* LoginWithAppsViewController.swift */,
+				DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */,
+				DFCE90B72B737E29007A9DDC /* AboutViewController.swift */,
 				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
 			);
-			path = Old;
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		DF7BDE1029939412004696BB /* SupportFiles */ = {
@@ -321,7 +288,6 @@
 				DF21D2CD29906A4200EA6FAB /* Frameworks */,
 				DF21D2CE29906A4200EA6FAB /* Resources */,
 				CCC3042090A8E5EBB40966CB /* [CP] Embed Pods Frameworks */,
-				DF3270C429E29458001D36C2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -379,7 +345,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1520;
 				TargetAttributes = {
 					DF21D2CF29906A4200EA6FAB = {
 						CreatedOnToolsVersion = 14.2;
@@ -553,18 +519,16 @@
 			files = (
 				DF233D4F29986FE80038DE52 /* InputTransactionTableViewController.swift in Sources */,
 				DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */,
+				DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */,
 				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
-				DF21D2D829906A4200EA6FAB /* LoginWithAppsViewController.swift in Sources */,
 				DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */,
 				DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */,
 				DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */,
 				DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */,
 				DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
-				DF57CDB42A289A2500958474 /* TabBarViewController.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
 				DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */,
-				DFB0A2B12998B37600247D30 /* CategoriesCollectionViewController.swift in Sources */,
 				DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */,
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
@@ -573,8 +537,10 @@
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF15E0B2299A0DE50020340A /* CustomColors.swift in Sources */,
 				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
+				DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */,
 				DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */,
 				DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */,
+				DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */,
 				DFF3485029ECA61B0022C684 /* APIError.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 			);
@@ -668,6 +634,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -728,6 +695,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

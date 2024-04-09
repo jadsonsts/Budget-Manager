@@ -23,7 +23,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTxtField: CustomTxtField!
     @IBOutlet weak var signUpButton: CustomButton!
     
-    //Validation Supporters
+  //MARK: - Validation Supporters
     @IBOutlet weak var emailValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var passwordImageViewValidation: UIImageView!
@@ -35,10 +35,11 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var imageValidationLabel: UILabel!
     
     let passwordValidation = PasswordValidationObj()
-    var image: UIImage? = nil
+    var image: UIImage?
     
     override func viewWillAppear(_ animated: Bool) {
         hidePasswordCheckStackView()
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     
@@ -263,7 +264,7 @@ class SignUpViewController: UIViewController {
               let email = emailTxtField.text, !email.isEmpty,
               let password = passwordTxtField.text, !password.isEmpty,
               let confPassword = confirmPasswordTxtField.text, !confPassword.isEmpty else {
-            ProgressHUD.showError(ErrorMessageType.emptyForm.message())
+            ProgressHUD.failed(ErrorMessageType.emptyForm.message())
             return nil
         }
         return (firstName, lastName, phone, email, password, confPassword)
@@ -281,7 +282,7 @@ class SignUpViewController: UIViewController {
         
         //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase and the server
         guard let fields = validateFields() else { return }
-        ProgressHUD.show()
+        ProgressHUD.animate("Signin Up...", .barSweepToggle)
         DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
             guard let userID = Auth.auth().currentUser?.uid else { return }
             
@@ -306,27 +307,26 @@ class SignUpViewController: UIViewController {
                                     customerID: customerID)
             
                 DataController.shared.createUserWallet(for: wallet) { _ in
-                    ProgressHUD.showSuccess()
+                    ProgressHUD.succeed()
                     ProgressHUD.dismiss()
                     self.performSegue(withIdentifier: K.registerSegue, sender: self)
                 } onError: { errorMessage in
-                    ProgressHUD.showError(errorMessage)
+                    ProgressHUD.failed(errorMessage)
                 }
                 
             } onError: { errorMessage in
-                ProgressHUD.showError(errorMessage)
+                ProgressHUD.failed(errorMessage)
             }
             
         } onError: { errorMessage in
-            ProgressHUD.showError(errorMessage)
+            ProgressHUD.failed(errorMessage)
         }
     }
     
     //send the objects through
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? HomeViewController, let customer = sender as? Customer, let wallet = sender as? Wallet {
-            destinationVC.customer = customer
-            destinationVC.wallet = wallet
+        if let destinationVC = segue.destination as? HomeViewController {
+            destinationVC.modalPresentationStyle = .currentContext
         }
     }
     

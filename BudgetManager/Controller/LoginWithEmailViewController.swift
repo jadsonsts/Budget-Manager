@@ -21,10 +21,11 @@ class LoginWithEmailViewController: UIViewController {
     var userID: String?
     
     override func viewDidLoad() {
+       UserDefaults.standard.removeObject(forKey: "imageURL")
         super.viewDidLoad()
-        
+        ProgressHUD.colorAnimation = CustomColors.greenColor
         if Auth.auth().currentUser != nil {
-            performSegue(withIdentifier: K.userLoggedInHome, sender: self)
+            performSegue(withIdentifier: K.loginSegue, sender: self)
         }
 
         emailMesageErrorLabel.isHidden = true
@@ -51,22 +52,23 @@ class LoginWithEmailViewController: UIViewController {
     @IBAction func loginPressed(_ sender: Any) {
         
         guard let fields = validateFields() else { return }
-        
-        ProgressHUD.show()
+        ProgressHUD.animate("Loggin in...", .barSweepToggle)
         DataController.shared.signIn(withEmail: fields.email, password: fields.password) { result in
-            ProgressHUD.showSuccess()
+            ProgressHUD.succeed()
             if let result = result {
                 self.userID = result.user.uid
                 self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         } onError: { errorMessage in
-            ProgressHUD.showError(errorMessage)
+            ProgressHUD.failed(errorMessage)
         }
     }
-//MARK: - Prepare for segue if necessary - send the user firebase ID
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let destinationVC = segue.destination as? HomeViewController {
-//            destinationVC.userID = userID
-//        }
-//    }
+//MARK: - Prepare for segue
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.loginSegue {
+            segue.destination.modalPresentationStyle = .currentContext
+        } else {
+            segue.destination.modalPresentationStyle = .currentContext
+        }
+    }
 }

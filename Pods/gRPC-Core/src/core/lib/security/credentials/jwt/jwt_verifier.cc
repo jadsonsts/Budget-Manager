@@ -21,12 +21,34 @@
 #include "src/core/lib/security/credentials/jwt/jwt_verifier.h"
 
 #include <limits.h>
+#include <stdlib.h>
 #include <string.h>
 
+#include <map>
+#include <memory>
+#include <string>
+#include <utility>
+#include <vector>
+
+#if COCOAPODS==1
+  #include <openssl_grpc/bio.h>
+#else
+  #include <openssl/bio.h>
+#endif
 #if COCOAPODS==1
   #include <openssl_grpc/bn.h>
 #else
   #include <openssl/bn.h>
+#endif
+#if COCOAPODS==1
+  #include <openssl_grpc/crypto.h>
+#else
+  #include <openssl/crypto.h>
+#endif
+#if COCOAPODS==1
+  #include <openssl_grpc/evp.h>
+#else
+  #include <openssl/evp.h>
 #endif
 #if COCOAPODS==1
   #include <openssl_grpc/pem.h>
@@ -38,18 +60,39 @@
 #else
   #include <openssl/rsa.h>
 #endif
+#if COCOAPODS==1
+  #include <openssl_grpc/x509.h>
+#else
+  #include <openssl/x509.h>
+#endif
 
+#include "absl/status/status.h"
+#include "absl/status/statusor.h"
+#include "absl/strings/string_view.h"
+
+#include <grpc/grpc.h>
+#include <grpc/slice.h>
 #include <grpc/support/alloc.h>
 #include <grpc/support/log.h>
 #include <grpc/support/string_util.h>
-#include <grpc/support/sync.h>
+#include <grpc/support/time.h>
 
 #include "src/core/lib/gpr/string.h"
 #include "src/core/lib/gprpp/manual_constructor.h"
+#include "src/core/lib/gprpp/memory.h"
+#include "src/core/lib/gprpp/orphanable.h"
 #include "src/core/lib/http/httpcli.h"
+#include "src/core/lib/http/httpcli_ssl_credentials.h"
+#include "src/core/lib/http/parser.h"
+#include "src/core/lib/iomgr/closure.h"
+#include "src/core/lib/iomgr/error.h"
+#include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/iomgr/polling_entity.h"
+#include "src/core/lib/security/credentials/credentials.h"
 #include "src/core/lib/slice/b64.h"
 #include "src/core/lib/slice/slice_internal.h"
+#include "src/core/lib/slice/slice_refcount.h"
+#include "src/core/lib/uri/uri_parser.h"
 #include "src/core/tsi/ssl_types.h"
 
 using grpc_core::Json;
@@ -97,16 +140,14 @@ static Json parse_json_part_from_jwt(const char* str, size_t len) {
     return Json();  // JSON null
   }
   absl::string_view string = grpc_core::StringViewFromSlice(slice);
-  grpc_error_handle error = GRPC_ERROR_NONE;
-  Json json = Json::Parse(string, &error);
-  if (error != GRPC_ERROR_NONE) {
-    gpr_log(GPR_ERROR, "JSON parse error: %s",
-            grpc_error_std_string(error).c_str());
-    GRPC_ERROR_UNREF(error);
-    json = Json();  // JSON null
-  }
+  auto json = Json::Parse(string);
   grpc_slice_unref_internal(slice);
-  return json;
+  if (!json.ok()) {
+    gpr_log(GPR_ERROR, "JSON parse error: %s",
+            json.status().ToString().c_str());
+    return Json();  // JSON null
+  }
+  return std::move(*json);
 }
 
 static const char* validate_string_field(const Json& json, const char* key) {
@@ -356,6 +397,7 @@ struct verifier_cb_ctx {
   void* user_data;
   grpc_jwt_verification_done_cb user_cb;
   grpc_http_response responses[HTTP_RESPONSE_COUNT];
+  grpc_core::OrphanablePtr<grpc_core::HttpRequest> http_request;
 };
 /* Takes ownership of the header, claims and signature. */
 static verifier_cb_ctx* verifier_cb_ctx_create(
@@ -397,7 +439,8 @@ void verifier_cb_ctx_destroy(verifier_cb_ctx* ctx) {
 gpr_timespec grpc_jwt_verifier_clock_skew = {60, 0, GPR_TIMESPAN};
 
 /* Max delay defaults to one minute. */
-grpc_millis grpc_jwt_verifier_max_delay = 60 * GPR_MS_PER_SEC;
+grpc_core::Duration grpc_jwt_verifier_max_delay =
+    grpc_core::Duration::Minutes(1);
 
 struct email_key_mapping {
   char* email_domain;
@@ -409,7 +452,7 @@ struct grpc_jwt_verifier {
   size_t allocated_mappings;
 };
 
-static Json json_from_http(const grpc_httpcli_response* response) {
+static Json json_from_http(const grpc_http_response* response) {
   if (response == nullptr) {
     gpr_log(GPR_ERROR, "HTTP response is NULL.");
     return Json();  // JSON null
@@ -419,14 +462,13 @@ static Json json_from_http(const grpc_httpcli_response* response) {
             response->status);
     return Json();  // JSON null
   }
-  grpc_error_handle error = GRPC_ERROR_NONE;
-  Json json = Json::Parse(
-      absl::string_view(response->body, response->body_length), &error);
-  if (error != GRPC_ERROR_NONE) {
+  auto json =
+      Json::Parse(absl::string_view(response->body, response->body_length));
+  if (!json.ok()) {
     gpr_log(GPR_ERROR, "Invalid JSON found in response.");
     return Json();  // JSON null
   }
-  return json;
+  return std::move(*json);
 }
 
 static const Json* find_property_by_name(const Json& json, const char* name) {
@@ -678,9 +720,13 @@ static void on_openid_config_retrieved(void* user_data,
   verifier_cb_ctx* ctx = static_cast<verifier_cb_ctx*>(user_data);
   const grpc_http_response* response = &ctx->responses[HTTP_RESPONSE_OPENID];
   Json json = json_from_http(response);
-  grpc_httpcli_request req;
+  grpc_http_request req;
+  memset(&req, 0, sizeof(grpc_http_request));
   const char* jwks_uri;
   const Json* cur;
+  absl::StatusOr<grpc_core::URI> uri;
+  char* host;
+  char* path;
 
   /* TODO(jboeuf): Cache the jwks_uri in order to avoid this hop next time. */
   if (json.type() == Json::Type::JSON_NULL) goto error;
@@ -696,24 +742,30 @@ static void on_openid_config_retrieved(void* user_data,
     goto error;
   }
   jwks_uri += 8;
-  req.handshaker = &grpc_httpcli_ssl;
-  req.host = gpr_strdup(jwks_uri);
-  req.http.path = const_cast<char*>(strchr(jwks_uri, '/'));
-  if (req.http.path == nullptr) {
-    req.http.path = const_cast<char*>("");
+  host = gpr_strdup(jwks_uri);
+  path = const_cast<char*>(strchr(jwks_uri, '/'));
+  if (path == nullptr) {
+    path = const_cast<char*>("");
   } else {
-    *(req.host + (req.http.path - jwks_uri)) = '\0';
+    *(host + (path - jwks_uri)) = '\0';
   }
 
   /* TODO(ctiller): Carry the resource_quota in ctx and share it with the host
      channel. This would allow us to cancel an authentication query when under
      extreme memory pressure. */
-  grpc_httpcli_get(
-      &ctx->pollent, grpc_core::ResourceQuota::Default(), &req,
+  uri = grpc_core::URI::Create("https", host, path, {} /* query params /*/,
+                               "" /* fragment */);
+  if (!uri.ok()) {
+    goto error;
+  }
+  ctx->http_request = grpc_core::HttpRequest::Get(
+      std::move(*uri), nullptr /* channel args */, &ctx->pollent, &req,
       grpc_core::ExecCtx::Get()->Now() + grpc_jwt_verifier_max_delay,
       GRPC_CLOSURE_CREATE(on_keys_retrieved, ctx, grpc_schedule_on_exec_ctx),
-      &ctx->responses[HTTP_RESPONSE_KEYS]);
-  gpr_free(req.host);
+      &ctx->responses[HTTP_RESPONSE_KEYS],
+      grpc_core::CreateHttpRequestSSLCredentials());
+  ctx->http_request->Start();
+  gpr_free(host);
   return;
 
 error:
@@ -771,10 +823,12 @@ static void retrieve_key_and_verify(verifier_cb_ctx* ctx) {
   grpc_closure* http_cb;
   char* path_prefix = nullptr;
   const char* iss;
-  grpc_httpcli_request req;
-  memset(&req, 0, sizeof(grpc_httpcli_request));
-  req.handshaker = &grpc_httpcli_ssl;
+  grpc_http_request req;
+  memset(&req, 0, sizeof(grpc_http_request));
   http_response_index rsp_idx;
+  char* host;
+  char* path;
+  absl::StatusOr<grpc_core::URI> uri;
 
   GPR_ASSERT(ctx != nullptr && ctx->header != nullptr &&
              ctx->claims != nullptr);
@@ -802,26 +856,25 @@ static void retrieve_key_and_verify(verifier_cb_ctx* ctx) {
       gpr_log(GPR_ERROR, "Missing mapping for issuer email.");
       goto error;
     }
-    req.host = gpr_strdup(mapping->key_url_prefix);
-    path_prefix = strchr(req.host, '/');
+    host = gpr_strdup(mapping->key_url_prefix);
+    path_prefix = strchr(host, '/');
     if (path_prefix == nullptr) {
-      gpr_asprintf(&req.http.path, "/%s", iss);
+      gpr_asprintf(&path, "/%s", iss);
     } else {
       *(path_prefix++) = '\0';
-      gpr_asprintf(&req.http.path, "/%s/%s", path_prefix, iss);
+      gpr_asprintf(&path, "/%s/%s", path_prefix, iss);
     }
     http_cb =
         GRPC_CLOSURE_CREATE(on_keys_retrieved, ctx, grpc_schedule_on_exec_ctx);
     rsp_idx = HTTP_RESPONSE_KEYS;
   } else {
-    req.host = gpr_strdup(strstr(iss, "https://") == iss ? iss + 8 : iss);
-    path_prefix = strchr(req.host, '/');
+    host = gpr_strdup(strstr(iss, "https://") == iss ? iss + 8 : iss);
+    path_prefix = strchr(host, '/');
     if (path_prefix == nullptr) {
-      req.http.path = gpr_strdup(GRPC_OPENID_CONFIG_URL_SUFFIX);
+      path = gpr_strdup(GRPC_OPENID_CONFIG_URL_SUFFIX);
     } else {
       *(path_prefix++) = 0;
-      gpr_asprintf(&req.http.path, "/%s%s", path_prefix,
-                   GRPC_OPENID_CONFIG_URL_SUFFIX);
+      gpr_asprintf(&path, "/%s%s", path_prefix, GRPC_OPENID_CONFIG_URL_SUFFIX);
     }
     http_cb = GRPC_CLOSURE_CREATE(on_openid_config_retrieved, ctx,
                                   grpc_schedule_on_exec_ctx);
@@ -831,12 +884,18 @@ static void retrieve_key_and_verify(verifier_cb_ctx* ctx) {
   /* TODO(ctiller): Carry the resource_quota in ctx and share it with the host
      channel. This would allow us to cancel an authentication query when under
      extreme memory pressure. */
-  grpc_httpcli_get(
-      &ctx->pollent, grpc_core::ResourceQuota::Default(), &req,
+  uri = grpc_core::URI::Create("https", host, path, {} /* query params */,
+                               "" /* fragment */);
+  if (!uri.ok()) {
+    goto error;
+  }
+  ctx->http_request = grpc_core::HttpRequest::Get(
+      std::move(*uri), nullptr /* channel args */, &ctx->pollent, &req,
       grpc_core::ExecCtx::Get()->Now() + grpc_jwt_verifier_max_delay, http_cb,
-      &ctx->responses[rsp_idx]);
-  gpr_free(req.host);
-  gpr_free(req.http.path);
+      &ctx->responses[rsp_idx], grpc_core::CreateHttpRequestSSLCredentials());
+  ctx->http_request->Start();
+  gpr_free(host);
+  gpr_free(path);
   return;
 
 error:
