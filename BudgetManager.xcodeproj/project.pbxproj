@@ -727,8 +727,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BudgetManager/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager need access to your camera to pick your profile picture";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "deixa nois pegar umas fotos ai mano";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager needs access to your camera to pick your profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Budget Manager needs access to your Photo Library to pick your profile picture you selected";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -761,8 +761,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BudgetManager/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager need access to your camera to pick your profile picture";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "deixa nois pegar umas fotos ai mano";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Budget Manager needs access to your camera to pick your profile picture";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Budget Manager needs access to your Photo Library to pick your profile picture you selected";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
