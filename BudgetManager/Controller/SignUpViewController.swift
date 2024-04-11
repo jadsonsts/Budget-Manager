@@ -11,6 +11,7 @@ import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
 import ProgressHUD
+import Photos
 
 class SignUpViewController: UIViewController {
     
@@ -359,27 +360,75 @@ extension SignUpViewController: UITextFieldDelegate {
 }
 
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+
+    func checkPhotoLibraryAuthorization() {
+        let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
+            switch status {
+                case .authorized:
+                    openGaleryPicker()
+                case .denied, .restricted :
+                    print("create alert controller mais bunitin")
+                case .notDetermined:
+                    PHPhotoLibrary.requestAuthorization { [weak self] status in
+                        DispatchQueue.main.async {
+                            self?.checkPhotoLibraryAuthorization()
+                        }
+                    }
+                case .limited:
+                  openGaleryPicker()
+            }
+    }
     
-    @objc func presentPicker() {
+    func openGaleryPicker() {
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.allowsEditing = true
+        
+        picker.sourceType = .photoLibrary
+        present(picker, animated: true, completion: nil)
+        
+    }
+    
+    func checkCameraAuthorization() {
+        let status = AVCaptureDevice.authorizationStatus(for: .video)
+        switch status {
+            case .notDetermined:
+                AVCaptureDevice.requestAccess(for: .video) { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.checkCameraAuthorization()
+                    }
+                }
+            case .restricted, .denied:
+                print("create alert controller mais bunitin")
+            case .authorized:
+                openCameraPicker()
+        }
+    }
+    
+    func openCameraPicker() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+        
+        picker.sourceType = .camera
+        present(picker, animated: true, completion: nil)
+    }
+        
+    @objc func presentPicker() {
         
         let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            let cameraAction = UIAlertAction(title: "Camera", style: .default) { (action) in
-                picker.sourceType = .camera
-                self.present(picker, animated: true, completion: nil)
+            let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] (action) in
+                self?.checkCameraAuthorization()
             }
             alertController.addAction(cameraAction)
         }
         
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { (action) in
-                picker.sourceType = .photoLibrary
-                self.present(picker, animated: true, completion: nil)
+            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { [weak self] (action) in
+                self?.checkPhotoLibraryAuthorization()
             }
             alertController.addAction(photoLibraryAction)
         }

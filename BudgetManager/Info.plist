@@ -2,15 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>GIDClientID</key>
-    <string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb3080906928880124</string>
-                <string>com.googleusercontent.apps.341788451168-cjo3n6nh361ffompals7snd09r78egb1</string>
+				<string>com.googleusercontent.apps.341788451168-cjo3n6nh361ffompals7snd09r78egb1</string>
 			</array>
 		</dict>
 		<dict>
@@ -28,6 +26,8 @@
 	<string>317b2220ba8aca18dcb4c07319c20dd5</string>
 	<key>FacebookDisplayName</key>
 	<string>Budget-Manager</string>
+	<key>GIDClientID</key>
+	<string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -40,6 +40,8 @@
 	</dict>
 	<key>OAuth client ID</key>
 	<string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
+	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
+	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
