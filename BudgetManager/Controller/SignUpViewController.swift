@@ -367,7 +367,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
                 case .authorized:
                     openGaleryPicker()
                 case .denied, .restricted :
-                    print("create alert controller mais bunitin")
+                    requestManualSettingForPhotoGaleryCamera()
                 case .notDetermined:
                     PHPhotoLibrary.requestAuthorization { [weak self] status in
                         DispatchQueue.main.async {
@@ -386,7 +386,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         
         picker.sourceType = .photoLibrary
         present(picker, animated: true, completion: nil)
-        
     }
     
     func checkCameraAuthorization() {
@@ -399,7 +398,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
                     }
                 }
             case .restricted, .denied:
-                print("create alert controller mais bunitin")
+                requestManualSettingForPhotoGaleryCamera()
             case .authorized:
                 openCameraPicker()
         }
@@ -412,6 +411,24 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         
         picker.sourceType = .camera
         present(picker, animated: true, completion: nil)
+    }
+    
+    func requestManualSettingForPhotoGaleryCamera() {
+        let alert = UIAlertController(title: "Manual settings required", message: "Please go to the app's settings and enable access to the photo library/camera", preferredStyle: .alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: .cancel)
+        let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
+                    print("Settings opened: \(success)") // Prints true
+                })
+            }
+        }
+        alert.addAction(settingsAction)
+        alert.addAction(dismissAction)
+        self.present(alert, animated: true, completion: nil)
     }
         
     @objc func presentPicker() {
@@ -447,9 +464,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         if let editedImage = info[.editedImage] as? UIImage {
             profilePictureImageView.image = editedImage
             image = editedImage
-            
         }
         picker.dismiss(animated: true)
     }
-    
 }
