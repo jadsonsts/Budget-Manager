@@ -19,10 +19,5 @@ struct K {
     static let goToAbout = "AboutSegue"
     static let goToUserSettings = "UserSettings"
     //static let userLoggedInHome = "AlreadyLoggedIn"
-    //static let newTransaction = "SendToTransaction"
+    static let newTransaction = "SendToTransaction"
 }
-
-//struct UserVariables {
-//    static var customer: Customer?
-//    static var wallet: Wallet?
-//}

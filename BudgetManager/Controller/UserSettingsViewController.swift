@@ -8,9 +8,9 @@
 import UIKit
 import ProgressHUD
 import FirebaseAuth
+import CoreData
 
 class UserSettingsViewController: UIViewController {
-    
     
     @IBOutlet weak var userProfilePicture: UIImageView!
     @IBOutlet weak var firstNameTextField: CustomTxtField!
@@ -22,7 +22,9 @@ class UserSettingsViewController: UIViewController {
     @IBOutlet weak var updateProfileButton: CustomButton!
     @IBOutlet weak var disclaimerLabel: UILabel!
     
-    var userDetails: Customer?
+    var userDetails: NSFetchedResultsController<User>?
+    
+    let manager = CoreDataStack.shared
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,23 +35,22 @@ class UserSettingsViewController: UIViewController {
         super.viewDidLoad()
         
         loadUserData()
-        loadProfilePicture()
         updateProfileButton.isHidden = true
         passwordTextField.isHidden = true
         confirmPasswordTextField.isHidden = true
-        createKeyboardDoneButton()
-        disclaimerLabel.text = "⚠️ User profile will be available for editing in the future updates ⚠️"
+        //createKeyboardDoneButton()
+        disclaimerLabel.text = "⚠️ User profile will be available for editing in future updates ⚠️"
         userProfilePicture.layer.cornerRadius = 40
         userProfilePicture.clipsToBounds = true
 
     }
-    
-    func loadLabels() {
-        firstNameTextField.text = userDetails?.name
-        lastNameTextField.text = userDetails?.familyName
-        emailTextField.text = userDetails?.email
-        phoneNumberTextField.text = userDetails?.phone
-        
+
+    func loadLabels(for user: User) {
+        firstNameTextField.text = user.name
+        lastNameTextField.text = user.surname
+        emailTextField.text = user.email
+        phoneNumberTextField.text = user.phone
+        ProgressHUD.dismiss()
     }
     
     func loadProfilePicture() {
@@ -64,23 +65,42 @@ class UserSettingsViewController: UIViewController {
             }
         }
     }
-    
-    func loadUserData()  {
-        ProgressHUD.animate("Loading User Details", .barSweepToggle)
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        DataController.shared.fetchCustomer(userID) { [weak self] customer in
-            self?.userDetails = customer
-            self?.loadLabels()
-            ProgressHUD.dismiss()
-        } onError: { errorMessage in
-            ProgressHUD.failed(errorMessage)
-        }
-        
-    }
 
     @IBAction func updateProfileButtonPressed(_ sender: CustomButton) {
     }
 
+}
+
+extension UserSettingsViewController: NSFetchedResultsControllerDelegate {
+    
+    func loadUserData()  {
+        ProgressHUD.animate("Loading User Details", .barSweepToggle)
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "firebase_ID == %@", userID)
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: manager.context,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+        controller.delegate = self
+        self.userDetails = controller
+        
+        do {
+            try controller.performFetch()
+        } catch let error {
+            ProgressHUD.failed("Error finding the user\n \(error)")
+        }
+        if userDetails?.fetchedObjects?.count == 0 {
+            ProgressHUD.failed("Failed findind user")
+        } else {
+            if let user = userDetails?.fetchedObjects?.first {
+                loadProfilePicture()
+                loadLabels(for: user)
+            }
+        }
+    }
 }
 
 //MARK: - Keyboard Settings

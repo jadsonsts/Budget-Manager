@@ -45,7 +45,6 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showText()
-        
     }
     
     private func showText() {
@@ -62,8 +61,6 @@ class AboutViewController: UIViewController {
         setBackGround(labels: [feature1Description, feature2Description, feature3Description, feature4Description])
         
         bottomTextLabel.text = "Much more on the go, keep your app up to date so you don't miss anything in the future."
-        
-        
     }
     
     func setBackGround (labels: [UILabel]) {

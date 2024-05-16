@@ -14,13 +14,20 @@ class LoginWithEmailViewController: UIViewController {
     @IBOutlet weak var emailTxtField: CustomTxtField!
     @IBOutlet weak var passwordTxtField: CustomTxtField!
     @IBOutlet weak var loginButton: CustomButton!
-    
     @IBOutlet weak var emailMesageErrorLabel: UILabel!
     @IBOutlet weak var passwordMessageErrorLabel: UILabel!
     
     var userID: String?
     
+    lazy var passwordVisibilityButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -24, bottom: 0, right: 15)
+        button.tintColor = CustomColors.greenColor
+        return button
+    }()
+    
     override func viewDidLoad() {
+        passwordPrivacyToggle()
        UserDefaults.standard.removeObject(forKey: "imageURL")
         super.viewDidLoad()
         ProgressHUD.colorAnimation = CustomColors.greenColor
@@ -30,6 +37,20 @@ class LoginWithEmailViewController: UIViewController {
 
         emailMesageErrorLabel.isHidden = true
         passwordMessageErrorLabel.isHidden = true
+    }
+    
+    func passwordPrivacyToggle() {
+        passwordTxtField.rightViewMode = .whileEditing
+        passwordVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordVisibilityButton.frame = CGRect(x: Int(passwordTxtField.frame.size.width) - 25, y: 5, width: 15, height: 25)
+        passwordVisibilityButton.addTarget(self, action: #selector(self.passwordVisibilityButtonClicked), for: .touchUpInside)
+        passwordTxtField.rightView = passwordVisibilityButton
+    }
+    
+    @IBAction func passwordVisibilityButtonClicked(_ sender: UIButton) {
+        passwordTxtField.isSecureTextEntry.toggle()
+        let imageName = passwordTxtField.isSecureTextEntry ? "eye" : "eye.slash"
+        passwordVisibilityButton.setImage(UIImage(systemName: imageName), for:.normal)
     }
     
     func validateFields() -> (email: String, password: String)?{
@@ -53,11 +74,11 @@ class LoginWithEmailViewController: UIViewController {
         
         guard let fields = validateFields() else { return }
         ProgressHUD.animate("Loggin in...", .barSweepToggle)
-        DataController.shared.signIn(withEmail: fields.email, password: fields.password) { result in
+        DataController.shared.signIn(withEmail: fields.email, password: fields.password) { [weak self] result in
             ProgressHUD.succeed()
             if let result = result {
-                self.userID = result.user.uid
-                self.performSegue(withIdentifier: K.loginSegue, sender: self)
+                self?.userID = result.user.uid
+                self?.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         } onError: { errorMessage in
             ProgressHUD.failed(errorMessage)

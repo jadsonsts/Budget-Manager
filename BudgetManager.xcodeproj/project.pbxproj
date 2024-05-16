@@ -22,7 +22,6 @@
 		DF21D2EB29906A4400EA6FAB /* BudgetManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2EA29906A4400EA6FAB /* BudgetManagerTests.swift */; };
 		DF21D2F529906A4400EA6FAB /* BudgetManagerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2F429906A4400EA6FAB /* BudgetManagerUITests.swift */; };
 		DF21D2F729906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D2F629906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift */; };
-		DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3062991CE5600EA6FAB /* Customer.swift */; };
 		DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D3082991CE6800EA6FAB /* Wallet.swift */; };
 		DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D30A2991CE7800EA6FAB /* Categories.swift */; };
 		DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D30C2991CE8600EA6FAB /* Transactions.swift */; };
@@ -39,10 +38,17 @@
 		DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F529D41CCE00291940 /* Extentions.swift */; };
 		DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */; };
 		DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */; };
+		DFC49FD02BD217F100D05C3D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */; };
+		DFC49FD32BD2185200D05C3D /* BudgetManagerModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FD12BD2180E00D05C3D /* BudgetManagerModel.xcdatamodeld */; };
+		DFC49FE62BD21B0C00D05C3D /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FE02BD21B0C00D05C3D /* User+CoreDataClass.swift */; };
+		DFC49FE82BD21B0C00D05C3D /* Wallet+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FE22BD21B0C00D05C3D /* Wallet+CoreDataClass.swift */; };
+		DFC49FE92BD21B0C00D05C3D /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FE32BD21B0C00D05C3D /* User+CoreDataProperties.swift */; };
+		DFC49FEA2BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FE42BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift */; };
+		DFC49FEF2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FED2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift */; };
+		DFC49FF02BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FEE2BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift */; };
 		DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE90B72B737E29007A9DDC /* AboutViewController.swift */; };
 		DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */; };
 		DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */; };
-		DFF3485029ECA61B0022C684 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF3484F29ECA61B0022C684 /* APIError.swift */; };
 		DFF348532A007F6E0022C684 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF348522A007F6E0022C684 /* credentials.plist */; };
 /* End PBXBuildFile section */
 
@@ -89,7 +95,6 @@
 		DF21D2F029906A4400EA6FAB /* BudgetManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF21D2F429906A4400EA6FAB /* BudgetManagerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManagerUITests.swift; sourceTree = "<group>"; };
 		DF21D2F629906A4400EA6FAB /* BudgetManagerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetManagerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		DF21D3062991CE5600EA6FAB /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		DF21D3082991CE6800EA6FAB /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		DF21D30A2991CE7800EA6FAB /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		DF21D30C2991CE8600EA6FAB /* Transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transactions.swift; sourceTree = "<group>"; };
@@ -106,11 +111,21 @@
 		DF9A38F529D41CCE00291940 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatonObj.swift; sourceTree = "<group>"; };
 		DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
+		DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Data/CoreDataStack.swift; sourceTree = "<group>"; };
+		DFC49FD22BD2180E00D05C3D /* BudgetManagerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BudgetManagerModel.xcdatamodel; sourceTree = "<group>"; };
+		DFC49FE02BD21B0C00D05C3D /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DFC49FE22BD21B0C00D05C3D /* Wallet+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DFC49FE32BD21B0C00D05C3D /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFC49FE42BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Wallet+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFC49FEC2BE30C5500D05C3D /* BudgetManagerModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		DFC49FED2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Transaction+CoreDataClass.swift"; path = "BudgetManager/Transaction+CoreDataClass.swift"; sourceTree = "<group>"; };
+		DFC49FEE2BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Transaction+CoreDataProperties.swift"; path = "BudgetManager/Transaction+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DFC49FF12BE30ECC00D05C3D /* BudgetManagerModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		DFC49FF22BE3657300D05C3D /* BudgetManagerModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 4.xcdatamodel"; sourceTree = "<group>"; };
 		DFCE90B72B737E29007A9DDC /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
 		DFE57017299B401E00F7B2C4 /* BudgetManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudgetManager.entitlements; sourceTree = "<group>"; };
-		DFF3484F29ECA61B0022C684 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		DFF348522A007F6E0022C684 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +183,12 @@
 		DF21D2C729906A4200EA6FAB = {
 			isa = PBXGroup;
 			children = (
+				DFC49FED2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift */,
+				DFC49FEE2BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift */,
+				DFC49FE02BD21B0C00D05C3D /* User+CoreDataClass.swift */,
+				DFC49FE32BD21B0C00D05C3D /* User+CoreDataProperties.swift */,
+				DFC49FE22BD21B0C00D05C3D /* Wallet+CoreDataClass.swift */,
+				DFC49FE42BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift */,
 				DF21D2D229906A4200EA6FAB /* BudgetManager */,
 				DF21D2E929906A4400EA6FAB /* BudgetManagerTests */,
 				DF21D2F329906A4400EA6FAB /* BudgetManagerUITests */,
@@ -190,6 +211,8 @@
 		DF21D2D229906A4200EA6FAB /* BudgetManager */ = {
 			isa = PBXGroup;
 			children = (
+				DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */,
+				DFC49FD12BD2180E00D05C3D /* BudgetManagerModel.xcdatamodeld */,
 				DFE57017299B401E00F7B2C4 /* BudgetManager.entitlements */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
 				DF21D2D529906A4200EA6FAB /* SceneDelegate.swift */,
@@ -227,11 +250,9 @@
 		DF21D3032991CC1000EA6FAB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				DF21D3062991CE5600EA6FAB /* Customer.swift */,
 				DF21D3082991CE6800EA6FAB /* Wallet.swift */,
 				DF21D30C2991CE8600EA6FAB /* Transactions.swift */,
 				DF21D30A2991CE7800EA6FAB /* Categories.swift */,
-				DFF3484F29ECA61B0022C684 /* APIError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -523,26 +544,32 @@
 				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
 				DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */,
 				DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */,
+				DFC49FD02BD217F100D05C3D /* CoreDataStack.swift in Sources */,
 				DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */,
+				DFC49FE62BD21B0C00D05C3D /* User+CoreDataClass.swift in Sources */,
 				DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */,
 				DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */,
+				DFC49FD32BD2185200D05C3D /* BudgetManagerModel.xcdatamodeld in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
+				DFC49FEF2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift in Sources */,
+				DFC49FF02BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
 				DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */,
 				DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */,
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
+				DFC49FE92BD21B0C00D05C3D /* User+CoreDataProperties.swift in Sources */,
 				DF7BDE122993942D004696BB /* Constants.swift in Sources */,
 				DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */,
+				DFC49FE82BD21B0C00D05C3D /* Wallet+CoreDataClass.swift in Sources */,
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF15E0B2299A0DE50020340A /* CustomColors.swift in Sources */,
-				DF21D3072991CE5600EA6FAB /* Customer.swift in Sources */,
 				DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */,
 				DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */,
 				DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */,
 				DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */,
-				DFF3485029ECA61B0022C684 /* APIError.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
+				DFC49FEA2BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -902,6 +929,23 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DFC49FD12BD2180E00D05C3D /* BudgetManagerModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DFC49FF22BE3657300D05C3D /* BudgetManagerModel 4.xcdatamodel */,
+				DFC49FF12BE30ECC00D05C3D /* BudgetManagerModel 3.xcdatamodel */,
+				DFC49FEC2BE30C5500D05C3D /* BudgetManagerModel 2.xcdatamodel */,
+				DFC49FD22BD2180E00D05C3D /* BudgetManagerModel.xcdatamodel */,
+			);
+			currentVersion = DFC49FF22BE3657300D05C3D /* BudgetManagerModel 4.xcdatamodel */;
+			name = BudgetManagerModel.xcdatamodeld;
+			path = "/Users/jadsoncarneiro/Desktop/iOS-Dev/Apps-Projetos/SGD/Budget-Manager/BudgetManager/BudgetManagerModel.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DF21D2C829906A4200EA6FAB /* Project object */;
 }

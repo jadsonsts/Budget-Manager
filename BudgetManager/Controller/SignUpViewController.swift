@@ -12,6 +12,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import ProgressHUD
 import Photos
+import CoreData
 
 class SignUpViewController: UIViewController {
     
@@ -37,6 +38,14 @@ class SignUpViewController: UIViewController {
     
     let passwordValidation = PasswordValidationObj()
     var image: UIImage?
+    lazy var passwordVisibilityButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -24, bottom: 0, right: 15)
+        button.tintColor = CustomColors.greenColor
+        return button
+    }()
+    
+    let manager = CoreDataStack.shared
     
     override func viewWillAppear(_ animated: Bool) {
         hidePasswordCheckStackView()
@@ -46,16 +55,10 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imageValidationLabel.isHidden = true
-        firstNameValidationLabel.isHidden = true
-        lastNameValidationLabel.isHidden = true
-        emailValidationLabel.isHidden = true
-        phoneValidationLabel.isHidden = true
-        confPasswordValidationLabel.isHidden = true
+        foo()
         hidePasswordCheckStackView()
         setupProfilePicture()
-        
+        hidesValidationLabels()
         passwordTxtField.delegate = self
         passwordValidation.onChange = { [weak self] _ in
             guard let self = self else { return }
@@ -65,32 +68,47 @@ class SignUpViewController: UIViewController {
         
         createKeyboardDoneButton()
     }
+    
+    func hidesValidationLabels() {
+        imageValidationLabel.isHidden = true
+        firstNameValidationLabel.isHidden = true
+        lastNameValidationLabel.isHidden = true
+        emailValidationLabel.isHidden = true
+        phoneValidationLabel.isHidden = true
+        confPasswordValidationLabel.isHidden = true
+    }
+    
+    func foo () {
+        passwordTxtField.rightViewMode = .whileEditing
+        passwordVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        passwordVisibilityButton.frame = CGRect(x: Int(passwordTxtField.frame.size.width) - 25, y: 5, width: 15, height: 25)
+        passwordVisibilityButton.addTarget(self, action: #selector(self.passwordVisibilityButtonClicked), for: .touchUpInside)
+
+        passwordTxtField.rightView = passwordVisibilityButton
+    }
+    
+    @IBAction func passwordVisibilityButtonClicked(_ sender: UIButton) {
+        passwordTxtField.isSecureTextEntry.toggle()
+        let imageName = passwordTxtField.isSecureTextEntry ? "eye" : "eye.slash"
+        passwordVisibilityButton.setImage(UIImage(systemName: imageName), for:.normal)
+    }
+    
     // Updates the password validation label
     func updatePasswordValidationLabel() {
         let validations = passwordValidation.validations
         
         // Create the validation string
         var validationString = ""
-        var isValid = true
         for validation in validations {
             if validation.state == .success {
                 validationString += "✔︎ "
             } else {
                 validationString += "✖︎ "
-                isValid = false
             }
             validationString = validation.validationType.message(fieldName: validationString) + "\n"
         }
-        
         // Update the label
         passwordValidationLabel.text = validationString
-        
-        if isValid {
-            insertImageRightTextField(textField: passwordTxtField, error: false)
-        } else {
-            insertImageRightTextField(textField: passwordTxtField, error: true)
-        }
-        
     }
     
     // Updates the password validation image
@@ -109,9 +127,9 @@ class SignUpViewController: UIViewController {
         // Update the tintColor of the image based on the state of each validation
         for validation in validations {
             if validation.state == .success {
-                passwordImageViewValidation.tintColor = UIColor.green
+                passwordImageViewValidation.tintColor = CustomColors.greenColor
             } else {
-                passwordImageViewValidation.tintColor = UIColor.red
+                passwordImageViewValidation.tintColor = CustomColors.expenseLabelColor
                 break
             }
         }
@@ -121,6 +139,7 @@ class SignUpViewController: UIViewController {
         profilePictureImageView.layer.cornerRadius = 40
         profilePictureImageView.clipsToBounds = true
         profilePictureImageView.isUserInteractionEnabled = true
+        profilePictureImageView.image = UIImage(systemName: "photo.circle")
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(presentPicker))
         profilePictureImageView.addGestureRecognizer(tapGesture)
     }
@@ -215,13 +234,13 @@ class SignUpViewController: UIViewController {
             if confPassword != password {
                 confirmPasswordTxtField.showError()
                 confPasswordValidationLabel.text = ErrorMessageType.confirmationPassword.message()
-                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: true)
+//                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: true)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = false
                 }
             } else {
                 confirmPasswordTxtField.hideError()
-                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: false)
+//                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: false)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = true
                 }
@@ -272,8 +291,7 @@ class SignUpViewController: UIViewController {
     }
     
     @IBAction func signUpPressed(_ sender: CustomButton) {
-        
-        //checking if the image is available, if so, convert it to data to storage on firebase
+        //checking if the image is available
         guard let imageSelected = self.image else {
             imageValidationLabel.isHidden = false
             imageValidationLabel.text = ErrorMessageType.noImage.message()
@@ -284,54 +302,40 @@ class SignUpViewController: UIViewController {
         //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase and the server
         guard let fields = validateFields() else { return }
         ProgressHUD.animate("Signin Up...", .barSweepToggle)
-        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) {
+        let user = User(context: manager.context)
+        let wallet = Wallet(context: manager.context)
+        
+        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) { [weak self] in
             guard let userID = Auth.auth().currentUser?.uid else { return }
             
-            //create the customer object to pass in and input the data on the mySql database
-            let customer = Customer(
-                                    id: nil,
-                                    firebaseID: userID,
-                                    name: fields.firstName,
-                                    familyName: fields.lastName,
-                                    email: fields.email,
-                                    phone: fields.phone,
-                                    profilePicture: "",
-                                    isActive: true)
-            //Insert user on mySQL database
-            DataController.shared.createCustomer(with: customer) { customer in
-                guard let customerID = customer.id else { return }
-                //create the userWallet object to register onto mySql Database
-                let wallet = Wallet(
-                                    walletID: nil,
-                                    walletName: "Main",
-                                    amount: 0.0,
-                                    customerID: customerID)
-            
-                DataController.shared.createUserWallet(for: wallet) { _ in
-                    ProgressHUD.succeed()
-                    ProgressHUD.dismiss()
-                    self.performSegue(withIdentifier: K.registerSegue, sender: self)
-                } onError: { errorMessage in
-                    ProgressHUD.failed(errorMessage)
-                }
-                
-            } onError: { errorMessage in
-                ProgressHUD.failed(errorMessage)
-            }
+            //create the user object to pass in to the core data context
+            user.name = fields.firstName
+            user.surname = fields.lastName
+            user.email = fields.email
+            user.phone = fields.phone
+            user.firebase_ID = userID
+            //see how to link wallet and user in the wallet
+            //create wallet object
+            wallet.name = "Main"
+            wallet.amount = 0.0
+            wallet.user = user
+
+            self?.manager.saveContext()
+            self?.performSegue(withIdentifier: K.registerSegue, sender: self)
+            ProgressHUD.dismiss()
             
         } onError: { errorMessage in
             ProgressHUD.failed(errorMessage)
         }
     }
     
-    //send the objects through
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationVC = segue.destination as? HomeViewController {
-            destinationVC.modalPresentationStyle = .currentContext
+        if segue.identifier == K.registerSegue {
+            segue.destination.modalPresentationStyle = .currentContext
         }
     }
     
-    //MARK: - DONE BUTTON CREATION
+//MARK: - DONE BUTTON CREATION
     func createKeyboardDoneButton() {
         let textFields: [UITextField] = [lastNameTxtField, firstNameTxtField, emailTxtField, phoneTxtField, passwordTxtField, confirmPasswordTxtField]
         
@@ -343,6 +347,7 @@ class SignUpViewController: UIViewController {
     }
 }
 
+//MARK: - Textfield Delegate
 extension SignUpViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -359,6 +364,7 @@ extension SignUpViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: - Image Picker Controller and Delegate
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     func checkPhotoLibraryAuthorization() {
@@ -466,5 +472,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
             image = editedImage
         }
         picker.dismiss(animated: true)
+        imageValidationLabel.isHidden = true
     }
 }

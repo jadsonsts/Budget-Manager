@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import FirebaseDatabase
 
 class TransactionDetailedViewController: UIViewController {
     
@@ -23,6 +24,16 @@ class TransactionDetailedViewController: UIViewController {
     var categoryName: String?
     var category: CategoryElement?
     var wallet: Wallet?
+    
+    let databaseRef = Database.database().reference()
+    
+    lazy var amountFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.maximumFractionDigits = 2
+        formatter.minimumFractionDigits = 2
+        return formatter
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -43,12 +54,14 @@ class TransactionDetailedViewController: UIViewController {
     func fetchCategory() {
         ProgressHUD.animate("Loading Transaction Details", .barSweepToggle)
         let categoryID = transaction.categoryID
-        DataController.shared.fetchCategory(categoryID: categoryID) { [weak self] category in
-            self?.category = category
-            self?.categoryName = category.categoryName
-            self?.loadData()
+        DataController.shared.fetchCategoryById(categoryID: categoryID) { [weak self] categoryValue in
+            self?.category = categoryValue
+            self?.loadData(for: categoryValue.categoryName)
             ProgressHUD.dismiss()
         } onError: { errorMessage in
+            self.category = nil
+            self.categoryName = "Not Set"
+            self.loadData()
             ProgressHUD.failed("Unable to fetch category Name")
         }
     }
@@ -64,27 +77,28 @@ class TransactionDetailedViewController: UIViewController {
         }
     }
     
-    func loadData() {
+    func loadData(for categoryName: String? = "") {
         guard let safeCategoryName = categoryName else { return }
         
         transactionTypeLabel.text = transaction.transactionType
-        amountLabel.text = String(format: " $%.2f", transaction.amount)
-        detailAmountLabel.text = String(format: "$%.2f", transaction.amount)
+        amountLabel.text = formatNumber(number: transaction.amount)
+        detailAmountLabel.text = formatNumber(number: transaction.amount)
         referenceLabel.text = transaction.reference
         categoryLabel.text = safeCategoryName
-        dateLabel.text = formatDateString(dateString: transaction.date)
-        commentsLabel.text = transaction.comment
+        dateLabel.text = formatDate(dateString: transaction.date ?? Date())
+        commentsLabel.text = transaction.comments
     }
     
-    func formatDateString(dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "E, d MMM yyyy"
-            let formattedDate = dateFormatter.string(from: date)
-            return formattedDate
-        }
-        return nil
+    func formatDate(dateString: Date) -> String {
+        let date = dateString.formatted(Date.FormatStyle()
+            .weekday(.wide)
+            .day(.twoDigits)
+            .month(.abbreviated)
+            .year(.defaultDigits))
+        return date
+    }
+    
+    func formatNumber(number: Double) -> String {
+        return amountFormatter.string(for: number) ?? "Failed fetching amount"
     }
 }

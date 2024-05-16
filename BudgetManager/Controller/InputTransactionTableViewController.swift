@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import CoreData
 
 //typeAlias
 let income = "income"
@@ -27,6 +28,7 @@ class InputTransactionTableViewController: UITableViewController {
     @IBOutlet weak var transactionComments: UITextView!
     @IBOutlet weak var transactionDateLabel: UILabel!
     
+    let manager = CoreDataStack.shared
     var inputTransactionDelegate: InputTransactionDelegate?
     var category: CategoryElement?
     var wallet: Wallet?
@@ -59,7 +61,7 @@ class InputTransactionTableViewController: UITableViewController {
         updateCategoryLabel()
         transactionAmountTxtField.delegate = self
         transactionAmountTxtField.placeholder = updateAmount()
-        transactionDateFormart()
+        transactionDateFormat()
         createKeyboardDoneButton()
         tableView.separatorColor = CustomColors.greenColor
     }
@@ -69,10 +71,11 @@ class InputTransactionTableViewController: UITableViewController {
         guard let transaction = transactionToEdit else { return }
         
         transactionReferenceTxtField.text = transaction.reference
-        transactionAmountTxtField.text = String("$\(transaction.amount)")
-        transactionDateLabel.text = formatDateString(dateString: transaction.date)
-        transactionComments.text = transaction.comment
-        if let type = TransactionType(rawValue: transaction.transactionType) {
+        transactionAmountTxtField.text = transaction.amount.formatted(.currency(code: "NZD"))
+        transactionDateLabel.text = transaction.date?.formatted(date: .numeric, time: .omitted)
+        
+        transactionComments.text = transaction.comments
+        if let type = TransactionType(rawValue: transaction.transactionType!) {
             if type == .income {
                 transactionTypeSegmentedControl.selectedSegmentIndex = 0
                 transactionType = income
@@ -85,7 +88,7 @@ class InputTransactionTableViewController: UITableViewController {
         ProgressHUD.dismiss()
     }
     
-    func transactionDateFormart() {
+    func transactionDateFormat() {
         let midnightToday = Calendar.current.startOfDay(for: Date())
         transactionDatePicker.maximumDate = midnightToday
         transactionDatePicker.date = midnightToday
@@ -98,20 +101,7 @@ class InputTransactionTableViewController: UITableViewController {
         transactionDateLabel.text = dateFormater.string(from: transactionDatePicker.date)
     }
     
-    //take the date and format to show on the screen
-    func formatDateString(dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "dd/MM/yy"
-            let formattedDate = dateFormatter.string(from: date)
-            return formattedDate
-        }
-        return nil
-    }
-    
-    func checkFields() -> (transactionReference: String, transactionAmount: String, transactionDate: String)? {
+    func checkFields() -> (transactionReference: String, transactionAmount: Double, transactionDate: Date)? {
         
         guard let transactionReference = transactionReferenceTxtField.text, !transactionReference.isEmpty,
               let transactionAmount = transactionAmountTxtField.text, !transactionAmount.isEmpty,
@@ -119,11 +109,29 @@ class InputTransactionTableViewController: UITableViewController {
             ProgressHUD.failed(ErrorMessageType.emptyForm.message())
             return nil
         }
+        let formattedAmount = formatTransactionAmount(transactionAmount: transactionAmount)
+        let formattedDate = formatTransactionDate(transactionDate: transactionDate)
         
-        return (transactionReference, transactionAmount, transactionDate)
+        return (transactionReference, formattedAmount, formattedDate)
+    }
+    
+    func formatTransactionAmount(transactionAmount: String) -> Double {
+        
+        let formattedNumber = transactionAmount.components(separatedBy: .decimalDigits.inverted).joined()
+        let amount = (Double(formattedNumber) ?? 0) / Double(100)
+        return amount
+    }
+    
+    func formatTransactionDate(transactionDate: String) -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+
+        let date = dateFormatter.date(from: transactionDate)!
+        return date
     }
     
     @IBAction func saveButtonPressed(_ sender: Any) {
+        ProgressHUD.animate("Creating Transaction", .barSweepToggle)
         
         guard let fields = checkFields() else { return }
         guard let categoryID = category?.categoryID else {
@@ -131,73 +139,41 @@ class InputTransactionTableViewController: UITableViewController {
             return
         }
         guard let wallet = wallet else {
-            print("Error: Wallet is nil")
+            ProgressHUD.failed("Failed creating transaction")
             return
         }
         
-        if let transaction = createTransactionToSave(transactionReference: fields.transactionReference, transactionAmount: fields.transactionAmount, transactionDate: fields.transactionDate, categoryID: categoryID, wallet: wallet) {
-            if transactionToEdit != nil {
-                updateTransaction(transaction: transaction)
-            } else {
-                createTransaction(transaction: transaction)
-            }
-        }
-    }
-    
-    private func createTransactionToSave(transactionReference: String, transactionAmount: String, transactionDate: String, categoryID: Int, wallet: Wallet) -> Transaction? {
+        var transaction: Transaction!
         
-        let formattedNumber = transactionAmount.components(separatedBy: .decimalDigits.inverted).joined()
-        let amount = (Double(formattedNumber) ?? 0) / Double(100)
-        
-        //convert the data to send through the API
-        var formattedDate = String()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yy"
-        
-        if let date = dateFormatter.date(from: transactionDate) {
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            formattedDate = dateFormatter.string(from: date)
+        if transactionToEdit != nil{
+            transaction = transactionToEdit
+            transaction.isModified = true
+        } else {
+            transaction = Transaction(context: manager.context)
+            transaction.isModified = false
         }
         
-        return Transaction(id: transactionToEdit?.id,
-                           reference: transactionReference,
-                           amount: amount,
-                           date: formattedDate,
-                           comment: transactionComments.text ?? "",
-                           transactionType: transactionType,
-                           walletID: wallet.walletID!,
-                           categoryID: categoryID)
-    }
-    
-    func createTransaction(transaction: Transaction) {
-        ProgressHUD.animate("Creating Transaction", .barSweepToggle)
-        DataController.shared.createTransaction(transaction: transaction) { [weak self] _ in
-            ProgressHUD.succeed("Transaction created")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.inputTransactionDelegate?.didUpdateHomeView()
-                self?.navigationController?.popToRootViewController(animated: true)
-            }
-            self?.resetFields()
-            
-        } onError: { errorMessage in
-            ProgressHUD.failed(errorMessage)
+        transaction.reference = fields.transactionReference
+        transaction.amount = fields.transactionAmount
+        transaction.date = fields.transactionDate
+        transaction.comments = transactionComments.text ?? ""
+        transaction.transactionType = transactionType
+        transaction.wallet = wallet
+        transaction.categoryID = Int32(categoryID)
+
+        manager.saveContext()
+        
+        let sucessMessage = transactionToEdit != nil ? "Transaction updated" : "Transaction created"
+        ProgressHUD.succeed(sucessMessage)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            self.inputTransactionDelegate?.didUpdateHomeView()
+            self.navigationController?.popToRootViewController(animated: true)
         }
+        resetFields()
     }
     
-    func updateTransaction(transaction: Transaction) {
-        ProgressHUD.animate("Updating Transaction", .barSweepToggle)
-        DataController.shared.updateTransaction(transaction: transaction) { [weak self] in
-            ProgressHUD.succeed("Transaction updated")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                self?.inputTransactionDelegate?.didUpdateHomeView()
-                self?.navigationController?.popToRootViewController(animated: true)
-            }
-        } onError: { errorMessage in
-            ProgressHUD.failed("whoops: \(errorMessage)")
-        }
-    }
-    
-    //reset the fields after a transaction is created
+    //reset the fields after a transaction is created or updated
     func resetFields() {
         transactionAmountTxtField.text = ""
         transactionReferenceTxtField.text = ""
@@ -206,9 +182,8 @@ class InputTransactionTableViewController: UITableViewController {
         categoryImage.image = UIImage(systemName: "questionmark.circle")
         transactionTypeSegmentedControl.selectedSegmentIndex = 0
         transactionType = income
-        transactionDateFormart()
+        transactionDateFormat()
         updateDateViews()
-        
     }
     
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
@@ -272,7 +247,6 @@ class InputTransactionTableViewController: UITableViewController {
             let destinationVC = segue.destination as? SelectCategoryViewController
             destinationVC?.delegate = self
             destinationVC?.selectedCategory = category
-            //ProgressHUD.show()
         }
     }
 }

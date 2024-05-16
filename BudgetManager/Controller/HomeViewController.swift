@@ -11,15 +11,17 @@ import FirebaseDatabase
 import FirebaseStorage
 import FirebaseFirestore
 import ProgressHUD
+import CoreData
 
 
 class HomeViewController: UIViewController {
     
-    var customer: Customer?
-    var wallet: Wallet?
-    var transactionDataSource = [Section]()
-    var filteredDataSource = [Section]()
-    var isSearching = false // Track whether search is active or not
+    let manager = CoreDataStack.shared
+    var user: NSFetchedResultsController<User>?
+    var wallet: NSFetchedResultsController<Wallet>?
+    var transaction: NSFetchedResultsController<Transaction>?
+    
+    var transactionSections = [Section]()
     
     @IBOutlet weak var profilePictureUIImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -37,10 +39,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         hideValuesButton.isHidden = true
-        fetchUserData()
-        fetchUserProfilePicture()
+        fetchUser()
         configureSegmentedController()
+        createKeyboardDoneButton()
         searchTransaction.delegate = self
         transactionsTableView.delegate = self
         transactionsTableView.dataSource = self
@@ -72,7 +75,6 @@ class HomeViewController: UIViewController {
     }
     
     func fetchUserProfilePicture() {
-        
         profilePictureUIImage.layer.cornerRadius = 25
         profilePictureUIImage.clipsToBounds = true
         DataController.shared.loadPhoto { [weak self] customerImage in
@@ -87,70 +89,22 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func fetchUserData() {
-        ProgressHUD.animate("Loading User Data", .barSweepToggle)
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        
-        DataController.shared.fetchCustomer(userID) { [weak self] customer in
-            self?.userNameLabel.text = "Hello, \(customer.name)"
-            self?.customer = customer
-            self?.fetchWallet()
-            
-        } onError: { errorMessage in
-            ProgressHUD.failed(errorMessage)
-        }
-    }
-    
-    func fetchWallet() {
-        guard let customerId = customer?.id else { return }
-        ProgressHUD.animate("Loading Wallet Amount", .barSweepToggle)
-        
-        DataController.shared.fetchUserWallet(for: customerId) { [weak self] wallet in
-            self?.wallet = wallet
-            self?.loadWalletLabel(walletAmount: wallet.amount)
-            
-            if let walletID = wallet.walletID {
-                self?.fetchTransactions(walletID: walletID)
-            }
-            
-        } onError: { errorMessage in
-            ProgressHUD.failed(errorMessage)
-        }
-    }
-    
     @IBAction func newTransactionPressed(_ sender: Any) {
-       // performSegue(withIdentifier: K.newTransaction, sender: self)
     }
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
         transactionsSegmentedControl.underlinePosition()
         searchTransaction.text = ""
-        isSearching = false
-        
-        guard let walletID = wallet?.walletID else { return }
-        
-        switch sender.selectedSegmentIndex {
-            case 0:
-                fetchTransactions(walletID: walletID)
-            case 1:
-                fetchTransactions(type: 1, walletID: walletID)
-            case 2:
-                fetchTransactions(type: 2, walletID: walletID)
-            default:
-                fetchTransactions(walletID: walletID)
-        }
+        fetchTransactionsByTransactionType()
     }
     
-    func formatDateString(dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "E, d MMM yyyy"
-            let formattedDate = dateFormatter.string(from: date)
-            return formattedDate
-        }
-        return nil
+    func formatDateToString(transactionDate: Date) -> String {
+        let date  = transactionDate.formatted(Date.FormatStyle()
+            .weekday(.abbreviated)
+            .day(.twoDigits)
+            .month(.abbreviated)
+            .year(.defaultDigits))
+        return date
     }
     
     //unwind when editing transaction
@@ -158,37 +112,131 @@ class HomeViewController: UIViewController {
         
     }
     
-//MARK: - fetching data and creating sections by date
-    func fetchTransactions(type: Int = 0, walletID: Int) {
-        
+    //MARK: - organising transactions into sections by date
+    
+    func organiseTransactionsByDate() {
         ProgressHUD.animate("Loading Transactions", .barSweepToggle)
-
-        DataController.shared.fetchTransactions(type: type, walletID: walletID) { [weak self] transactions in
-            
-            //reset the object responsible for organising the transactions
-            self?.transactionDataSource = []
-            
-            //sort the transactions by date in descending order
-            let sortedTransactions = transactions.sorted { $0.date > $1.date }
-            
-            for transaction in sortedTransactions {
-                guard let self = self else { return }
-                if !self.transactionDataSource.contains(where: {$0.date == transaction.date}) {
-                    self.transactionDataSource.append(Section(date: transaction.date, transaction: [transaction]))
-                    
-                } else {
-                    guard let index = self.transactionDataSource.firstIndex(where: { $0.date == transaction.date}) else { return }
-                    self.transactionDataSource[index].transaction.append(transaction)
-                }
-            }
-            DispatchQueue.main.async { [weak self] in
-                self?.transactionsTableView.reloadData()
-                self?.transactionsTableView.isHidden = false
-            }
-            ProgressHUD.dismiss()
-        } onError: { error in
-            ProgressHUD.failed(error)
+        
+        transactionSections = []
+        guard let transactions = transaction?.fetchedObjects else { return }
+        
+        let transactionDictionary: [Date: [Transaction]] = Dictionary(grouping: transactions) { $0.date ?? Date() }
+        
+        for (date, transactions) in transactionDictionary {
+            transactionSections.append(Section(date: date, transaction: transactions))
         }
+        transactionSections.sort { $0.date > $1.date }
+        
+        DispatchQueue.main.async {
+            self.transactionsTableView.reloadData()
+            self.transactionsTableView.isHidden = false
+        }
+        ProgressHUD.dismiss()
+    }
+}
+
+extension HomeViewController: NSFetchedResultsControllerDelegate {
+    
+    func fetchUser() {
+        ProgressHUD.animate("Loading User Data", .barSweepToggle)
+        guard let id = Auth.auth().currentUser?.uid else { return }
+        let fetchRequest: NSFetchRequest<User> = User.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "firebase_ID == %@", id)
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: manager.context,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+        controller.delegate = self
+        self.user = controller
+        
+        do {
+            try controller.performFetch()
+        } catch let error {
+            ProgressHUD.failed("Error finding the user\n \(error)")
+        }
+        
+        if user?.fetchedObjects?.count == 0 {
+            ProgressHUD.failed("Failed findind user")
+        } else {
+            let userName = user?.fetchedObjects?.first?.name
+            userNameLabel.text = ("Hello, \(userName!)")
+            fetchUserProfilePicture()
+            fetchWallet()
+        }
+    }
+    
+    func fetchWallet() {
+        ProgressHUD.animate("Loading Wallet Data", .barSweepToggle)
+        guard let user = user?.fetchedObjects?.first else { return }
+        let fetchRequest: NSFetchRequest<Wallet> = Wallet.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "user == %@", user)
+        
+        let controller = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                    managedObjectContext: manager.context,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+        
+        controller.delegate = self
+        self.wallet = controller
+        do {
+            try controller.performFetch()
+        } catch let error {
+            ProgressHUD.failed("Error loading the wallet\n \(error)")
+        }
+        if let walletAmount = wallet?.fetchedObjects?.first?.calculateAmount() {
+            loadWalletLabel(walletAmount: walletAmount)
+        }
+        ProgressHUD.dismiss()
+        
+        fetchTransactionsByTransactionType()
+    }
+    
+    func fetchTransactions(with request: NSFetchRequest<Transaction> = Transaction.fetchRequest()) {
+        request.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
+        let controller = NSFetchedResultsController(fetchRequest: request,
+                                                    managedObjectContext: manager.context,
+                                                    sectionNameKeyPath: nil,
+                                                    cacheName: nil)
+        
+        controller.delegate = self
+        self.transaction = controller
+        
+        do {
+            try controller.performFetch()
+        } catch let error {
+            ProgressHUD.failed("Whoops! something went wrong \(error)")
+        }
+        organiseTransactionsByDate()
+    }
+    
+    func fetchTransactionsByTransactionType() {
+        ProgressHUD.animate("Loading Transactions", .barSweepToggle)
+        
+        let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        let allTransactions = NSSortDescriptor(key: "date", ascending: true)
+        guard let wallet = wallet?.fetchedObjects?.first else { return }
+        
+        switch transactionsSegmentedControl.selectedSegmentIndex {
+            case 0:
+                fetchRequest.sortDescriptors = [allTransactions]
+                fetchRequest.predicate = NSPredicate(format: "wallet == %@", wallet)
+            case 1:
+                let filterByIncome = NSPredicate(format: "wallet == %@ AND transactionType == %@", wallet, "income")
+                fetchRequest.predicate = filterByIncome
+                fetchRequest.sortDescriptors = [allTransactions]
+            case 2:
+                let filterByExppense = NSPredicate(format: "wallet == %@ AND transactionType == %@", wallet, "expense")
+                fetchRequest.predicate = filterByExppense
+                fetchRequest.sortDescriptors = [allTransactions]
+            default:
+                fetchRequest.sortDescriptors = [allTransactions]
+                fetchRequest.predicate = NSPredicate(format: "wallet == %@", wallet)
+        }
+        
+        fetchTransactions(with: fetchRequest)
     }
 }
 
@@ -196,34 +244,33 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        if transactionDataSource.isEmpty {
+        if transactionSections.isEmpty {
             return 1
         } else {
-            return isSearching ? filteredDataSource.count : transactionDataSource.count
+            return transactionSections.count
         }
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if transactionDataSource.isEmpty {
+        if transactionSections.isEmpty {
             return ""
         } else {
-            let sectionDate = isSearching ? filteredDataSource[section].date : transactionDataSource[section].date
-            return formatDateString(dateString: sectionDate)
+            let sectionDate = transactionSections[section].date
+            return formatDateToString(transactionDate: sectionDate)
         }
-
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if transactionDataSource.isEmpty {
+        if transactionSections.isEmpty {
             return 1
         } else {
-            let sectionData = isSearching ? filteredDataSource[section] : transactionDataSource[section]
+            let sectionData = transactionSections[section]
             return sectionData.transaction.count
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if transactionDataSource.isEmpty {
+        if transactionSections.isEmpty {
             return transactionsTableView.bounds.height
         } else {
             return 55
@@ -231,9 +278,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if !transactionDataSource.isEmpty {
+        if !transactionSections.isEmpty {
             if let cell = tableView.dequeueReusableCell(withIdentifier: K.transactionCell, for: indexPath) as? TransactionsTableViewCell {
-                let sectionData = isSearching ? filteredDataSource[indexPath.section] : transactionDataSource[indexPath.section]
+                let sectionData = transactionSections[indexPath.section]
                 let transaction = sectionData.transaction[indexPath.row]
                 cell.updateViews(transaction: transaction)
                 return cell
@@ -256,83 +303,93 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         
         let selectedTransaction: Transaction
         
-        if isSearching {
-            guard indexPath.section < filteredDataSource.count else {
-                return // Invalid section index
-            }
-            
-            let section = filteredDataSource[indexPath.section]
-            guard indexPath.row < section.transaction.count else {
-                return // Invalid row index
-            }
-            
-            selectedTransaction = section.transaction[indexPath.row]
-        } else {
-            guard indexPath.section < transactionDataSource.count else {
-                return // Invalid section index
-            }
-            
-            let section = transactionDataSource[indexPath.section]
-            guard indexPath.row < section.transaction.count else {
-                return // Invalid row index
-            }
-            
-            selectedTransaction = section.transaction[indexPath.row]
-        }
-
+        guard indexPath.section < transactionSections.count else { return } // Invalid section index
+        
+        let section = transactionSections[indexPath.section]
+        
+        guard indexPath.row < section.transaction.count else { return } // Invalid row index
+        selectedTransaction = section.transaction[indexPath.row]
+        
         performSegue(withIdentifier: K.detailSegue, sender: selectedTransaction)
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let transacionDetailsVC = segue.destination as? TransactionDetailedViewController, let transaction = sender as? Transaction {
-            transacionDetailsVC.transaction = transaction
-            transacionDetailsVC.wallet = wallet
-            transacionDetailsVC.updateTransactionDelegate = self
-        } else if let transactionInputVC = segue.destination as? InputTransactionTableViewController {
-            transactionInputVC.inputTransactionDelegate = self
-            transactionInputVC.wallet = wallet
+        if segue.identifier == K.detailSegue {
+            if let transacionDetailsVC = segue.destination as? TransactionDetailedViewController,
+                let transaction = sender as? Transaction {
+                transacionDetailsVC.transaction = transaction
+                transacionDetailsVC.wallet = wallet?.fetchedObjects?.first
+                transacionDetailsVC.updateTransactionDelegate = self
+            }
+        } else if segue.identifier == K.newTransaction {
+            if let transactionInputVC = segue.destination as? InputTransactionTableViewController {
+                if let wallet = wallet?.fetchedObjects?.first {
+                    transactionInputVC.wallet = wallet
+                    transactionInputVC.inputTransactionDelegate = self
+                } else {
+                    print("nao ta passando") //put some error msg
+                }
+            }
         }
     }
 }
 
 extension HomeViewController: UISearchBarDelegate {
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchBarText = searchBar.text else { return }
-        
-        if searchBarText.isEmpty {
-            // Clear the filteredDataSource when search text is empty
-            filteredDataSource = []
-            isSearching = false
-        } else {
-                // Filter the transactions within each section based on the search text
-                filteredDataSource = transactionDataSource.map { section in
-                    let filteredTransactions = section.transaction.filter { transaction in
-                        let referenceMatch = transaction.reference.localizedCaseInsensitiveContains(searchBarText)
-                        let amountMatch = transaction.amount.description.localizedCaseInsensitiveContains(searchBarText)
-                        
-                        return referenceMatch || amountMatch
-                    }
-                    return Section(date: section.date, transaction: filteredTransactions)
-                }.filter { section in
-                    return !section.transaction.isEmpty
-                }
-            isSearching = true
+    //Gets predicate to filter when the user types based on the selected index
+    func getPredicate(for segmentIndex: Int, searchText: String) -> NSPredicate {
+        switch segmentIndex {
+            case 0: //all (income and expense)
+                return NSPredicate(format: "reference CONTAINS[cd] %@ OR comments CONTAINS[cd] %@ OR amount == %@", searchText, searchText, NSNumber(value: Double(searchText) ?? 0))
+            case 1: //income
+                return NSPredicate(format: "reference CONTAINS[cd] %@ OR comments CONTAINS[cd] %@ OR amount == %@ AND transactionType == %@", searchText, searchText, NSNumber(value: Double(searchText) ?? 0), "income")
+            case 2: //expense
+                return NSPredicate(format: "reference CONTAINS[cd] %@ OR comments CONTAINS[cd] %@ OR amount == %@ AND transactionType == %@", searchText, searchText, NSNumber(value: Double(searchText) ?? 0), "expense")
+            default: //all (income and expense)
+                return NSPredicate(format: "reference CONTAINS[cd] %@ OR comments CONTAINS[cd] %@ OR amount == %@", searchText, searchText, NSNumber(value: Double(searchText) ?? 0))
         }
-        transactionsTableView.reloadData()
+    }
+    //prepare the request when the user searches
+    func getFetchRequest(with predicate: NSPredicate) -> NSFetchRequest<Transaction> {
+        let request: NSFetchRequest<Transaction> = Transaction.fetchRequest()
+        let allTransactions = NSSortDescriptor(key: "date", ascending: true)
+        request.predicate = predicate
+        request.sortDescriptors = [allTransactions]
+        if let wallet = wallet?.fetchedObjects?.first {
+            let walletFilter = NSPredicate(format: "wallet == %@", wallet)
+            let compoundPredicate = NSCompoundPredicate(type: .and, subpredicates: [walletFilter, predicate])
+            request.predicate = compoundPredicate
+        } else {
+            request.predicate = predicate
+        }
+        return request
+    }
+    
+    //combine the predicate and the fecth request to send it through and filter the transactions accordingly
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        if let textSearchBar = searchBar.text, !textSearchBar.isEmpty {
+            let transactionPredicate = getPredicate(for: transactionsSegmentedControl.selectedSegmentIndex, searchText: textSearchBar)
+            let fetchRequest = getFetchRequest(with: transactionPredicate)
+            fetchTransactions(with: fetchRequest)
+        } else {
+            searchBar.resignFirstResponder()
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            filteredDataSource = []
-            isSearching = false
-            transactionsTableView.reloadData()
-            
+        if searchBar.text?.count == 0 {
+            fetchTransactionsByTransactionType()
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
+        }
+    }
+    //hide keyboard when user deletes all the text
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
         }
     }
 }
@@ -343,3 +400,17 @@ extension HomeViewController: InputTransactionDelegate {
         fetchWallet()
     }
 }
+
+//MARK: - DONE BUTTON CREATION
+extension HomeViewController {
+    func createKeyboardDoneButton() {
+        let textFields: [UITextField] = [searchTransaction.searchTextField]
+        
+        UIViewController.addDoneButtonOnKeyboard(for: textFields, target: self, selector: #selector(doneButtonAction))
+    }
+    
+    @objc func doneButtonAction(){
+        view.endEditing(true)
+    }
+}
+

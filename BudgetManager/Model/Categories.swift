@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct CategoryElement: Codable, Equatable {
-    let categoryID: Int
+struct CategoryElement: Equatable {
+    let categoryID: Int32
     let categoryName, iconName, color: String
 }
 

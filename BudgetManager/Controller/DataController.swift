@@ -26,11 +26,9 @@ let USER_DEFAULTS_IMG_URL = "imageURL"
 class DataController {
     static let shared = DataController()
     
-    
-    let baseURL = URL(string: "http://localhost:5105")!
-    let jsonDecoder = JSONDecoder()
-    let jsonEncoder = JSONEncoder()
-    let session = URLSession(configuration: .default)
+    //references for the category methods
+    let databaseRef = Database.database().reference()
+    let CATEGORY_REF = "category"
     
     //MARK: - FIREBASE SIGNIN METHOD
     func signIn (withEmail email: String, password: String, onSucess: @escaping(_ result: AuthDataResult?) -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
@@ -42,17 +40,7 @@ class DataController {
             onSucess(authResult)
         }
     }
-    
 
-    func credentialSignIn (with credential: AuthCredential, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
-        Auth.auth().signIn(with: credential) { result, error in
-            if let error = error {
-                onError(error.localizedDescription)
-                return
-            }
-            onSucess()
-        }
-    }
     
     //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
@@ -187,272 +175,46 @@ class DataController {
         task.resume()
     }
     
-
+    //MARK: - FIREBASE FETCHING CATEGORIES
     
-    //MARK: - INSERT THE USER ONTO DATABASE(MYSQL)
-    func createCustomer(with customer: Customer, onSucess: @escaping (Customer) -> Void, onError: @escaping (String) -> Void) {
-        let userURL = baseURL.appendingPathComponent("/customer")
-        var request = URLRequest(url: userURL)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        do {
-            let body = try jsonEncoder.encode(customer)
-            request.httpBody = body
-            let task = session.dataTask(with: request) { data, response, error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        onError(error.localizedDescription)
-                        return
-                    }
-                    guard let data = data, let response = response as? HTTPURLResponse else {
-                        onError("Failed to get data from the server")
-                        return
-                    }
-                    do {
-                        if response.statusCode == 200 {
-                            let customer = try self.jsonDecoder.decode(Customer.self, from: data)
-                            onSucess(customer)
-                        } else {
-                            let err = try self.jsonDecoder.decode(APIError.self, from: data)
-                            onError(err.message)
-                        }
-                    } catch {
-                        onError(error.localizedDescription)
-                    }
-                }
-            }
-            task.resume()
-        } catch {
-            onError(error.localizedDescription)
-        }
-    }
-    
-    //MARK: - CREATE USER'S WALLET
-    func createUserWallet (for wallet: Wallet, onSucess: @escaping (Wallet) -> Void, onError: @escaping (String) -> Void) {
-        let userWalletURL = baseURL.appendingPathComponent("/wallet")
-        var request = URLRequest(url: userWalletURL)
-        request.httpMethod = "POST"
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        do {
-            let body = try jsonEncoder.encode(wallet)
-            request.httpBody = body
-            let task = session.dataTask(with: request) { data, response, error in
-                DispatchQueue.main.async { [self] in
-                    if let error = error {
-                        onError(error.localizedDescription)
-                        return
-                    }
-                    guard let data = data, let response = response as? HTTPURLResponse else {
-                        onError("Failed to get data from the server")
-                        return
-                    }
-                    do {
-                        if response.statusCode == 200 {
-                            let wallet = try jsonDecoder.decode(Wallet.self, from: data)
-                            onSucess(wallet)
-                        } else {
-                            let err = try jsonDecoder.decode(APIError.self, from: data)
-                            onError(err.message)
-                        }
-                    } catch {
-                        onError(error.localizedDescription)
-                    }
-                }
-            }
-            task.resume()
-        } catch {
-            onError(error.localizedDescription)
-        }
-    }
-    
-    //MARK: - CREATE TRANSACTION
-    func createTransaction(transaction: Transaction, onSucess: @escaping (Transaction) -> Void, onError: @escaping (String) -> Void) {
-        let transactionURL = baseURL.appendingPathComponent("/transaction")
-        var request = URLRequest(url: transactionURL)
-        request.httpMethod = "POST"
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        do {
-            let body = try jsonEncoder.encode(transaction)
-            request.httpBody = body
-            
-            let task = session.dataTask(with: request) { data, response, error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        onError(error.localizedDescription)
-                        return
-                    }
-                    guard let data = data, let response = response as? HTTPURLResponse else {
-                        onError("Failed to get data from the server")
-                        return
-                    }
-                    do {
-                        if response.statusCode == 200 {
-                            let transaction = try self.jsonDecoder.decode(Transaction.self, from: data)
-                            onSucess(transaction)
-                        } else {
-                            let err = try self.jsonDecoder.decode(APIError.self, from: data)
-                            onError(err.message)
-                        }
-                    } catch {
-                        onError(error.localizedDescription)
-                    }
-                }
-            }
-            task.resume()
-        } catch {
-            onError(error.localizedDescription)
-        }
-    }
-    
-    // MARK: - Network Request
-    
-    func performRequest<T: Decodable>(url: URL, onSuccess: @escaping (T) -> Void, onError: @escaping (String) -> Void) {
-        let task = session.dataTask(with: url) { data, response, error in
-            DispatchQueue.main.async  { [self] in
-                if let error = error {
-                    onError(error.localizedDescription)
-                    return
-                }
-                
-                guard let data = data, let response = response as? HTTPURLResponse else {
-                    onError("Invalid Data or Response")
-                    return
-                }
-                
-                do {
-                    if response.statusCode == 200 {
-                        let decodedData = try jsonDecoder.decode(T.self, from: data)
-                        onSuccess(decodedData)
-                    } else {
-                        let error = try jsonDecoder.decode(APIError.self, from: data)
-                        onError(error.message)
-                    }
-                } catch {
-                    onError(error.localizedDescription)
-                }
-            }
-        }
-        task.resume()
-    }
-    
-    //MARK: - FETCH TRANSACTIONS
-    func fetchTransactions(type: Int, walletID: Int, onSuccess: @escaping (Transactions) -> Void, onError: @escaping (String) -> Void) {
-        //'appendingPathComponent' will be deprecated in a future version of iOS: Use appending(path:directoryHint:) instead
-        let transactionURL = baseURL.appendingPathComponent("/transaction/\(type)/\(walletID)")
-        performRequest(url: transactionURL, onSuccess: onSuccess, onError: onError)
-    }
-    
-    //MARK: - FETCH CUSTOMER
-    func fetchCustomer(_ userID: String, onSuccess: @escaping (Customer) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let userURL = baseURL.appendingPathComponent("/customer/byid/\(userID)")
-        performRequest(url: userURL, onSuccess: onSuccess, onError: onError)
-    }
-    
-    //MARK: - FETCH WALLET
-    func fetchUserWallet(for customerID: Int, onSuccess: @escaping (Wallet) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let walletURL = baseURL.appendingPathComponent("/wallet/\(customerID)")
-        performRequest(url: walletURL, onSuccess: onSuccess, onError: onError)
-    }
-    
-    //MARK: - FETCH CATEGORIES
     func fetchCategories(onSuccess: @escaping (Category) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let categoryURL = baseURL.appendingPathComponent("/categories/")
-        performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
-    }
-    
-    func fetchCategory(categoryID: Int, onSuccess: @escaping (CategoryElement) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
-        let categoryURL = baseURL.appendingPathComponent("/categories/byid/\(categoryID)")
-        performRequest(url: categoryURL, onSuccess: onSuccess, onError: onError)
-    }
-
-    //MARK: - UPDATE TRANSACTION
-    
-    func updateTransaction(transaction: Transaction, onSucess: @escaping () -> Void, onError: @escaping (String) -> Void) {
-        let transactionURL = baseURL.appendingPathComponent("/transaction")
-        var request = URLRequest(url: transactionURL)
-        request.httpMethod = "PUT"
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        do {
-            let body = try jsonEncoder.encode(transaction)
-            request.httpBody = body
-            
-            let task = session.dataTask(with: request) { data, response, error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        onError(error.localizedDescription)
-                        return
-                    }
-                    guard let response = response as? HTTPURLResponse else {
-                        onError("Failed to get data from the server")
-                        return
-                    }
-                    
-                    if response.statusCode == 200 {
-                        onSucess()
-                    } else {
-                        onError("Update failed with status code: \(response.statusCode)")
-                    }
-                }
+        databaseRef.child(CATEGORY_REF).observeSingleEvent(of: .value) { snapshot  in
+            guard let snapshotValue = snapshot.value as? [[String: Any]] else {
+                ProgressHUD.failed("Unable to fetch categories")
+                return
             }
-            task.resume()
-        } catch {
+            let category = snapshotValue.map { item in
+                return CategoryElement(categoryID: item["id"] as? Int32 ?? 0,
+                                       categoryName: item["name"] as? String ?? "",
+                                       iconName: item["iconName"] as? String ?? "",
+                                       color: item["color"] as? String ?? "")
+            }
+            onSuccess(category)
+        } withCancel: { error in
             onError(error.localizedDescription)
         }
     }
     
-/*
- //MARK: - UPDATE USER -
- 
- func updateCustomer(_ customerID: String) {
- 
- }
- //MARK: - DELETE TRANSACTION
- 
- func deleteTransaction(_ transactionID: Int) {
- 
- }
- */
-    
-/*   //MARK: - SIGNIN WITH GOOGLE
-    func signInWithGoogle(present vc: UIViewController, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
-    //        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-    // Create Google Sign In configuration object.
-    //        let config = GIDConfiguration(clientID: clientID)
-    //        GIDSignIn.sharedInstance.configuration = config
-    
-    DispatchQueue.main.async {
-    // Start the sign in flow!
-    GIDSignIn.sharedInstance.signIn(withPresenting: vc) { [unowned self] result, error in
-    guard error == nil else {
-    return ProgressHUD.showError(error?.localizedDescription)
+    func fetchCategoryById(categoryID: Int32, onSuccess: @escaping (CategoryElement) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        databaseRef.child(CATEGORY_REF).child("\(categoryID)").observeSingleEvent(of: .value) { snapshot in
+            guard let snapshotValue = snapshot.value as? [String: Any] else {
+                ProgressHUD.failed("Unable to fetch category details")
+                return
+            }
+            if let categoryID = snapshotValue["id"] as? Int32,
+               let categoryName = snapshotValue["name"] as? String,
+               let iconName = snapshotValue["iconName"] as? String,
+               let color = snapshotValue["color"] as? String {
+                let category = CategoryElement(categoryID: categoryID,
+                                               categoryName: categoryName,
+                                               iconName: iconName,
+                                               color: color)
+                onSuccess(category)
+            } else {
+                onError("Invalid category data")
+            }
+        } withCancel: { error in
+            onError(error.localizedDescription)
+        }
     }
-    
-    guard let user = result?.user,
-    let idToken = user.idToken?.tokenString
-    else { return }
-    
-    let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-    accessToken: user.accessToken.tokenString)
-    credentialSignIn(with: credential) {
-    onSucess()
-    } onError: { errorMessage in
-    onError(errorMessage)
-    }
-    
-    }
-    }
-    }
-    */
-    
 }

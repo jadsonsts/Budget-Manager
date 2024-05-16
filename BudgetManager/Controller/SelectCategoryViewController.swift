@@ -7,6 +7,8 @@
 
 import UIKit
 import ProgressHUD
+import FirebaseDatabase
+import FirebaseStorage
 
 protocol SelectCategoryDelegate {
     func didSelect(category: CategoryElement)
@@ -17,36 +19,25 @@ class SelectCategoryViewController: UIViewController {
     @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
-    var category = [CategoryElement]()
+    var category = Category()
     var selectedCategory: CategoryElement?
     var delegate: SelectCategoryDelegate?
     
+    let databaseRef = Database.database().reference()
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         categoryCollectionView.delegate = self
         categoryCollectionView.dataSource = self
         fetchCategories()
-        
     }
     
-    func fetchCategories() {
-        ProgressHUD.animate("Loading Categories...", .barSweepToggle)
-        DataController.shared.fetchCategories { [weak self] category in
-            self?.category = category
-            self?.categoryCollectionView.reloadData()
-            ProgressHUD.dismiss()
-            
-        } onError: { errorMessage in
-            ProgressHUD.failed(errorMessage)
-        }
-    }
     
     @IBAction func closeButtonTapped(_ sender: UIButton) {
         dismiss(animated: true)
@@ -89,7 +80,6 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
             } else {
                 cell.layer.borderWidth = 0
             }
-            
             return cell
         } else {
             return CategoryCollectionViewCell()
@@ -106,4 +96,14 @@ extension SelectCategoryViewController: UICollectionViewDelegate, UICollectionVi
         dismiss(animated: true)
     }
     
+    func fetchCategories() {
+        ProgressHUD.animate("Loading Categories...", .barSweepToggle)
+        DataController.shared.fetchCategories { [weak self] categoryDictionary in
+            self?.category = categoryDictionary
+            self?.categoryCollectionView.reloadData()
+            ProgressHUD.dismiss()
+        } onError: { errorMessage in
+            ProgressHUD.failed("Unable to fetch categories")
+        }
+    }
 }

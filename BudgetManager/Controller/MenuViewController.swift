@@ -45,8 +45,18 @@ class MenuViewController: UIViewController {
             button.setImage(image, for: .normal)
         }
         button.imageView?.contentMode = .scaleAspectFit
+        
+//        let titleInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
+//        let imageInsets = UIEdgeInsets(top: 12, left: -5, bottom: 12, right: 10)
+//        
+//        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: max(titleInsets.top, imageInsets.top),
+//                                                                      leading: max(titleInsets.left, imageInsets.left),
+//                                                                      bottom: max(titleInsets.bottom, imageInsets.bottom),
+//                                                                      trailing: max(titleInsets.right, imageInsets.right))
+        
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         button.imageEdgeInsets = UIEdgeInsets(top: 12, left: -5, bottom: 12, right: 10)
+        
         
     }
     

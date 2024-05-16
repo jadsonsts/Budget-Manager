@@ -6,15 +6,28 @@
 //
 
 import Foundation
+import CoreData
 
-struct Wallet: Codable {
-    let walletID: Int?
-    let walletName: String
-    let amount: Double
-    let customerID: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case walletID, walletName, amount
-        case customerID = "customer_ID"
+extension Wallet {
+    func calculateAmount() -> Double {
+        var amount: Double = 0.0
+        let transactions = self.transaction?.allObjects as? [Transaction] ?? []
+        for transaction in transactions {
+            if transaction.transactionType == "income" {
+                amount += transaction.amount
+            } else if transaction.transactionType == "expense" {
+                amount -= transaction.amount
+            }
+        }
+        
+        if let updatedTransaction = transactions.first(where: {$0.isModified }) {
+            if updatedTransaction.transactionType == "income" {
+                amount += updatedTransaction.amount - updatedTransaction.amount
+            } else if updatedTransaction.transactionType == "expense" {
+                amount -= updatedTransaction.amount - updatedTransaction.amount
+            }
+            updatedTransaction.isModified = false
+        }
+        return amount
     }
 }
