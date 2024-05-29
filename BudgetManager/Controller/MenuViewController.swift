@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import ProgressHUD
+import FirebaseAnalytics
 
 class MenuViewController: UIViewController {
     
@@ -45,18 +46,8 @@ class MenuViewController: UIViewController {
             button.setImage(image, for: .normal)
         }
         button.imageView?.contentMode = .scaleAspectFit
-        
-//        let titleInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-//        let imageInsets = UIEdgeInsets(top: 12, left: -5, bottom: 12, right: 10)
-//        
-//        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: max(titleInsets.top, imageInsets.top),
-//                                                                      leading: max(titleInsets.left, imageInsets.left),
-//                                                                      bottom: max(titleInsets.bottom, imageInsets.bottom),
-//                                                                      trailing: max(titleInsets.right, imageInsets.right))
-        
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
         button.imageEdgeInsets = UIEdgeInsets(top: 12, left: -5, bottom: 12, right: 10)
-        
         
     }
     
@@ -79,8 +70,9 @@ class MenuViewController: UIViewController {
         ProgressHUD.animate("Logging Out", .circleDotSpinFade)
         do {
             try Auth.auth().signOut()
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil) 
+            Analytics.setUserID(nil)
+            Analytics.logEvent(A.signOutPressed, parameters: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let loginViewController = storyboard.instantiateInitialViewController(),
                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
                 sceneDelegate.window?.rootViewController = loginViewController
@@ -93,10 +85,12 @@ class MenuViewController: UIViewController {
     
     @IBAction func aboutPressed(_ sender: Any) {
         performSegue(withIdentifier: K.goToAbout, sender: self)
+        Analytics.logEvent(A.aboutPressed, parameters: nil)
     }
     
     @IBAction func userSettingsPressed(_ sender: Any) {
         performSegue(withIdentifier: K.goToUserSettings, sender: self)
+        Analytics.logEvent(A.userSettingsPressed, parameters: nil)
     }
 
 }

@@ -41,7 +41,6 @@ class DataController {
         }
     }
 
-    
     //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
     func signUp(withEmail email: String, password: String, image: UIImage?, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
@@ -153,6 +152,22 @@ class DataController {
                 }
             }
         }
+    }
+    
+    func deletePhoto(uid: String) async throws {
+        let storageRef = Database.database().reference()
+        let realtimeDatabaseRef = storageRef.child(REF_USER).child(uid)
+
+        try await realtimeDatabaseRef.removeValue()
+        print("Data Deleted successfully!")
+    }
+    
+    func deleteUserProfile(uid: String) async throws {
+        let storage = Storage.storage().reference()
+        let storageProfileRef = storage.child(STORAGE_PROFILE).child(uid)
+        
+        try await storageProfileRef.delete()
+        print("Data Deleted successfully!")
     }
     
     func loadPhoto(completion: @escaping (UIImage?) -> Void) {

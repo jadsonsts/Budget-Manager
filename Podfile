@@ -7,13 +7,12 @@ target 'BudgetManager' do
 
   # Pods for BudgetManager
 
-# pod 'FBSDKLoginKit'
-# pod 'GoogleSignIn'
-# pod 'GoogleSignInSwiftSupport'
 pod 'FirebaseAuth'
 pod 'FirebaseFirestore'
 pod 'FirebaseDatabase'
 pod 'FirebaseStorage'
+pod 'FirebaseCrashlytics'
+pod 'FirebaseAnalytics'
 pod 'ProgressHUD'
 
   

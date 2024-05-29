@@ -8,6 +8,7 @@
 import UIKit
 import ProgressHUD
 import CoreData
+import FirebaseAnalytics
 
 //typeAlias
 let income = "income"
@@ -166,10 +167,16 @@ class InputTransactionTableViewController: UITableViewController {
         let sucessMessage = transactionToEdit != nil ? "Transaction updated" : "Transaction created"
         ProgressHUD.succeed(sucessMessage)
         
+        //Analytics
+        setUserProperty(for: transaction.amount)
+        logTransactionEvent(amount: transaction.amount, type: transactionType, category: category?.categoryName, edit: transaction.isModified)
+        logCategoryEvent(category: category?.categoryName)
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.inputTransactionDelegate?.didUpdateHomeView()
             self.navigationController?.popToRootViewController(animated: true)
         }
+        
         resetFields()
     }
     
@@ -302,4 +309,44 @@ extension InputTransactionTableViewController: SelectCategoryDelegate {
         self.category = category
         updateCategoryLabel()
     }
+}
+
+//MARK: - Analytics
+extension InputTransactionTableViewController {
+    func setUserProperty(for transactionAmount: Double) {
+        var amountRange: String
+        
+        switch transactionAmount {
+            case 0..<50:
+                amountRange = "0-49"
+            case 50..<100:
+                amountRange = "50-99"
+            case 100..<500:
+                amountRange = "100-499"
+            case 500..<1000:
+                amountRange = "500-999"
+            case 1000..<5000:
+                amountRange = "1000-4999"
+            case 5000..<10000:
+                amountRange = "5000-9999"
+            default:
+                amountRange = "10000+"
+        }
+        
+        Analytics.setUserProperty(amountRange, forName: A.transactionAmountRange)
+    }
+    
+    func logTransactionEvent(amount: Double, type: String, category: String?, edit: Bool) {
+        Analytics.logEvent(A.transaction, parameters: [
+            A.transactionAmount: amount,
+            A.transactionType: type,
+            A.transactionCategory: category ?? "",
+            A.isTransactionModified : edit ? 1 : 0
+        ])
+    }
+    
+    func logCategoryEvent(category: String?) {
+        Analytics.logEvent(A.selectedCategory, parameters: [A.transactionCategory : category ?? ""])
+    }
+    
 }

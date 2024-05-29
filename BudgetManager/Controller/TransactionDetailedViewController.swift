@@ -8,6 +8,7 @@
 import UIKit
 import ProgressHUD
 import FirebaseDatabase
+import FirebaseAnalytics
 
 class TransactionDetailedViewController: UIViewController {
     
@@ -47,6 +48,11 @@ class TransactionDetailedViewController: UIViewController {
     
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
         if let transaction = transaction {
+            Analytics.logEvent(A.editPressed, parameters: [
+                A.transactionType : transaction.transactionType!,
+                A.transactionAmount : transaction.amount,
+                A.transactionCategory : transaction.categoryID,
+            ])
             performSegue(withIdentifier: K.editTransaction, sender: transaction)
         }
     }

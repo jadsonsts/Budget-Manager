@@ -10,9 +10,9 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
 import FirebaseFirestore
+import FirebaseAnalytics
 import ProgressHUD
 import CoreData
-
 
 class HomeViewController: UIViewController {
     
@@ -90,6 +90,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func newTransactionPressed(_ sender: Any) {
+        Analytics.logEvent("new_transaction_pressed", parameters: nil)
     }
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
@@ -162,6 +163,8 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         } else {
             let userName = user?.fetchedObjects?.first?.name
             userNameLabel.text = ("Hello, \(userName!)")
+            Analytics.setUserID(id)
+            Analytics.setUserProperty(userName, forName: A.userName)
             fetchUserProfilePicture()
             fetchWallet()
         }
@@ -376,6 +379,7 @@ extension HomeViewController: UISearchBarDelegate {
         } else {
             searchBar.resignFirstResponder()
         }
+        Analytics.logEvent(A.searchPressed, parameters: [A.searchText: searchBar.text as Any])
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

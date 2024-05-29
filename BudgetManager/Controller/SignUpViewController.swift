@@ -10,6 +10,7 @@ import FirebaseAuth
 import FirebaseDatabase
 import FirebaseFirestore
 import FirebaseStorage
+import FirebaseAnalytics
 import ProgressHUD
 import Photos
 import CoreData
@@ -25,7 +26,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTxtField: CustomTxtField!
     @IBOutlet weak var signUpButton: CustomButton!
     
-  //MARK: - Validation Supporters
+    //MARK: - Validation Supporters
     @IBOutlet weak var emailValidationLabel: UILabel!
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var passwordImageViewValidation: UIImageView!
@@ -45,6 +46,13 @@ class SignUpViewController: UIViewController {
         return button
     }()
     
+    lazy var confirmPasswordVisibilityButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -24, bottom: 0, right: 15)
+        button.tintColor = CustomColors.greenColor
+        return button
+    }()
+    
     let manager = CoreDataStack.shared
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,10 +60,11 @@ class SignUpViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        foo()
+        
+        passwordPrivacyToggle()
+        confirmPasswordPrivacyToggle()
         hidePasswordCheckStackView()
         setupProfilePicture()
         hidesValidationLabels()
@@ -78,19 +87,32 @@ class SignUpViewController: UIViewController {
         confPasswordValidationLabel.isHidden = true
     }
     
-    func foo () {
+    func passwordPrivacyToggle() {
         passwordTxtField.rightViewMode = .whileEditing
         passwordVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
         passwordVisibilityButton.frame = CGRect(x: Int(passwordTxtField.frame.size.width) - 25, y: 5, width: 15, height: 25)
         passwordVisibilityButton.addTarget(self, action: #selector(self.passwordVisibilityButtonClicked), for: .touchUpInside)
-
         passwordTxtField.rightView = passwordVisibilityButton
+    }
+    
+    func confirmPasswordPrivacyToggle() {
+        confirmPasswordTxtField.rightViewMode = .whileEditing
+        confirmPasswordVisibilityButton.setImage(UIImage(systemName: "eye"), for: .normal)
+        confirmPasswordVisibilityButton.frame = CGRect(x: Int(confirmPasswordTxtField.frame.size.width) - 25, y: 5, width: 15, height: 25)
+        confirmPasswordVisibilityButton.addTarget(self, action: #selector(self.confirmPasswordVisibilityButtonClicked), for: .touchUpInside)
+        confirmPasswordTxtField.rightView = confirmPasswordVisibilityButton
     }
     
     @IBAction func passwordVisibilityButtonClicked(_ sender: UIButton) {
         passwordTxtField.isSecureTextEntry.toggle()
         let imageName = passwordTxtField.isSecureTextEntry ? "eye" : "eye.slash"
         passwordVisibilityButton.setImage(UIImage(systemName: imageName), for:.normal)
+    }
+    
+    @IBAction func confirmPasswordVisibilityButtonClicked(_ sender: UIButton) {
+        confirmPasswordTxtField.isSecureTextEntry.toggle()
+        let imageName = confirmPasswordTxtField.isSecureTextEntry ? "eye" : "eye.slash"
+        confirmPasswordVisibilityButton.setImage(UIImage(systemName: imageName), for:.normal)
     }
     
     // Updates the password validation label
@@ -234,13 +256,11 @@ class SignUpViewController: UIViewController {
             if confPassword != password {
                 confirmPasswordTxtField.showError()
                 confPasswordValidationLabel.text = ErrorMessageType.confirmationPassword.message()
-//                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: true)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = false
                 }
             } else {
                 confirmPasswordTxtField.hideError()
-//                self.insertImageRightTextField(textField: self.confirmPasswordTxtField, error: false)
                 UIView.animate(withDuration: 0.3) {
                     self.confPasswordValidationLabel.isHidden = true
                 }
@@ -314,12 +334,12 @@ class SignUpViewController: UIViewController {
             user.email = fields.email
             user.phone = fields.phone
             user.firebase_ID = userID
-            //see how to link wallet and user in the wallet
+            
             //create wallet object
             wallet.name = "Main"
             wallet.amount = 0.0
             wallet.user = user
-
+            
             self?.manager.saveContext()
             self?.performSegue(withIdentifier: K.registerSegue, sender: self)
             ProgressHUD.dismiss()
@@ -327,6 +347,7 @@ class SignUpViewController: UIViewController {
         } onError: { errorMessage in
             ProgressHUD.failed(errorMessage)
         }
+        Analytics.logEvent(AnalyticsEventSignUp, parameters: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -335,7 +356,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
-//MARK: - DONE BUTTON CREATION
+    //MARK: - DONE BUTTON CREATION
     func createKeyboardDoneButton() {
         let textFields: [UITextField] = [lastNameTxtField, firstNameTxtField, emailTxtField, phoneTxtField, passwordTxtField, confirmPasswordTxtField]
         
@@ -366,23 +387,23 @@ extension SignUpViewController: UITextFieldDelegate {
 
 //MARK: - Image Picker Controller and Delegate
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+    
     func checkPhotoLibraryAuthorization() {
         let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
-            switch status {
-                case .authorized:
-                    openGaleryPicker()
-                case .denied, .restricted :
-                    requestManualSettingForPhotoGaleryCamera()
-                case .notDetermined:
-                    PHPhotoLibrary.requestAuthorization { [weak self] status in
-                        DispatchQueue.main.async {
-                            self?.checkPhotoLibraryAuthorization()
-                        }
+        switch status {
+            case .authorized:
+                openGaleryPicker()
+            case .denied, .restricted :
+                requestManualSettingForPhotoGaleryCamera()
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization { [weak self] status in
+                    DispatchQueue.main.async {
+                        self?.checkPhotoLibraryAuthorization()
                     }
-                case .limited:
-                  openGaleryPicker()
-            }
+                }
+            case .limited:
+                openGaleryPicker()
+        }
     }
     
     func openGaleryPicker() {
@@ -436,7 +457,7 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         alert.addAction(dismissAction)
         self.present(alert, animated: true, completion: nil)
     }
-        
+    
     @objc func presentPicker() {
         
         let alertController = UIAlertController(title: "Select Image Source", message: nil, preferredStyle: .actionSheet)

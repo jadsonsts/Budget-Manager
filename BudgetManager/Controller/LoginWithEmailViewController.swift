@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseAnalytics
 import ProgressHUD
 
 class LoginWithEmailViewController: UIViewController {
@@ -26,14 +27,20 @@ class LoginWithEmailViewController: UIViewController {
         return button
     }()
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
-        passwordPrivacyToggle()
-       UserDefaults.standard.removeObject(forKey: "imageURL")
         super.viewDidLoad()
+        passwordPrivacyToggle()
+        UserDefaults.standard.removeObject(forKey: "imageURL")
         ProgressHUD.colorAnimation = CustomColors.greenColor
         if Auth.auth().currentUser != nil {
             performSegue(withIdentifier: K.loginSegue, sender: self)
         }
+        createKeyboardDoneButton()
 
         emailMesageErrorLabel.isHidden = true
         passwordMessageErrorLabel.isHidden = true
@@ -71,13 +78,13 @@ class LoginWithEmailViewController: UIViewController {
     }
     
     @IBAction func loginPressed(_ sender: Any) {
-        
         guard let fields = validateFields() else { return }
         ProgressHUD.animate("Loggin in...", .barSweepToggle)
         DataController.shared.signIn(withEmail: fields.email, password: fields.password) { [weak self] result in
             ProgressHUD.succeed()
             if let result = result {
                 self?.userID = result.user.uid
+                Analytics.logEvent(AnalyticsEventLogin, parameters: nil)
                 self?.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         } onError: { errorMessage in
@@ -91,5 +98,15 @@ class LoginWithEmailViewController: UIViewController {
         } else {
             segue.destination.modalPresentationStyle = .currentContext
         }
+    }
+    
+    //MARK: - DONE BUTTON CREATION
+    func createKeyboardDoneButton() {
+        let textFields: [UITextField] = [emailTxtField, passwordTxtField]
+        UIViewController.addDoneButtonOnKeyboard(for: textFields, target: self, selector: #selector(doneButtonAction))
+    }
+    
+    @objc func doneButtonAction(){
+        view.endEditing(true)
     }
 }

@@ -278,10 +278,10 @@
 				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
 				DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */,
 				DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */,
-				DF86E76C29AC2B5700E912D9 /* DataController.swift */,
 				DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */,
 				DFCE90B72B737E29007A9DDC /* AboutViewController.swift */,
 				DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */,
+				DF86E76C29AC2B5700E912D9 /* DataController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -309,6 +309,8 @@
 				DF21D2CD29906A4200EA6FAB /* Frameworks */,
 				DF21D2CE29906A4200EA6FAB /* Resources */,
 				CCC3042090A8E5EBB40966CB /* [CP] Embed Pods Frameworks */,
+				DF4712142BF6CCF700F13CC4 /* ShellScript */,
+				DF4712152BF6D0DB00F13CC4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -508,6 +510,45 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BudgetManager/Pods-BudgetManager-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		DF4712142BF6CCF700F13CC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		DF4712152BF6D0DB00F13CC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/upload-symbols\"\n -gsp \"${PROJECT_DIR}/GoogleService-Info.plist\" -p ios \"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"\n";
 		};
 		E0849CA548AAB076ED81EB6D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -750,6 +791,7 @@
 				CODE_SIGN_ENTITLEMENTS = BudgetManager/BudgetManager.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BudgetManager/Info.plist;

@@ -9,6 +9,7 @@ import UIKit
 import ProgressHUD
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseAnalytics
 
 protocol SelectCategoryDelegate {
     func didSelect(category: CategoryElement)
