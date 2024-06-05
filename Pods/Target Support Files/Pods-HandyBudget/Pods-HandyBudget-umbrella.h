@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_BudgetManagerVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_BudgetManagerVersionString[];
+FOUNDATION_EXPORT double Pods_HandyBudgetVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_HandyBudgetVersionString[];
 

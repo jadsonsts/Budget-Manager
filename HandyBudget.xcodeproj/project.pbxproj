@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6504984412462B3D1A91097B /* Pods_BudgetManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C8BDCE315E2C94ACDF4360C /* Pods_BudgetManager.framework */; };
+		79D1DEFE3D46EA25DFC74DB9 /* Pods_HandyBudget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */; };
 		DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AB2998FAF00020340A /* CustomButton.swift */; };
 		DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */; };
 		DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */; };
@@ -43,14 +43,15 @@
 		DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFCE90B72B737E29007A9DDC /* AboutViewController.swift */; };
 		DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */; };
 		DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */; };
-		DFF348532A007F6E0022C684 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = DFF348522A007F6E0022C684 /* credentials.plist */; };
 		DFFA9D9C2C110BB90066524B /* HandyBudgetModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DFFA9D972C110BB90066524B /* HandyBudgetModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.release.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.release.xcconfig"; sourceTree = "<group>"; };
 		1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager.debug.xcconfig"; path = "Target Support Files/Pods-BudgetManager/Pods-BudgetManager.debug.xcconfig"; sourceTree = "<group>"; };
+		39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.debug.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.debug.xcconfig"; sourceTree = "<group>"; };
+		6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HandyBudget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		98A304706846E95161151B99 /* Pods-BudgetManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager.release.xcconfig"; path = "Target Support Files/Pods-BudgetManager/Pods-BudgetManager.release.xcconfig"; sourceTree = "<group>"; };
-		9C8BDCE315E2C94ACDF4360C /* Pods_BudgetManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BudgetManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF15E0AB2998FAF00020340A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		DFCE90B72B737E29007A9DDC /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCategoryViewController.swift; sourceTree = "<group>"; };
-		DFF348522A007F6E0022C684 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
 		DFFA9D982C110BB90066524B /* BudgetManagerModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		DFFA9D992C110BB90066524B /* BudgetManagerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BudgetManagerModel.xcdatamodel; sourceTree = "<group>"; };
 		DFFA9D9A2C110BB90066524B /* BudgetManagerModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 4.xcdatamodel"; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6504984412462B3D1A91097B /* Pods_BudgetManager.framework in Frameworks */,
+				79D1DEFE3D46EA25DFC74DB9 /* Pods_HandyBudget.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -113,6 +113,8 @@
 			children = (
 				1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */,
 				98A304706846E95161151B99 /* Pods-BudgetManager.release.xcconfig */,
+				39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */,
+				0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -120,7 +122,7 @@
 		CD18F18C047DF1053F69C2C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9C8BDCE315E2C94ACDF4360C /* Pods_BudgetManager.framework */,
+				6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -166,7 +168,6 @@
 				DF21D2DE29906A4400EA6FAB /* LaunchScreen.storyboard */,
 				DF21D2E129906A4400EA6FAB /* Info.plist */,
 				DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */,
-				DFF348522A007F6E0022C684 /* credentials.plist */,
 			);
 			path = HandyBudget;
 			sourceTree = "<group>";
@@ -287,7 +288,6 @@
 				DF57CDB22A11ADF200958474 /* GoogleService-Info.plist in Resources */,
 				DF21D2DD29906A4400EA6FAB /* Assets.xcassets in Resources */,
 				DF21D2DB29906A4200EA6FAB /* Main.storyboard in Resources */,
-				DFF348532A007F6E0022C684 /* credentials.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +309,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BudgetManager-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-HandyBudget-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -322,15 +322,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BudgetManager/Pods-BudgetManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-BudgetManager/Pods-BudgetManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BudgetManager/Pods-BudgetManager-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DF4712142BF6CCF700F13CC4 /* ShellScript */ = {
@@ -554,7 +554,7 @@
 		};
 		DF21D2FB29906A4400EA6FAB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */;
+			baseConfigurationReference = 39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -566,6 +566,7 @@
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HandyBudget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to pick your profile picture";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your Photo Library to pick your profile picture you selected";
@@ -580,7 +581,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jadson.BudgetManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jadson.HandyBudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -591,7 +592,7 @@
 		};
 		DF21D2FC29906A4400EA6FAB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 98A304706846E95161151B99 /* Pods-BudgetManager.release.xcconfig */;
+			baseConfigurationReference = 0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -602,6 +603,7 @@
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HandyBudget;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to pick your profile picture";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your Photo Library to pick your profile picture you selected";
@@ -616,7 +618,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jadson.BudgetManager;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jadson.HandyBudget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
