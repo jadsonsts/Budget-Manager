@@ -1,6 +1,6 @@
 //
 //  SelectCategoryViewController.swift
-//  BudgetManager
+//  Handy Budget - Expense Tracker
 //
 //  Created by Jadson on 9/12/23.
 //

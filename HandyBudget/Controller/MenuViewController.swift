@@ -1,6 +1,6 @@
 //
 //  MenuViewController.swift
-//  BudgetManager
+//  Handy Budget - Expense Tracker
 //
 //  Created by Jadson on 3/12/23.
 //

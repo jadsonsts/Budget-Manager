@@ -1,6 +1,5 @@
 //
 //  Transaction+CoreDataProperties.swift
-//  BudgetManager
 //
 //  Created by Jadson on 02/05/2024.
 //  Handy Budget - Expense Tracker

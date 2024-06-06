@@ -1,7 +1,3 @@
-//
-//  Extentions.swift
-//  WhoAreU
-//
 //  Created by Jadson on 27/12/22.
 //
 

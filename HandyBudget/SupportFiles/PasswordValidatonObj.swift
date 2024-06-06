@@ -1,7 +1,3 @@
-//
-//  PasswordValidatonObj.swift
-//  BudgetManager
-//
 //  Created by Jadson on 29/03/23.
 //
 

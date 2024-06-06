@@ -1,7 +1,3 @@
-//
-//  CustomColors.swift
-//  BudgetManager
-//
 //  Created by Jadson on 13/02/23.
 //
 

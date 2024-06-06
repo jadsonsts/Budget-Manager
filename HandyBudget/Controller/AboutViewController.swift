@@ -1,6 +1,6 @@
 //
 //  AboutViewController.swift
-//  BudgetManager
+//  Handy Budget - Expense Tracker
 //
 //  Created by Jadson on 7/02/24.
 //

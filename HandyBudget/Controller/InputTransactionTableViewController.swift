@@ -1,6 +1,6 @@
 //
 //  InputTransactionTableViewController.swift
-//  BudgetManager
+//  Handy Budget - Expense Tracker
 //
 //  Created by Jadson on 12/02/23.
 //
