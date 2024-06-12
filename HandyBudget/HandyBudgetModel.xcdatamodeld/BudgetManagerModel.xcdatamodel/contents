@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Transaction" representedClassName="Transaction" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="comments" optional="YES" attributeType="String"/>
+        <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="reference" attributeType="String"/>
+        <attribute name="transactionType" attributeType="String"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Wallet" inverseName="transaction" inverseEntity="Wallet"/>
+        <fetchedProperty name="fetchedExpense" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Transaction" predicateString="transactionType == 'expense'"/>
+        </fetchedProperty>
+        <fetchedProperty name="fetchedIncome" optional="YES">
+            <fetchRequest name="fetchedPropertyFetchRequest" entity="Transaction" predicateString="transactionType == 'income'"/>
+        </fetchedProperty>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="firebase_ID" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="phone" attributeType="String"/>
+        <attribute name="surname" attributeType="String"/>
+        <relationship name="wallet" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Wallet" inverseName="user" inverseEntity="Wallet"/>
+    </entity>
+    <entity name="Wallet" representedClassName="Wallet" syncable="YES">
+        <attribute name="amount" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String" defaultValueString="Main"/>
+        <relationship name="transaction" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Transaction" inverseName="wallet" inverseEntity="Transaction"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="wallet" inverseEntity="User"/>
+    </entity>
+</model>
