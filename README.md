@@ -1,16 +1,17 @@
 
-# Budget Manager
+# Handy Budget - Expense Tracker (Former Budget Manager)
 
-Budget Manager is an application where you can keep track of every expense or income you have. This app allows you see all transactions and their details.
-
+Take control of your finances with Handy Budget, the ultimate expense tracker designed to simplify your financial management. Whether you're budgeting for the month or tracking daily expenses, Handy Budget makes it easy to stay on top of your financial goals.
 
 ## Features
 
-- Login with third party apps (Google, Facebook and Apple)
-- Light/dark mode toggle (System)
-- List of transactions by type: Expense and Income
-- Transaction Details
-- Transaction management (Create and Edit)
+- Login with email and password.
+- Light/dark mode toggle (System).
+- Easy Expense & Income Tracking: Log every expense and income effortlessly. Keep a detailed record of where your money goes and where it comes from.
+- Detailed Transaction History: View all your transactions in one place. Get detailed insights with categories, dates, and notes for each transaction.
+- Range Categories: Tailor the app to fit your lifestyle by using our range of pre-selected categories that match your spending habits.
+- User-Friendly Interface: Enjoy a seamless and intuitive experience with our user-friendly design. Perfect for users of all levels, from beginners to budgeting experts.
+- Secure and Private: Your financial data is safe with us. Handy Budget ensures your information is securely stored, giving you peace of mind.
 
 
 ## Color Reference
@@ -28,9 +29,8 @@ Budget Manager is an application where you can keep track of every expense or in
 
 - MVC
 - UIKit
-- SDKS: Firebase, Google SignIn, Facebook SignIn, ProgressHUD
-- @API (https://github.com/jadsonsts/API_BudgetManager) Integration
-- MySQL database
+- SDKS: Firebase, Coredata, ProgressHUD
+- Firebase Analytics and Craslytics
 
 
 ## Logo
@@ -39,9 +39,6 @@ Budget Manager is an application where you can keep track of every expense or in
 
 
 ## Screenshots
-
-- Login with other accounts <br />
-<img src="Screenshots/SignUpThirdParty.png" alt="SignUpThirdParty" width="300" height="649"/>
 
 - SignIn with Email <br />
 <img src="Screenshots/SignIn.png" alt="SignIn" width="300" height="649"/>
@@ -58,9 +55,12 @@ Budget Manager is an application where you can keep track of every expense or in
 - Transaction management screen <br />
 <img src="Screenshots/TransactionManagement.png" alt="TransactionManagement" width="300" height="649"/>
 
+- Category Selection <br />
+<img src="Screenshots/Categories.png" alt="TransactionManagement" width="300" height="649"/>
+
 - User settings screen <br />
 <img src="Screenshots/UserDetails.png" alt="UserDetails" width="300" height="649"/>
 
 <br />
 <br />
-"Images subject to be changed during the app development"
+Images subject to be changed during the app development
