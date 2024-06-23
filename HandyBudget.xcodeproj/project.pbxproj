@@ -27,6 +27,7 @@
 		DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */; };
 		DF233D4F29986FE80038DE52 /* InputTransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */; };
 		DF57CDB22A11ADF200958474 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */; };
+		DF68B2F32C26B26B00776E24 /* UserDataFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF68B2F22C26B26B00776E24 /* UserDataFirebase.swift */; };
 		DF7BDE122993942D004696BB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7BDE112993942D004696BB /* Constants.swift */; };
 		DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */; };
 		DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86E76C29AC2B5700E912D9 /* DataController.swift */; };
@@ -48,10 +49,8 @@
 
 /* Begin PBXFileReference section */
 		0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.release.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.release.xcconfig"; sourceTree = "<group>"; };
-		1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager.debug.xcconfig"; path = "Target Support Files/Pods-BudgetManager/Pods-BudgetManager.debug.xcconfig"; sourceTree = "<group>"; };
 		39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.debug.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.debug.xcconfig"; sourceTree = "<group>"; };
 		6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HandyBudget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		98A304706846E95161151B99 /* Pods-BudgetManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BudgetManager.release.xcconfig"; path = "Target Support Files/Pods-BudgetManager/Pods-BudgetManager.release.xcconfig"; sourceTree = "<group>"; };
 		DF15E0AB2998FAF00020340A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
@@ -73,6 +72,7 @@
 		DF21D31A2992448300EA6FAB /* UserSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsViewController.swift; sourceTree = "<group>"; };
 		DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionTableViewController.swift; sourceTree = "<group>"; };
 		DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		DF68B2F22C26B26B00776E24 /* UserDataFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataFirebase.swift; sourceTree = "<group>"; };
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -111,8 +111,6 @@
 		9BCF0B9359013976FAC12413 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				1022543324FC43F4115007DA /* Pods-BudgetManager.debug.xcconfig */,
-				98A304706846E95161151B99 /* Pods-BudgetManager.release.xcconfig */,
 				39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */,
 				0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */,
 			);
@@ -178,6 +176,7 @@
 				DF21D3082991CE6800EA6FAB /* Wallet.swift */,
 				DF21D30C2991CE8600EA6FAB /* Transactions.swift */,
 				DF21D30A2991CE7800EA6FAB /* Categories.swift */,
+				DF68B2F22C26B26B00776E24 /* UserDataFirebase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -429,6 +428,7 @@
 				DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 				DFC49FEA2BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift in Sources */,
+				DF68B2F32C26B26B00776E24 /* UserDataFirebase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
