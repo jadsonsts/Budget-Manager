@@ -319,13 +319,17 @@ class SignUpViewController: UIViewController {
         }
         imageValidationLabel.isHidden = true
         
-        //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase and the server
+        //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase
         guard let fields = validateFields() else { return }
         ProgressHUD.animate("Signin Up...", .barSweepToggle)
         let user = User(context: manager.context)
         let wallet = Wallet(context: manager.context)
         
-        DataController.shared.signUp(withEmail: fields.email , password: fields.password, image: imageSelected) { [weak self] in
+        DataController.shared.signUp(userName: fields.firstName,
+                                     email: fields.email,
+                                     password: fields.password,
+                                     image: imageSelected) { [weak self] in
+            
             guard let userID = Auth.auth().currentUser?.uid else { return }
             
             //create the user object to pass in to the core data context
@@ -341,6 +345,7 @@ class SignUpViewController: UIViewController {
             wallet.user = user
             
             self?.manager.saveContext()
+
             self?.performSegue(withIdentifier: K.registerSegue, sender: self)
             ProgressHUD.dismiss()
             

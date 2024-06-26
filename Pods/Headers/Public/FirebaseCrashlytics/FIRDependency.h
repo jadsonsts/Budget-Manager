@@ -1,0 +1,1 @@
+../../../FirebaseCrashlytics/FirebaseCore/Extension/FIRDependency.h

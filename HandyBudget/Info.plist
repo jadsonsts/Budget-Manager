@@ -5,6 +5,8 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb3080906928880124</string>
@@ -20,20 +22,11 @@
 			</array>
 		</dict>
 	</array>
-	<key>GIDClientID</key>
-	<string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
-	<key>OAuth client ID</key>
-	<string>341788451168-cjo3n6nh361ffompals7snd09r78egb1.apps.googleusercontent.com</string>
 	<key>PHPhotoLibraryPreventAutomaticLimitedAccessAlert</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>

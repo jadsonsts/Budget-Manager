@@ -18,6 +18,7 @@ let REF_USER = "users"
 let STORAGE_PROFILE = "profilePicture"
 let URL_STORAGE_ROOT = "gs://budget-manager-75102.appspot.com"
 let UID = "uid"
+let NAME = "userName"
 let EMAIL = "email"
 let PROFILE_IMAGE_URL = "profileImageUrl"
 let CONTENT_TYPE = "image/jpg"
@@ -40,10 +41,10 @@ class DataController {
             onSucess(authResult)
         }
     }
-
+    
     //MARK: - creates user as they SignUp
     //create the user and save the profilePicute on firebase
-    func signUp(withEmail email: String, password: String, image: UIImage?, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
+    func signUp(userName: String, email: String, password: String, image: UIImage?, onSucess: @escaping() -> Void, onError: @escaping(_ errorMessage: String) -> Void) {
         
         guard let imageData = image?.jpegData(compressionQuality: 0.4) else { return }
         
@@ -55,7 +56,8 @@ class DataController {
             if let authData = authResult {
                 let dict: Dictionary<String, Any> = [
                     UID: authData.user.uid,
-                    EMAIL: authData.user.email,
+                    NAME: userName,
+                    EMAIL: authData.user.email ?? "",
                     PROFILE_IMAGE_URL: ""
                 ]
                 //create the reference to the storage on firebase
@@ -96,7 +98,7 @@ class DataController {
             //add the image to the user defaults
             let metaImageUrl = imageUrl.absoluteString
             UserDefaults.standard.set(metaImageUrl, forKey: USER_DEFAULTS_IMG_URL)
-
+            
             //get the image data to pass in
             let task = URLSession.shared.dataTask(with: imageUrl) { data, _, error in
                 guard let data = data, error == nil else {
@@ -157,7 +159,7 @@ class DataController {
     func deletePhoto(uid: String) async throws {
         let storageRef = Database.database().reference()
         let realtimeDatabaseRef = storageRef.child(REF_USER).child(uid)
-
+        
         try await realtimeDatabaseRef.removeValue()
         print("Data Deleted successfully!")
     }
@@ -188,6 +190,28 @@ class DataController {
             }
         }
         task.resume()
+    }
+    
+    //MARK: - Get User profile data on firebase if they use another phone
+    
+    func getUserDataOnFirebase(uid: String, onSuccess: @escaping (UserDataFirebase) -> Void, onError: @escaping (_ errorMessage: String) -> Void) {
+        databaseRef.child(REF_USER).child(uid).observeSingleEvent(of: .value) { snapshot in
+            guard let snapshotValue = snapshot.value as? [String: Any] else {
+                ProgressHUD.failed("Error retrieving data from the cloud.")
+                return
+            }
+            if let userID = snapshotValue["uid"] as? String,
+               let userName = snapshotValue["userName"] as? String,
+               let userEmail = snapshotValue["email"] as? String {
+                let user = UserDataFirebase(userID:  userID,
+                                            name: userName,
+                                            email: userEmail)
+                onSuccess(user)
+            }
+        } withCancel: { error in
+            onError(error.localizedDescription)
+        }
+        
     }
     
     //MARK: - FIREBASE FETCHING CATEGORIES

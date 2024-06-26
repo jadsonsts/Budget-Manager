@@ -22,6 +22,7 @@ struct A {
     //HomeViewController
     static let searchPressed = "search_pressed"
     static let searchText = "search_text"
+    static let newTransaction = "new_transaction_pressed"
     
     //MenuViewController
     static let aboutPressed = "about_button_pressed"

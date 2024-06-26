@@ -64,6 +64,40 @@ class HomeViewController: UIViewController {
         self.transactionsSegmentedControl.clipsToBounds = true
     }
     
+    
+    func createUserCoreData(userID: String) {
+        
+        DataController.shared.getUserDataOnFirebase(uid: userID) { [weak self] data in
+            guard let self = self else { return }
+            let user = User(context: self.manager.context)
+            
+            user.name = data.name
+            user.email = data.email
+            user.surname = ""
+            user.phone = ""
+            user.firebase_ID = data.userID
+            
+            self.manager.saveContext()
+            
+            self.createUserWalletCoreData(user: user)
+            
+        } onError: { errorMessage in
+            ProgressHUD.failed("Whoops, Something went wrong!")
+        }
+    }
+    
+    func createUserWalletCoreData(user: User) {
+        let wallet = Wallet(context: manager.context)
+        //create wallet object
+        wallet.name = "Main"
+        wallet.amount = 0.0
+        wallet.user = user
+        
+        manager.saveContext()
+        
+        fetchUser()
+    }
+    
     func loadWalletLabel(walletAmount: Double) {
         
         let formatter = NumberFormatter()
@@ -90,7 +124,7 @@ class HomeViewController: UIViewController {
     }
     
     @IBAction func newTransactionPressed(_ sender: Any) {
-        Analytics.logEvent("new_transaction_pressed", parameters: nil)
+        Analytics.logEvent(A.newTransaction, parameters: nil)
     }
     
     @IBAction func transactionSegmentedControlDidChange(_ sender: CustomSegmentedControl) {
@@ -154,19 +188,26 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         
         do {
             try controller.performFetch()
-        } catch let error {
-            ProgressHUD.failed("Error finding the user\n \(error)")
+        } catch _ {
+            ProgressHUD.failed("Error fetching the user")
         }
         
-        if user?.fetchedObjects?.count == 0 {
-            ProgressHUD.failed("Failed findind user")
+        if user?.fetchedObjects?.isEmpty ?? true {
+            createUserCoreData(userID: id)
         } else {
-            let userName = user?.fetchedObjects?.first?.name
-            userNameLabel.text = ("Hello, \(userName!)")
-            Analytics.setUserID(id)
+            beginUIUpdate(firebaseID: id)
+        }
+    }
+    
+    //idk if this name is enough... many different instructions(?)
+    func beginUIUpdate(firebaseID: String) {
+        DispatchQueue.main.async {
+            let userName = self.user?.fetchedObjects?.first?.name
+            self.userNameLabel.text = ("Hello, \(userName ?? "Test")")
+            Analytics.setUserID(firebaseID)
             Analytics.setUserProperty(userName, forName: A.userName)
-            fetchUserProfilePicture()
-            fetchWallet()
+            self.fetchUserProfilePicture()
+            self.fetchWallet()
         }
     }
     
@@ -320,7 +361,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.detailSegue {
             if let transacionDetailsVC = segue.destination as? TransactionDetailedViewController,
-                let transaction = sender as? Transaction {
+               let transaction = sender as? Transaction {
                 transacionDetailsVC.transaction = transaction
                 transacionDetailsVC.wallet = wallet?.fetchedObjects?.first
                 transacionDetailsVC.updateTransactionDelegate = self
