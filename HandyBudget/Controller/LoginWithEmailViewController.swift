@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseAnalytics
+import AppTrackingTransparency
 import ProgressHUD
 
 class LoginWithEmailViewController: UIViewController {
@@ -22,7 +23,7 @@ class LoginWithEmailViewController: UIViewController {
     
     lazy var passwordVisibilityButton: UIButton = {
         let button = UIButton(type: .custom)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -24, bottom: 0, right: 15)
+        button.configuration?.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: -24, bottom: 0, trailing: 15)
         button.tintColor = CustomColors.greenColor
         return button
     }()
@@ -30,6 +31,10 @@ class LoginWithEmailViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         view.endEditing(true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        requestTrackingPermission()
     }
     
     override func viewDidLoad() {
@@ -44,6 +49,21 @@ class LoginWithEmailViewController: UIViewController {
 
         emailMesageErrorLabel.isHidden = true
         passwordMessageErrorLabel.isHidden = true
+    }
+    
+    func requestTrackingPermission() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization { status in
+                switch status {
+                    case .authorized:
+                        Analytics.setAnalyticsCollectionEnabled(true)
+                    case .denied, .restricted, .notDetermined:
+                        Analytics.setAnalyticsCollectionEnabled(false)
+                    @unknown default:
+                        Analytics.setAnalyticsCollectionEnabled(false)
+                }
+            }
+        }
     }
     
     func passwordPrivacyToggle() {

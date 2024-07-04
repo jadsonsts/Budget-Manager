@@ -93,7 +93,6 @@
 		DFFA9D992C110BB90066524B /* BudgetManagerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BudgetManagerModel.xcdatamodel; sourceTree = "<group>"; };
 		DFFA9D9A2C110BB90066524B /* BudgetManagerModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 4.xcdatamodel"; sourceTree = "<group>"; };
 		DFFA9D9B2C110BB90066524B /* BudgetManagerModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		DFFA9D9D2C110BE90066524B /* HandyBudget.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = HandyBudget.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,7 +152,6 @@
 		DF21D2D229906A4200EA6FAB /* HandyBudget */ = {
 			isa = PBXGroup;
 			children = (
-				DFFA9D9D2C110BE90066524B /* HandyBudget.entitlements */,
 				DFFA9D972C110BB90066524B /* HandyBudgetModel.xcdatamodeld */,
 				DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
@@ -579,7 +577,7 @@
 				CODE_SIGN_ENTITLEMENTS = HandyBudget/HandyBudget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -588,6 +586,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to pick your profile picture";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your Photo Library to pick your profile picture you selected";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use the data for analytics and crash report purposes only";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -620,7 +619,7 @@
 				CODE_SIGN_ENTITLEMENTS = HandyBudget/HandyBudget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
@@ -628,6 +627,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to pick your profile picture";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your Photo Library to pick your profile picture you selected";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "We use the data for analytics and crash report purposes only";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

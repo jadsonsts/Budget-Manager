@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your actual storyboard name
+        let storyboard = UIStoryboard(name: "Main", bundle: nil) 
         if let initialViewController = storyboard.instantiateInitialViewController() {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = initialViewController
