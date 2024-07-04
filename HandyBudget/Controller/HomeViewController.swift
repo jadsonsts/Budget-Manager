@@ -68,7 +68,7 @@ class HomeViewController: UIViewController {
     func createUserCoreData(userID: String) {
         
         DataController.shared.getUserDataOnFirebase(uid: userID) { [weak self] data in
-            guard let self = self else { return }
+            guard let self else { return }
             let user = User(context: self.manager.context)
             
             user.name = data.name
