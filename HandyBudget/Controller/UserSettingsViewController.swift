@@ -15,9 +15,7 @@ class UserSettingsViewController: UIViewController {
     
     @IBOutlet weak var userProfilePicture: UIImageView!
     @IBOutlet weak var firstNameTextField: CustomTxtField!
-    @IBOutlet weak var lastNameTextField: CustomTxtField!
     @IBOutlet weak var emailTextField: CustomTxtField!
-    @IBOutlet weak var phoneNumberTextField: CustomTxtField!
     @IBOutlet weak var passwordTextField: CustomTxtField!
     @IBOutlet weak var confirmPasswordTextField: CustomTxtField!
     @IBOutlet weak var updateProfileButton: CustomButton!
@@ -61,9 +59,7 @@ class UserSettingsViewController: UIViewController {
 
     func loadLabels(for user: User) {
         firstNameTextField.text = user.name
-        lastNameTextField.text = user.surname
         emailTextField.text = user.email
-        phoneNumberTextField.text = user.phone
         ProgressHUD.dismiss()
     }
     
@@ -250,7 +246,7 @@ extension UserSettingsViewController: NSFetchedResultsControllerDelegate {
 //MARK: - Keyboard Settings
 extension UserSettingsViewController {
     func createKeyboardDoneButton() {
-        let textFields: [UITextField] = [lastNameTextField, firstNameTextField, emailTextField, phoneNumberTextField, passwordTextField, confirmPasswordTextField]
+        let textFields: [UITextField] = [firstNameTextField, emailTextField, passwordTextField, confirmPasswordTextField]
         
         UIViewController.addDoneButtonOnKeyboard(for: textFields, target: self, selector: #selector(doneButtonAction))
     }

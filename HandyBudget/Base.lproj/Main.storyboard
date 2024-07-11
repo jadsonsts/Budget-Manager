@@ -257,9 +257,9 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Wi7-2c-R3X">
-                                <rect key="frame" x="10" y="223" width="373" height="345"/>
+                                <rect key="frame" x="10" y="223" width="373" height="225"/>
                                 <subviews>
-                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oRT-A0-p5g" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oRT-A0-p5g" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="373" height="45"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
@@ -269,18 +269,8 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" textContentType="name"/>
                                     </textField>
-                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Family Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="da7-3J-GK7" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="60" width="373" height="45"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="d4T-BR-fTr"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" textContentType="family-name"/>
-                                    </textField>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DBT-1o-Rf0" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="120" width="373" height="45"/>
+                                        <rect key="frame" x="0.0" y="60" width="373" height="45"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="QcO-dh-IgK"/>
@@ -289,18 +279,8 @@
                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
                                     </textField>
-                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QJc-OY-jf9" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="180" width="373" height="45"/>
-                                        <color key="backgroundColor" name="backgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="45" id="W2P-S3-hzw"/>
-                                        </constraints>
-                                        <color key="textColor" name="generalLabelColor"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="16"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
-                                    </textField>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rCk-OT-aFF" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="240" width="373" height="45"/>
+                                        <rect key="frame" x="0.0" y="120" width="373" height="45"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="Pv9-Du-7Sh"/>
@@ -310,7 +290,7 @@
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="new-password"/>
                                     </textField>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vfq-81-EEE" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="300" width="373" height="45"/>
+                                        <rect key="frame" x="0.0" y="180" width="373" height="45"/>
                                         <color key="backgroundColor" name="backgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="VvN-fe-myK"/>
@@ -322,7 +302,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ogy-hn-RMR" customClass="CustomButton" customModule="HandyBudget" customModuleProvider="target">
-                                <rect key="frame" x="10" y="588" width="373" height="50"/>
+                                <rect key="frame" x="10" y="468" width="373" height="50"/>
                                 <color key="backgroundColor" name="tabBarColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="7R1-ma-GoO"/>
@@ -337,13 +317,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvk-Pb-WRD">
-                                <rect key="frame" x="10" y="658" width="373" height="0.0"/>
+                                <rect key="frame" x="10" y="538" width="373" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" name="expenseLabelColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Vt-22-wII">
-                                <rect key="frame" x="10" y="663" width="373" height="50"/>
+                                <rect key="frame" x="10" y="543" width="373" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="0Sr-1h-FOI"/>
                                 </constraints>
@@ -384,9 +364,7 @@
                         <outlet property="disclaimerLabel" destination="Kvk-Pb-WRD" id="hXh-C6-qXh"/>
                         <outlet property="emailTextField" destination="DBT-1o-Rf0" id="gku-Ip-hEd"/>
                         <outlet property="firstNameTextField" destination="oRT-A0-p5g" id="2p9-4l-Kl0"/>
-                        <outlet property="lastNameTextField" destination="da7-3J-GK7" id="Oyu-lA-Lxi"/>
                         <outlet property="passwordTextField" destination="rCk-OT-aFF" id="sAR-BA-XLz"/>
-                        <outlet property="phoneNumberTextField" destination="QJc-OY-jf9" id="ZeM-sb-HZf"/>
                         <outlet property="updateProfileButton" destination="Ogy-hn-RMR" id="ygo-ZV-YhB"/>
                         <outlet property="userProfilePicture" destination="mJN-qb-zmm" id="tcP-kL-cgm"/>
                     </connections>
@@ -1418,9 +1396,9 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="ILh-0A-dCx">
-                                                <rect key="frame" x="10" y="124.33333333333337" width="373" height="589"/>
+                                                <rect key="frame" x="10" y="124.33333333333337" width="373" height="429"/>
                                                 <subviews>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iho-Cu-x31" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iho-Cu-x31" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="373" height="50"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                         <constraints>
@@ -1439,27 +1417,8 @@
                                                         <color key="textColor" name="expenseLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dFl-ZD-Fp0" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="79.999999999999972" width="373" height="50"/>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="Re1-Ey-nve"/>
-                                                        </constraints>
-                                                        <color key="textColor" name="generalLabelColor"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" enablesReturnKeyAutomatically="YES" textContentType="family-name"/>
-                                                        <connections>
-                                                            <action selector="lastNameTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="yMw-EA-BLk"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ir-Ahj">
-                                                        <rect key="frame" x="0.0" y="138.99999999999997" width="373" height="12"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <color key="textColor" name="expenseLabelColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qsi-va-WRS" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="159.99999999999997" width="373" height="50"/>
+                                                        <rect key="frame" x="0.0" y="79.999999999999972" width="373" height="50"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="L97-vb-eYA"/>
@@ -1473,32 +1432,13 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jt-OB-Grg">
-                                                        <rect key="frame" x="0.0" y="218.99999999999997" width="373" height="12"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                        <color key="textColor" name="expenseLabelColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="i.e. +0000000000" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="itH-jK-YZu" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="240" width="373" height="50"/>
-                                                        <color key="backgroundColor" name="backgroundColor"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="eBi-H7-uWh"/>
-                                                        </constraints>
-                                                        <color key="textColor" name="generalLabelColor"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES" textContentType="tel"/>
-                                                        <connections>
-                                                            <action selector="phoneTxtChanged:" destination="RtP-9w-NaU" eventType="editingChanged" id="Iod-PU-ozV"/>
-                                                        </connections>
-                                                    </textField>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u2s-9d-Vw4">
-                                                        <rect key="frame" x="0.0" y="299" width="373" height="12"/>
+                                                        <rect key="frame" x="0.0" y="138.99999999999997" width="373" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" name="expenseLabelColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zeB-X2-9YV" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="320" width="373" height="50"/>
+                                                        <rect key="frame" x="0.0" y="159.99999999999997" width="373" height="50"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="vKq-hF-QIg"/>
@@ -1508,7 +1448,7 @@
                                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES" textContentType="one-time-code"/>
                                                     </textField>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="rDK-d0-Zew">
-                                                        <rect key="frame" x="0.0" y="379" width="373" height="130"/>
+                                                        <rect key="frame" x="0.0" y="219" width="373" height="130"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KwZ-16-3e0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="15" height="130"/>
@@ -1528,7 +1468,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirm Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VHl-f0-l1c" customClass="CustomTxtField" customModule="HandyBudget" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="518" width="373" height="50"/>
+                                                        <rect key="frame" x="0.0" y="358" width="373" height="50"/>
                                                         <color key="backgroundColor" name="backgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="50" id="8OW-5H-ueJ"/>
@@ -1541,7 +1481,7 @@
                                                         </connections>
                                                     </textField>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6YR-BX-mJe">
-                                                        <rect key="frame" x="0.0" y="577" width="373" height="12"/>
+                                                        <rect key="frame" x="0.0" y="417" width="373" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" name="expenseLabelColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1549,7 +1489,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uip-2W-EPI" customClass="CustomButton" customModule="HandyBudget" customModuleProvider="target">
-                                                <rect key="frame" x="10" y="733.33333333333337" width="373" height="60"/>
+                                                <rect key="frame" x="10" y="573.33333333333337" width="373" height="60"/>
                                                 <color key="backgroundColor" name="tabBarColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="60" id="D3W-0q-65q"/>
@@ -1610,14 +1550,10 @@
                         <outlet property="firstNameTxtField" destination="Iho-Cu-x31" id="jvM-EV-0Jm"/>
                         <outlet property="firstNameValidationLabel" destination="sOt-49-OFO" id="601-sc-bG8"/>
                         <outlet property="imageValidationLabel" destination="BLv-cF-rjr" id="Qz7-QI-Pbb"/>
-                        <outlet property="lastNameTxtField" destination="dFl-ZD-Fp0" id="6AN-EY-2mb"/>
-                        <outlet property="lastNameValidationLabel" destination="9fb-Ir-Ahj" id="yic-AD-XpZ"/>
                         <outlet property="passwordCheckStackView" destination="rDK-d0-Zew" id="WNo-C1-CTQ"/>
                         <outlet property="passwordImageViewValidation" destination="KwZ-16-3e0" id="qNV-eA-x9v"/>
                         <outlet property="passwordTxtField" destination="zeB-X2-9YV" id="bhP-Qa-49L"/>
                         <outlet property="passwordValidationLabel" destination="vUL-md-FyL" id="58L-bh-uG1"/>
-                        <outlet property="phoneTxtField" destination="itH-jK-YZu" id="cPw-pD-hip"/>
-                        <outlet property="phoneValidationLabel" destination="u2s-9d-Vw4" id="iXE-Dn-98X"/>
                         <outlet property="profilePictureImageView" destination="q3b-aR-MLr" id="ZcI-pt-Frg"/>
                         <outlet property="signUpButton" destination="uip-2W-EPI" id="nI3-Tv-piH"/>
                         <segue destination="4P3-wj-aJG" kind="show" identifier="RegisterToHome" id="92y-69-KeH"/>

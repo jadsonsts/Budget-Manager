@@ -80,7 +80,7 @@ struct Validation: Identifiable {
 }
 
 enum ErrorMessageType: String {
-    case validEmail, notEmpty, validName, validFamilyName, validPhone, confirmationPassword, noImage, emptyForm
+    case validEmail, notEmpty, validName, confirmationPassword, noImage, emptyForm
     
     func message() -> String {
         switch self {
@@ -90,10 +90,6 @@ enum ErrorMessageType: String {
                 return "✖︎ The field cannot be empty."
             case .validName:
                 return "✖︎ Please enter a valid Name."
-            case .validFamilyName:
-                return "✖︎ Please enter a valid Family Name."
-            case .validPhone:
-                return "✖︎ Please enter a valid phone number."
             case .confirmationPassword:
                 return "✖︎ Field must be equal to password."
             case .noImage:
@@ -106,23 +102,11 @@ enum ErrorMessageType: String {
 
 //MARK: - EMAIL AND PASSWORD REGEX
 extension String {
-    
-    func isValidPhoneNumber (_ number: String) -> Bool {
-        let phoneRegEx = "^\\+(?:[0-9]●?){6,14}[0-9]$"
-        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
-        return phoneTest.evaluate(with: number)
-    }
-    
+
     func isValidName(_ name: String) -> Bool {
         let nameRegEx = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
         let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
         return nameTest.evaluate(with: name)
-    }
-    
-    func isValidFamilyName(_ familyName: String) -> Bool {
-        let nameRegEx = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-        let nameTest = NSPredicate(format: "SELF MATCHES[c] %@", nameRegEx)
-        return nameTest.evaluate(with: familyName)
     }
     
     func isValidEmail(_ email: String) -> Bool {

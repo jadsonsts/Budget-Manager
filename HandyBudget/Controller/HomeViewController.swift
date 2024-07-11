@@ -73,8 +73,6 @@ class HomeViewController: UIViewController {
             
             user.name = data.name
             user.email = data.email
-            user.surname = ""
-            user.phone = ""
             user.firebase_ID = data.userID
             
             self.manager.saveContext()

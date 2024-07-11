@@ -73,6 +73,7 @@
 		DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTransactionTableViewController.swift; sourceTree = "<group>"; };
 		DF57CDB12A11ADF200958474 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		DF68B2F22C26B26B00776E24 /* UserDataFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataFirebase.swift; sourceTree = "<group>"; };
+		DF68B3742C3FB6E900776E24 /* BudgetManagerModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 5.xcdatamodel"; sourceTree = "<group>"; };
 		DF7BDE112993942D004696BB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		DF80C0F629B549780025A37B /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -577,7 +578,7 @@
 				CODE_SIGN_ENTITLEMENTS = HandyBudget/HandyBudget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -619,7 +620,7 @@
 				CODE_SIGN_ENTITLEMENTS = HandyBudget/HandyBudget.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
@@ -678,12 +679,13 @@
 		DFFA9D972C110BB90066524B /* HandyBudgetModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				DF68B3742C3FB6E900776E24 /* BudgetManagerModel 5.xcdatamodel */,
 				DFFA9D982C110BB90066524B /* BudgetManagerModel 3.xcdatamodel */,
 				DFFA9D992C110BB90066524B /* BudgetManagerModel.xcdatamodel */,
 				DFFA9D9A2C110BB90066524B /* BudgetManagerModel 4.xcdatamodel */,
 				DFFA9D9B2C110BB90066524B /* BudgetManagerModel 2.xcdatamodel */,
 			);
-			currentVersion = DFFA9D9A2C110BB90066524B /* BudgetManagerModel 4.xcdatamodel */;
+			currentVersion = DF68B3742C3FB6E900776E24 /* BudgetManagerModel 5.xcdatamodel */;
 			name = HandyBudgetModel.xcdatamodeld;
 			path = "/Users/jadsoncarneiro/Desktop/iOS-Dev/Apps-Projetos/SGD/HandyBudget/HandyBudget/HandyBudgetModel.xcdatamodeld";
 			sourceTree = "<group>";
