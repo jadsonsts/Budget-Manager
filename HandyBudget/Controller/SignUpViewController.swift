@@ -19,9 +19,7 @@ class SignUpViewController: UIViewController {
     
     @IBOutlet weak var profilePictureImageView: UIImageView!
     @IBOutlet weak var firstNameTxtField: CustomTxtField!
-    @IBOutlet weak var lastNameTxtField: CustomTxtField!
     @IBOutlet weak var emailTxtField: CustomTxtField!
-    @IBOutlet weak var phoneTxtField: CustomTxtField!
     @IBOutlet weak var passwordTxtField: CustomTxtField!
     @IBOutlet weak var confirmPasswordTxtField: CustomTxtField!
     @IBOutlet weak var signUpButton: CustomButton!
@@ -31,8 +29,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var passwordValidationLabel: UILabel!
     @IBOutlet weak var passwordImageViewValidation: UIImageView!
     @IBOutlet weak var firstNameValidationLabel: UILabel!
-    @IBOutlet weak var lastNameValidationLabel: UILabel!
-    @IBOutlet weak var phoneValidationLabel: UILabel!
     @IBOutlet weak var confPasswordValidationLabel: UILabel!
     @IBOutlet weak var passwordCheckStackView: UIStackView!
     @IBOutlet weak var imageValidationLabel: UILabel!
@@ -81,9 +77,7 @@ class SignUpViewController: UIViewController {
     func hidesValidationLabels() {
         imageValidationLabel.isHidden = true
         firstNameValidationLabel.isHidden = true
-        lastNameValidationLabel.isHidden = true
         emailValidationLabel.isHidden = true
-        phoneValidationLabel.isHidden = true
         confPasswordValidationLabel.isHidden = true
     }
     
@@ -209,46 +203,6 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    @IBAction func lastNameTxtChanged(_ sender: CustomTxtField) {
-        let lastName = sender.text ?? ""
-        if lastName.count == 0 || lastName.isEmpty || lastName == "" {
-            lastNameTxtField.showError()
-            lastNameValidationLabel.text = ErrorMessageType.notEmpty.message()
-            UIView.animate(withDuration: 0.3) {
-                self.lastNameValidationLabel.isHidden = false
-                self.insertImageRightTextField(textField: self.lastNameTxtField, error: true)
-            }
-        } else if !lastName.isValidName(lastName) {
-            lastNameTxtField.showError()
-            lastNameValidationLabel.text = ErrorMessageType.validName.message()
-            UIView.animate(withDuration: 0.3) {
-                self.lastNameValidationLabel.isHidden = false
-                self.insertImageRightTextField(textField: self.lastNameTxtField, error: true)
-            }
-        } else {
-            lastNameTxtField.hideError()
-            lastNameValidationLabel.text = ""
-            UIView.animate(withDuration: 0.3) {
-                self.lastNameValidationLabel.isHidden = true
-                self.insertImageRightTextField(textField: self.lastNameTxtField, error: false)
-            }
-        }
-    }
-    
-    @IBAction func phoneTxtChanged(_ sender: CustomTxtField) {
-        let phone = sender.text ?? ""
-        if !phone.isValidPhoneNumber(phone) {
-            phoneTxtField.showError()
-            phoneValidationLabel.isHidden = false
-            phoneValidationLabel.text = ErrorMessageType.validPhone.message()
-            insertImageRightTextField(textField: phoneTxtField, error: true)
-        } else {
-            phoneTxtField.hideError()
-            phoneValidationLabel.isHidden = true
-            phoneValidationLabel.text = ""
-            insertImageRightTextField(textField: phoneTxtField, error: false)
-        }
-    }
     
     @IBAction func confPasswordTxtChanged(_ sender: CustomTxtField) {
         if let password = passwordTxtField.text {
@@ -297,17 +251,15 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    func validateFields() -> (firstName: String, lastName: String, phone: String, email: String, password: String, confPassword: String)? {
+    func validateFields() -> (firstName: String, email: String, password: String, confPassword: String)? {
         guard let firstName = firstNameTxtField.text, !firstName.isEmpty,
-              let lastName = lastNameTxtField.text, !lastName.isEmpty,
-              let phone = phoneTxtField.text, !phone.isEmpty,
               let email = emailTxtField.text, !email.isEmpty,
               let password = passwordTxtField.text, !password.isEmpty,
               let confPassword = confirmPasswordTxtField.text, !confPassword.isEmpty else {
             ProgressHUD.failed(ErrorMessageType.emptyForm.message())
             return nil
         }
-        return (firstName, lastName, phone, email, password, confPassword)
+        return (firstName, email, password, confPassword)
     }
     
     @IBAction func signUpPressed(_ sender: CustomButton) {
@@ -334,9 +286,7 @@ class SignUpViewController: UIViewController {
             
             //create the user object to pass in to the core data context
             user.name = fields.firstName
-            user.surname = fields.lastName
             user.email = fields.email
-            user.phone = fields.phone
             user.firebase_ID = userID
             
             //create wallet object
@@ -363,7 +313,7 @@ class SignUpViewController: UIViewController {
     
     //MARK: - DONE BUTTON CREATION
     func createKeyboardDoneButton() {
-        let textFields: [UITextField] = [lastNameTxtField, firstNameTxtField, emailTxtField, phoneTxtField, passwordTxtField, confirmPasswordTxtField]
+        let textFields: [UITextField] = [firstNameTxtField, emailTxtField, passwordTxtField, confirmPasswordTxtField]
         
         UIViewController.addDoneButtonOnKeyboard(for: textFields, target: self, selector: #selector(doneButtonAction))
     }
@@ -408,6 +358,8 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
                 }
             case .limited:
                 openGaleryPicker()
+            @unknown default:
+                requestManualSettingForPhotoGaleryCamera()
         }
     }
     
@@ -433,6 +385,8 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
                 requestManualSettingForPhotoGaleryCamera()
             case .authorized:
                 openCameraPicker()
+            @unknown default:
+                checkCameraAuthorization()
         }
     }
     

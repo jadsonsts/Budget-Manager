@@ -99,7 +99,7 @@ class TransactionDetailedViewController: UIViewController {
         let date = dateString.formatted(Date.FormatStyle()
             .weekday(.wide)
             .day(.twoDigits)
-            .month(.abbreviated)
+            .month(.wide)
             .year(.defaultDigits))
         return date
     }
