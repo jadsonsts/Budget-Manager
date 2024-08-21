@@ -13,7 +13,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import ProgressHUD
 
-
+//PUT IN A FILE AND ADD IT TO GIT IGNORE? SENSITIVE INFO ??
 let REF_USER = "users"
 let STORAGE_PROFILE = "profilePicture"
 let URL_STORAGE_ROOT = "gs://budget-manager-75102.appspot.com"

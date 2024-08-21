@@ -33,6 +33,10 @@
 		DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF86E76C29AC2B5700E912D9 /* DataController.swift */; };
 		DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F529D41CCE00291940 /* Extentions.swift */; };
 		DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */; };
+		DFA650742C732E90001F23F1 /* UserPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA650732C732E90001F23F1 /* UserPersistenceManager.swift */; };
+		DFA650762C733D45001F23F1 /* WalletPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA650752C733D45001F23F1 /* WalletPersistenceManager.swift */; };
+		DFA650782C75F8AF001F23F1 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA650772C75F8AF001F23F1 /* AuthService.swift */; };
+		DFA6507A2C75FB35001F23F1 /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA650792C75FB35001F23F1 /* PhotoService.swift */; };
 		DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */; };
 		DFC49FD02BD217F100D05C3D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */; };
 		DFC49FE62BD21B0C00D05C3D /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFC49FE02BD21B0C00D05C3D /* User+CoreDataClass.swift */; };
@@ -45,6 +49,7 @@
 		DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA72B1BE01F00F0760B /* MenuViewController.swift */; };
 		DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD7DBA92B24750B00F0760B /* SelectCategoryViewController.swift */; };
 		DFFA9D9C2C110BB90066524B /* HandyBudgetModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DFFA9D972C110BB90066524B /* HandyBudgetModel.xcdatamodeld */; };
+		DFFE53DF2C69CDA800614FFD /* SolidTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFFE53DE2C69CDA800614FFD /* SolidTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +84,10 @@
 		DF86E76C29AC2B5700E912D9 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		DF9A38F529D41CCE00291940 /* Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extentions.swift; sourceTree = "<group>"; };
 		DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordValidatonObj.swift; sourceTree = "<group>"; };
+		DFA650732C732E90001F23F1 /* UserPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersistenceManager.swift; sourceTree = "<group>"; };
+		DFA650752C733D45001F23F1 /* WalletPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPersistenceManager.swift; sourceTree = "<group>"; };
+		DFA650772C75F8AF001F23F1 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		DFA650792C75FB35001F23F1 /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
 		DFB571FB29A31B2900B92639 /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
 		DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CoreDataStack.swift; path = Data/CoreDataStack.swift; sourceTree = "<group>"; };
 		DFC49FE02BD21B0C00D05C3D /* User+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -94,6 +103,7 @@
 		DFFA9D992C110BB90066524B /* BudgetManagerModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BudgetManagerModel.xcdatamodel; sourceTree = "<group>"; };
 		DFFA9D9A2C110BB90066524B /* BudgetManagerModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 4.xcdatamodel"; sourceTree = "<group>"; };
 		DFFA9D9B2C110BB90066524B /* BudgetManagerModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BudgetManagerModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		DFFE53DE2C69CDA800614FFD /* SolidTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				DF21D310299243FE00EA6FAB /* LoginWithEmailViewController.swift */,
-				DF21D3122992441D00EA6FAB /* SignUpViewController.swift */,
+				DFFE53DD2C69CD7200614FFD /* solidTest */,
 				DF21D3142992442E00EA6FAB /* HomeViewController.swift */,
 				DF21D3162992444A00EA6FAB /* TransactionDetailedViewController.swift */,
 				DF233D4E29986FE80038DE52 /* InputTransactionTableViewController.swift */,
@@ -218,6 +228,19 @@
 				DF15E0B1299A0DE50020340A /* CustomColors.swift */,
 			);
 			path = SupportFiles;
+			sourceTree = "<group>";
+		};
+		DFFE53DD2C69CD7200614FFD /* solidTest */ = {
+			isa = PBXGroup;
+			children = (
+				DF21D3122992441D00EA6FAB /* SignUpViewController.swift */,
+				DFFE53DE2C69CDA800614FFD /* SolidTest.swift */,
+				DFA650792C75FB35001F23F1 /* PhotoService.swift */,
+				DFA650732C732E90001F23F1 /* UserPersistenceManager.swift */,
+				DFA650752C733D45001F23F1 /* WalletPersistenceManager.swift */,
+				DFA650772C75F8AF001F23F1 /* AuthService.swift */,
+			);
+			path = solidTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,12 +424,14 @@
 				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
 				DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */,
 				DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */,
+				DFA650762C733D45001F23F1 /* WalletPersistenceManager.swift in Sources */,
 				DFC49FD02BD217F100D05C3D /* CoreDataStack.swift in Sources */,
 				DF21D30D2991CE8600EA6FAB /* Transactions.swift in Sources */,
 				DFC49FE62BD21B0C00D05C3D /* User+CoreDataClass.swift in Sources */,
 				DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */,
 				DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
+				DFFE53DF2C69CDA800614FFD /* SolidTest.swift in Sources */,
 				DFC49FEF2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift in Sources */,
 				DFC49FF02BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
@@ -418,15 +443,18 @@
 				DF7BDE122993942D004696BB /* Constants.swift in Sources */,
 				DFFA9D9C2C110BB90066524B /* HandyBudgetModel.xcdatamodeld in Sources */,
 				DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */,
+				DFA650742C732E90001F23F1 /* UserPersistenceManager.swift in Sources */,
 				DFC49FE82BD21B0C00D05C3D /* Wallet+CoreDataClass.swift in Sources */,
 				DF21D3132992441D00EA6FAB /* SignUpViewController.swift in Sources */,
 				DF15E0B2299A0DE50020340A /* CustomColors.swift in Sources */,
 				DFD7DBA82B1BE01F00F0760B /* MenuViewController.swift in Sources */,
+				DFA650782C75F8AF001F23F1 /* AuthService.swift in Sources */,
 				DF9A38F829D41D7A00291940 /* PasswordValidatonObj.swift in Sources */,
 				DF9A38F629D41CCF00291940 /* Extentions.swift in Sources */,
 				DFCE90B82B737E29007A9DDC /* AboutViewController.swift in Sources */,
 				DF21D30B2991CE7800EA6FAB /* Categories.swift in Sources */,
 				DFC49FEA2BD21B0C00D05C3D /* Wallet+CoreDataProperties.swift in Sources */,
+				DFA6507A2C75FB35001F23F1 /* PhotoService.swift in Sources */,
 				DF68B2F32C26B26B00776E24 /* UserDataFirebase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -34,6 +34,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var imageValidationLabel: UILabel!
     
     let passwordValidation = PasswordValidationObj()
+    
     var image: UIImage?
     lazy var passwordVisibilityButton: UIButton = {
         let button = UIButton(type: .custom)
@@ -262,6 +263,18 @@ class SignUpViewController: UIViewController {
         return (firstName, email, password, confPassword)
     }
     
+    func validateFields2 () {
+        let validation = ValidateFields(name: firstNameTxtField, email: emailTxtField, password: passwordTxtField, confPassword: confirmPasswordTxtField)
+        guard let fields = validation.validateFields() else { return }
+        
+        let userCoreDataPersistence = UserCoreDataPersistence()
+        let coreDataPersistence = UserDataPersistence(persistence: userCoreDataPersistence)
+        let user = UserDataFirebase(userID: fields.password, name: fields.name, email: fields.email)
+
+        coreDataPersistence.save(user: user)
+
+    }
+    
     @IBAction func signUpPressed(_ sender: CustomButton) {
         //checking if the image is available
         guard let imageSelected = self.image else {
@@ -273,16 +286,18 @@ class SignUpViewController: UIViewController {
         
         //unwrapping the function and if the fields are valid, pass them in the function to sign up on firebase
         guard let fields = validateFields() else { return }
-        ProgressHUD.animate("Signin Up...", .barSweepToggle)
+        
+        ProgressHUD.animate("Signing Up...", .barSweepToggle)
+        
         let user = User(context: manager.context)
         let wallet = Wallet(context: manager.context)
+        
+        guard let userID = Auth.auth().currentUser?.uid else { return }
         
         DataController.shared.signUp(userName: fields.firstName,
                                      email: fields.email,
                                      password: fields.password,
                                      image: imageSelected) { [weak self] in
-            
-            guard let userID = Auth.auth().currentUser?.uid else { return }
             
             //create the user object to pass in to the core data context
             user.name = fields.firstName
@@ -303,6 +318,52 @@ class SignUpViewController: UIViewController {
             ProgressHUD.failed(errorMessage)
         }
         Analytics.logEvent(AnalyticsEventSignUp, parameters: nil)
+        
+        
+        //NEW WAY - KEEPING THE IMAGE VALIDATION AS IT IS
+        
+        //pass in the text fields to validate
+        let validation = ValidateFields(name: firstNameTxtField, email: emailTxtField, password: passwordTxtField, confPassword: confirmPasswordTxtField)
+        guard let fields = validation.validateFields() else { return }
+        
+        //signup the user on firebase
+        let authService = AuthService()
+        authService.signUp(userName: fields.name, email: fields.email, password: fields.password) { [weak self] in
+            
+            guard let self else { return }
+            
+            let photoService = PhotoService()
+            photoService.savePhoto(image: imageSelected) {
+                //SHOULD I KEEP THE ON SUCESS TO PUT THE COREDATA?
+            } onError: { errorMessage in
+                //SAME HERE, ON ERROR
+            }
+
+            
+            //create the objects to save the user's data
+            let userCoreDataPersistence = UserCoreDataPersistence()
+            let userDataPersistence = UserDataPersistence(persistence: userCoreDataPersistence)
+            let userNew = UserDataFirebase(userID: userID,
+                                           name: fields.name,
+                                           email: fields.email)
+            
+            userDataPersistence.save(user: userNew)
+            
+            //same for the wallet
+            let walletCoreDataPersistence = WalletCoreDataPersistence(amount: 0.0, walletName: "Main", user: <#User#>)
+            let walletDataPersistence = WalletDataPersistence(persistence: walletCoreDataPersistence)
+
+            
+            walletDataPersistence.save()
+            
+            self.performSegue(withIdentifier: K.registerSegue, sender: self)
+            ProgressHUD.dismiss()
+            
+        } onError: { _ in
+            ProgressHUD.failed("We got an error signing you up, please try again.")
+        }
+
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
