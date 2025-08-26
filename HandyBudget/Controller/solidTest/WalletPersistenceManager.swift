@@ -7,6 +7,7 @@
 
 import UIKit
 import ProgressHUD
+import FirebaseAuth
 
 
 protocol WalletDataPersistable {
@@ -23,6 +24,8 @@ struct WalletDataPersistence {
 
 struct WalletCoreDataPersistence: WalletDataPersistable {
     
+    guard let userID = Auth.auth().currentUser?.uid else { return }
+    
     let amount: Double
     let walletName: String
     let user: User
@@ -34,8 +37,8 @@ struct WalletCoreDataPersistence: WalletDataPersistable {
         
         wallet.amount = amount
         wallet.name = walletName
-        wallet.user = user //User.init(context: manager.context) //?
-        
+        wallet.user = user
+        //waller.userID = userID
         manager.saveContext()
     }
 }
