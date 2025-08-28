@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		79D1DEFE3D46EA25DFC74DB9 /* Pods_HandyBudget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */; };
+		DF0AC3342E5DC490001E4C53 /* NewHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC3332E5DC490001E4C53 /* NewHomeViewController.swift */; };
+		DF0AC3392E5DC60A001E4C53 /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */; };
+		DF0AC33B2E5DC63D001E4C53 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */; };
+		DF0AC33D2E605A8E001E4C53 /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC33C2E605A89001E4C53 /* ViewCode.swift */; };
 		DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AB2998FAF00020340A /* CustomButton.swift */; };
 		DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */; };
 		DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */; };
@@ -51,6 +55,10 @@
 		0DB9E878936D8FEF06ECFF58 /* Pods-HandyBudget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.release.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.release.xcconfig"; sourceTree = "<group>"; };
 		39CBB42520FCBAD00306151B /* Pods-HandyBudget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HandyBudget.debug.xcconfig"; path = "Target Support Files/Pods-HandyBudget/Pods-HandyBudget.debug.xcconfig"; sourceTree = "<group>"; };
 		6F76C0D799FB59DF11D8EFA2 /* Pods_HandyBudget.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HandyBudget.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF0AC3332E5DC490001E4C53 /* NewHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeViewController.swift; sourceTree = "<group>"; };
+		DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
+		DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
+		DF0AC33C2E605A89001E4C53 /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
 		DF15E0AB2998FAF00020340A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
@@ -125,6 +133,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		DF0AC3352E5DC544001E4C53 /* NewHome */ = {
+			isa = PBXGroup;
+			children = (
+				DF0AC3372E5DC5AE001E4C53 /* ViewModel */,
+				DF0AC3362E5DC5A2001E4C53 /* View */,
+			);
+			path = NewHome;
+			sourceTree = "<group>";
+		};
+		DF0AC3362E5DC5A2001E4C53 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DF0AC3332E5DC490001E4C53 /* NewHomeViewController.swift */,
+				DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */,
+				DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DF0AC3372E5DC5AE001E4C53 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		DF21D2C729906A4200EA6FAB = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +187,7 @@
 		DF21D2D229906A4200EA6FAB /* HandyBudget */ = {
 			isa = PBXGroup;
 			children = (
+				DF0AC3352E5DC544001E4C53 /* NewHome */,
 				DFFA9D972C110BB90066524B /* HandyBudgetModel.xcdatamodeld */,
 				DFC49FCF2BD217F100D05C3D /* CoreDataStack.swift */,
 				DF21D2D329906A4200EA6FAB /* AppDelegate.swift */,
@@ -212,6 +247,7 @@
 		DF7BDE1029939412004696BB /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
+				DF0AC33C2E605A89001E4C53 /* ViewCode.swift */,
 				DF9A38F529D41CCE00291940 /* Extentions.swift */,
 				DF9A38F729D41D7A00291940 /* PasswordValidatonObj.swift */,
 				DF7BDE112993942D004696BB /* Constants.swift */,
@@ -301,9 +337,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -340,9 +380,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -399,6 +443,7 @@
 				DF21D3092991CE6800EA6FAB /* Wallet.swift in Sources */,
 				DFD7DBAA2B24750B00F0760B /* SelectCategoryViewController.swift in Sources */,
 				DF21D31B2992448300EA6FAB /* UserSettingsViewController.swift in Sources */,
+				DF0AC3342E5DC490001E4C53 /* NewHomeViewController.swift in Sources */,
 				DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */,
 				DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */,
 				DFC49FD02BD217F100D05C3D /* CoreDataStack.swift in Sources */,
@@ -407,6 +452,7 @@
 				DF86E76D29AC2B5700E912D9 /* DataController.swift in Sources */,
 				DF80C0F729B549780025A37B /* CategoryCollectionViewCell.swift in Sources */,
 				DF21D2D429906A4200EA6FAB /* AppDelegate.swift in Sources */,
+				DF0AC33B2E5DC63D001E4C53 /* GreetingView.swift in Sources */,
 				DFC49FEF2BE30D5B00D05C3D /* Transaction+CoreDataClass.swift in Sources */,
 				DFC49FF02BE30D5B00D05C3D /* Transaction+CoreDataProperties.swift in Sources */,
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
@@ -415,6 +461,8 @@
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
 				DFC49FE92BD21B0C00D05C3D /* User+CoreDataProperties.swift in Sources */,
+				DF0AC33D2E605A8E001E4C53 /* ViewCode.swift in Sources */,
+				DF0AC3392E5DC60A001E4C53 /* NewHomeView.swift in Sources */,
 				DF7BDE122993942D004696BB /* Constants.swift in Sources */,
 				DFFA9D9C2C110BB90066524B /* HandyBudgetModel.xcdatamodeld in Sources */,
 				DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */,
