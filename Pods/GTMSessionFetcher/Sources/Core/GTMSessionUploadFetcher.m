@@ -300,8 +300,17 @@ NSString *const kGTMSessionFetcherUploadInitialBackoffStartedNotification =
   // Set the upload file length before setting the upload file URL tries to determine the length.
   [uploadFetcher setUploadFileLength:uploadFileLength];
 
+  // Remove the private keys (or any invalid keys) from the sessionUserInfo to maintain that api's
+  // type contract.
+  NSSet *keysToRemove = [metadata keysOfEntriesPassingTest:^BOOL(id key, id obj, BOOL *stop) {
+    return ![key isKindOfClass:[NSString class]] || ![obj isKindOfClass:[NSString class]] ||
+           [key hasPrefix:@"_"];
+  }];
+  NSMutableDictionary *sessionUserInfo = [metadata mutableCopy];
+  [sessionUserInfo removeObjectsForKeys:[keysToRemove allObjects]];
+  uploadFetcher.sessionUserInfo = sessionUserInfo;
+
   uploadFetcher.uploadFileURL = uploadFileURL;
-  uploadFetcher.sessionUserInfo = metadata;
   uploadFetcher.useBackgroundSession = YES;
   uploadFetcher.currentOffset = currentOffset;
   uploadFetcher.delegateCallbackQueue = uploadFetcher.callbackQueue;
@@ -330,6 +339,10 @@ NSString *const kGTMSessionFetcherUploadInitialBackoffStartedNotification =
     gUploadFetcherPointerArrayForBackgroundSessions = [NSPointerArray weakObjectsPointerArray];
   });
   return gUploadFetcherPointerArrayForBackgroundSessions;
+}
+
++ (instancetype)fetcherWithSessionIdentifier:(NSString *)sessionIdentifier {
+  return [self uploadFetcherForSessionIdentifier:sessionIdentifier];
 }
 
 + (instancetype)uploadFetcherForSessionIdentifier:(NSString *)sessionIdentifier {
@@ -790,7 +803,15 @@ NSString *const kGTMSessionFetcherUploadInitialBackoffStartedNotification =
     }
     if (offset > 0 || length < fullUploadLength) {
       NSRange range = NSMakeRange((NSUInteger)offset, (NSUInteger)length);
-      resultData = [mappedData subdataWithRange:range];
+      @try {
+        resultData = [mappedData subdataWithRange:range];
+      } @catch (NSException *exception) {
+        NSString *errorMessage = exception.description;
+        GTMSESSION_ASSERT_DEBUG(NO, @"%@", errorMessage);
+        response(nil, kGTMSessionUploadFetcherUnknownFileSize,
+                 [self uploadChunkUnavailableErrorWithDescription:errorMessage]);
+        return;
+      }
     } else {
       resultData = mappedData;
     }

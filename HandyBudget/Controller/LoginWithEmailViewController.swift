@@ -43,7 +43,10 @@ class LoginWithEmailViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "imageURL")
         ProgressHUD.colorAnimation = CustomColors.greenColor
         if Auth.auth().currentUser != nil {
-            performSegue(withIdentifier: K.loginSegue, sender: self)
+            let newHomeVC = NewHomeViewController()
+            navigationController?.pushViewController(newHomeVC, animated: true)
+            
+//            performSegue(withIdentifier: K.loginSegue, sender: self)
         }
         createKeyboardDoneButton()
 
@@ -105,7 +108,10 @@ class LoginWithEmailViewController: UIViewController {
             if let result = result {
                 self?.userID = result.user.uid
                 Analytics.logEvent(AnalyticsEventLogin, parameters: nil)
-                self?.performSegue(withIdentifier: K.loginSegue, sender: self)
+                //self?.performSegue(withIdentifier: K.loginSegue, sender: self)
+                
+                let newHomeVC = NewHomeViewController()
+                self?.navigationController?.pushViewController(newHomeVC, animated: true)
             }
         } onError: { errorMessage in
             ProgressHUD.failed(errorMessage)

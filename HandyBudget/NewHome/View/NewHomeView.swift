@@ -9,12 +9,43 @@ import UIKit
 
 class NewHomeView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    lazy var greetingView:  GreetingView = {
+        let view = GreetingView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    init() {
+        super.init(frame: .zero)
+        setup()
     }
-    */
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+}
+
+extension NewHomeView: ViewCode {
+    func addSubViews() {
+        addSubview(greetingView)
+
+    }
+    
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            
+            greetingView.topAnchor.constraint(equalTo: topAnchor),
+            greetingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            greetingView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            greetingView.heightAnchor.constraint(equalToConstant: 200)
+
+        ])
+    }
+    
+    func setupStyle() {
+        backgroundColor = CustomColors.backGroundColor
+        greetingView.backgroundColor = CustomColors.greenColor
+        
+    }
 }

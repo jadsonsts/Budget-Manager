@@ -270,7 +270,6 @@
 				CCC3042090A8E5EBB40966CB /* [CP] Embed Pods Frameworks */,
 				DF4712142BF6CCF700F13CC4 /* ShellScript */,
 				DF4712152BF6D0DB00F13CC4 /* ShellScript */,
-				5FBCBC00A47551D458556526 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,7 +288,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					DF21D2CF29906A4200EA6FAB = {
 						CreatedOnToolsVersion = 14.2;
@@ -329,27 +328,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5FBCBC00A47551D458556526 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		933B4031904A4B40721EE836 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,13 +358,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -535,6 +509,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -596,6 +571,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -628,7 +604,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HandyBudget;
@@ -669,7 +644,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = ZY9DNBTZ6S;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = HandyBudget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = HandyBudget;

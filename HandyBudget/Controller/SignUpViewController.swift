@@ -295,7 +295,7 @@ class SignUpViewController: UIViewController {
             wallet.user = user
             
             self?.manager.saveContext()
-
+            
             self?.performSegue(withIdentifier: K.registerSegue, sender: self)
             ProgressHUD.dismiss()
             

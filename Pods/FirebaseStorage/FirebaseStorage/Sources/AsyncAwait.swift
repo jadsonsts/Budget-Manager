@@ -22,10 +22,9 @@ public extension StorageReference {
   /// API may be a better option.
   ///
   /// - Parameters:
-  ///   - size: The maximum size in bytes to download. If the download exceeds this size,
+  ///   - maxSize: The maximum size in bytes to download. If the download exceeds this size,
   ///           the task will be cancelled and an error will be thrown.
-  /// - Throws:
-  ///   - An error if the operation failed, for example if the data exceeded `maxSize`.
+  /// - Throws: An error if the operation failed, for example if the data exceeded `maxSize`.
   /// - Returns: Data object.
   func data(maxSize: Int64) async throws -> Data {
     return try await withCheckedThrowingContinuation { continuation in
@@ -45,8 +44,7 @@ public extension StorageReference {
   ///              about the object being uploaded.
   ///   - onProgress: An optional closure function to return a `Progress` instance while the
   /// upload proceeds.
-  /// - Throws:
-  ///   - An error if the operation failed, for example if Storage was unreachable.
+  /// - Throws: An error if the operation failed, for example if Storage was unreachable.
   /// - Returns: StorageMetadata with additional information about the object being uploaded.
   func putDataAsync(_ uploadData: Data,
                     metadata: StorageMetadata? = nil,
@@ -68,14 +66,14 @@ public extension StorageReference {
       }
       uploadTask.observe(.failure) { snapshot in
         continuation.resume(with: .failure(
-          snapshot.error ?? StorageError.internalError("Internal Storage Error in putDataAsync")
+          snapshot.error ?? StorageError
+            .internalError(message: "Internal Storage Error in putDataAsync")
         ))
       }
     }
   }
 
   /// Asynchronously uploads a file to the currently specified StorageReference.
-  /// `putDataAsync` should be used instead of `putFileAsync` in Extensions.
   ///
   /// - Parameters:
   ///   - url: A URL representing the system file path of the object to be uploaded.
@@ -83,9 +81,8 @@ public extension StorageReference {
   ///              about the object being uploaded.
   ///   - onProgress: An optional closure function to return a `Progress` instance while the
   /// upload proceeds.
-  /// - Throws:
-  ///   - An error if the operation failed, for example if no file was present at the specified
-  /// `url`.
+  /// - Throws: An error if the operation failed, for example if no file was present at the
+  /// specified `url`.
   /// - Returns: `StorageMetadata` with additional information about the object being uploaded.
   func putFileAsync(from url: URL,
                     metadata: StorageMetadata? = nil,
@@ -107,7 +104,8 @@ public extension StorageReference {
       }
       uploadTask.observe(.failure) { snapshot in
         continuation.resume(with: .failure(
-          snapshot.error ?? StorageError.internalError("Internal Storage Error in putFileAsync")
+          snapshot.error ?? StorageError
+            .internalError(message: "Internal Storage Error in putFileAsync")
         ))
       }
     }
@@ -116,11 +114,10 @@ public extension StorageReference {
   /// Asynchronously downloads the object at the current path to a specified system filepath.
   ///
   /// - Parameters:
-  ///   - fileUrl: A URL representing the system file path of the object to be uploaded.
+  ///   - fileURL: A URL representing the system file path of the object to be uploaded.
   ///   - onProgress: An optional closure function to return a `Progress` instance while the
   /// download proceeds.
-  /// - Throws:
-  ///   - An error if the operation failed, for example if Storage was unreachable
+  /// - Throws: An error if the operation failed, for example if Storage was unreachable
   ///   or `fileURL` did not reference a valid path on disk.
   /// - Returns: A `URL` pointing to the file path of the downloaded file.
   func writeAsync(toFile fileURL: URL,
@@ -142,7 +139,8 @@ public extension StorageReference {
       }
       downloadTask.observe(.failure) { snapshot in
         continuation.resume(with: .failure(
-          snapshot.error ?? StorageError.internalError("Internal Storage Error in writeAsync")
+          snapshot.error ?? StorageError
+            .internalError(message: "Internal Storage Error in writeAsync")
         ))
       }
     }
@@ -157,13 +155,11 @@ public extension StorageReference {
   /// Only available for projects using Firebase Rules Version 2.
   ///
   /// - Parameters:
-  ///   - maxResults The maximum number of results to return in a single page. Must be
+  ///   - maxResults: The maximum number of results to return in a single page. Must be
   ///                greater than 0 and at most 1000.
-  /// - Throws:
-  ///   - An error if the operation failed, for example if Storage was unreachable
+  /// - Throws: An error if the operation failed, for example if Storage was unreachable
   ///   or the storage reference referenced an invalid path.
-  /// - Returns:
-  ///   - A `StorageListResult` containing the contents of the storage reference.
+  /// - Returns: A `StorageListResult` containing the contents of the storage reference.
   func list(maxResults: Int64) async throws -> StorageListResult {
     typealias ListContinuation = CheckedContinuation<StorageListResult, Error>
     return try await withCheckedThrowingContinuation { (continuation: ListContinuation) in
@@ -182,9 +178,9 @@ public extension StorageReference {
   /// Only available for projects using Firebase Rules Version 2.
   ///
   /// - Parameters:
-  ///   - maxResults The maximum number of results to return in a single page. Must be
+  ///   - maxResults: The maximum number of results to return in a single page. Must be
   ///                greater than 0 and at most 1000.
-  ///   - pageToken A page token from a previous call to list.
+  ///   - pageToken: A page token from a previous call to list.
   /// - Throws:
   ///   - An error if the operation failed, for example if Storage was unreachable
   ///   or the storage reference referenced an invalid path.

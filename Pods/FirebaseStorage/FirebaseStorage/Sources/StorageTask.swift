@@ -24,10 +24,12 @@ import Foundation
  * A superclass to all Storage tasks, including `StorageUploadTask`
  * and `StorageDownloadTask`, to provide state transitions, event raising, and common storage
  * for metadata and errors.
+ *
  * Callbacks are always fired on the developer-specified callback queue.
  * If no queue is specified, it defaults to the main queue.
  * This class is thread-safe.
  */
+@available(iOS 13, tvOS 13, macOS 10.15, macCatalyst 13, watchOS 7, *)
 @objc(FIRStorageTask) open class StorageTask: NSObject {
   /**
    * An immutable view of the task and associated metadata, progress, error, etc.
@@ -79,16 +81,11 @@ import Foundation
    */
   let dispatchQueue: DispatchQueue
 
-  let fetcherService: GTMSessionFetcherService
-
   let baseRequest: URLRequest
 
   init(reference: StorageReference,
-       service: GTMSessionFetcherService,
        queue: DispatchQueue) {
     self.reference = reference
-    fetcherService = service
-    fetcherService.maxRetryInterval = reference.storage.maxOperationRetryInterval
     dispatchQueue = queue
     state = .unknown
     progress = Progress(totalUnitCount: 0)
@@ -98,6 +95,7 @@ import Foundation
 
 /**
  * Defines task operations such as pause, resume, cancel, and enqueue for all tasks.
+ *
  * All tasks are required to implement enqueue, which begins the task, and may optionally
  * implement pause, resume, and cancel, which operate on the task to pause, resume, and cancel
  * operations.
@@ -106,20 +104,20 @@ import Foundation
   /**
    * Prepares a task and begins execution.
    */
-  @objc func enqueue() -> Void
+  @objc func enqueue()
 
   /**
    * Pauses a task currently in progress.
    */
-  @objc optional func pause() -> Void
+  @objc optional func pause()
 
   /**
    * Cancels a task.
    */
-  @objc optional func cancel() -> Void
+  @objc optional func cancel()
 
   /**
    * Resumes a paused task.
    */
-  @objc optional func resume() -> Void
+  @objc optional func resume()
 }

@@ -14,20 +14,28 @@ class GreetingView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = UIImage(systemName: "person.circle")
         view.contentMode = .scaleAspectFit
+        view.layer.cornerRadius = 30
+        view.tintColor = CustomColors.labelColor
+        view.clipsToBounds = true
         return view
     }()
 
     private lazy var greetingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Hello, World!"
+        label.text = "Hello, User!"
+        label.textColor = CustomColors.labelColor
+        label.font = UIFont(name: "Avenir Heavy", size: 20)
         return label
     }()
     
     private lazy var hideButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "eye"), for: .normal)
+        let config = UIImage.SymbolConfiguration(pointSize: 30, weight: .regular)
+        let image = UIImage(systemName: "eye", withConfiguration: config)
+        button.setImage(image, for: .normal)
+        button.tintColor = CustomColors.backGroundColor
         return button
     }()
     
@@ -52,24 +60,25 @@ extension GreetingView: ViewCode {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            profileImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            profileImageView.widthAnchor.constraint(equalToConstant: 80),
-            profileImageView.heightAnchor.constraint(equalToConstant: 80),
+            profileImageView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
+            profileImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            profileImageView.widthAnchor.constraint(equalToConstant: 60),
+            profileImageView.heightAnchor.constraint(equalToConstant: 60),
             
-            hideButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 20),
-            hideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            greetingLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 25),
+            greetingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            greetingLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
             
-            greetingLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40),
-            greetingLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            hideButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
+            hideButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            hideButton.widthAnchor.constraint(equalToConstant: 50),
+            hideButton.heightAnchor.constraint(equalToConstant: 50),
+
         ])
     }
     
     func setupStyle() {
-        backgroundColor = CustomColors.backGroundColor
-        profileImageView.layer.cornerRadius = 40
-        
+        backgroundColor = CustomColors.greenColor
+
     }
-    
-    
 }
