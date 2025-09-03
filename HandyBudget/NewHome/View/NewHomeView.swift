@@ -15,6 +15,12 @@ class NewHomeView: UIView {
         return view
     }()
     
+    lazy var balanceView:  BalanceView = {
+        let view = BalanceView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     init() {
         super.init(frame: .zero)
         setup()
@@ -29,6 +35,7 @@ class NewHomeView: UIView {
 extension NewHomeView: ViewCode {
     func addSubViews() {
         addSubview(greetingView)
+        addSubview(balanceView)
 
     }
     
@@ -38,7 +45,12 @@ extension NewHomeView: ViewCode {
             greetingView.topAnchor.constraint(equalTo: topAnchor),
             greetingView.leadingAnchor.constraint(equalTo: leadingAnchor),
             greetingView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            greetingView.heightAnchor.constraint(equalToConstant: 200)
+            greetingView.heightAnchor.constraint(equalToConstant: 200),
+            
+            balanceView.topAnchor.constraint(equalTo: greetingView.bottomAnchor, constant: 0),
+            balanceView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            balanceView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            balanceView.heightAnchor.constraint(equalToConstant: 150),
 
         ])
     }
@@ -46,6 +58,7 @@ extension NewHomeView: ViewCode {
     func setupStyle() {
         backgroundColor = CustomColors.backGroundColor
         greetingView.backgroundColor = CustomColors.greenColor
+//        balanceView.backgroundColor = .systemCyan
         
     }
 }

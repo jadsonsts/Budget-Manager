@@ -43,8 +43,17 @@ class LoginWithEmailViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "imageURL")
         ProgressHUD.colorAnimation = CustomColors.greenColor
         if Auth.auth().currentUser != nil {
-            let newHomeVC = NewHomeViewController()
-            navigationController?.pushViewController(newHomeVC, animated: true)
+            
+            //send to the new VC with tab bar and set root
+            
+            guard let sceneDelegate = UIApplication.shared.connectedScenes
+                .first?.delegate as? SceneDelegate else { return }
+            
+            let tabBar = MainTabBarController() // ← programmatic tab bar
+            sceneDelegate.window?.rootViewController = tabBar
+            
+//            let newHomeVC = NewHomeViewController()
+//            navigationController?.pushViewController(newHomeVC, animated: true)
             
 //            performSegue(withIdentifier: K.loginSegue, sender: self)
         }

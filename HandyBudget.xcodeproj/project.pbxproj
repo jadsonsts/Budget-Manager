@@ -12,6 +12,8 @@
 		DF0AC3392E5DC60A001E4C53 /* NewHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */; };
 		DF0AC33B2E5DC63D001E4C53 /* GreetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */; };
 		DF0AC33D2E605A8E001E4C53 /* ViewCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0AC33C2E605A89001E4C53 /* ViewCode.swift */; };
+		DF0CD5122E65ADDB0060D407 /* BalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0CD5112E65ADDB0060D407 /* BalanceView.swift */; };
+		DF0CD5162E684D7C0060D407 /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0CD5152E684D7C0060D407 /* MainTabBarController.swift */; };
 		DF15E0AC2998FAF00020340A /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AB2998FAF00020340A /* CustomButton.swift */; };
 		DF15E0AE2998FDDE0020340A /* CustomTxtField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */; };
 		DF15E0B0299A0BB90020340A /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */; };
@@ -59,6 +61,8 @@
 		DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHomeView.swift; sourceTree = "<group>"; };
 		DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingView.swift; sourceTree = "<group>"; };
 		DF0AC33C2E605A89001E4C53 /* ViewCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCode.swift; sourceTree = "<group>"; };
+		DF0CD5112E65ADDB0060D407 /* BalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceView.swift; sourceTree = "<group>"; };
+		DF0CD5152E684D7C0060D407 /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		DF15E0AB2998FAF00020340A /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		DF15E0AD2998FDDE0020340A /* CustomTxtField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTxtField.swift; sourceTree = "<group>"; };
 		DF15E0AF299A0BB90020340A /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
@@ -148,6 +152,8 @@
 				DF0AC3332E5DC490001E4C53 /* NewHomeViewController.swift */,
 				DF0AC3382E5DC60A001E4C53 /* NewHomeView.swift */,
 				DF0AC33A2E5DC63D001E4C53 /* GreetingView.swift */,
+				DF0CD5112E65ADDB0060D407 /* BalanceView.swift */,
+				DF0CD5152E684D7C0060D407 /* MainTabBarController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -358,9 +364,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HandyBudget/Pods-HandyBudget-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -432,6 +442,8 @@
 				DF21D2D629906A4200EA6FAB /* SceneDelegate.swift in Sources */,
 				DFB571FC29A31B2900B92639 /* TransactionsTableViewCell.swift in Sources */,
 				DF21D3152992442E00EA6FAB /* HomeViewController.swift in Sources */,
+				DF0CD5122E65ADDB0060D407 /* BalanceView.swift in Sources */,
+				DF0CD5162E684D7C0060D407 /* MainTabBarController.swift in Sources */,
 				DF21D3172992444A00EA6FAB /* TransactionDetailedViewController.swift in Sources */,
 				DF21D311299243FE00EA6FAB /* LoginWithEmailViewController.swift in Sources */,
 				DFC49FE92BD21B0C00D05C3D /* User+CoreDataProperties.swift in Sources */,

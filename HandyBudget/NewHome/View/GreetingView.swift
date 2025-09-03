@@ -15,7 +15,7 @@ class GreetingView: UIView {
         view.image = UIImage(systemName: "person.circle")
         view.contentMode = .scaleAspectFit
         view.layer.cornerRadius = 30
-        view.tintColor = CustomColors.labelColor
+        view.tintColor = CustomColors.backGroundColor
         view.clipsToBounds = true
         return view
     }()
@@ -24,7 +24,7 @@ class GreetingView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Hello, User!"
-        label.textColor = CustomColors.labelColor
+        label.textColor = CustomColors.backGroundColor
         label.font = UIFont(name: "Avenir Heavy", size: 20)
         return label
     }()
